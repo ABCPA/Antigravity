@@ -1,0 +1,17 @@
+# Task: Resolve High-Priority QA Duplicates
+
+## Planning
+- [x] Research duplicate functions in the codebase <!-- id: 0 -->
+- [x] Draft implementation plan for centralizing duplicates <!-- id: 1 -->
+- [/] Get user approval for the implementation plan <!-- id: 2 -->
+
+## Execution
+- [ ] Centralize `TrySetSheetVisibility` and `SetAdminSheetsVisibility` in `modSGQProtection` <!-- id: 3 -->
+- [ ] Replace local `FolderExists` in `modSGQAuditLog` with `modSGQFileSystem.FolderExists` <!-- id: 4 -->
+- [ ] Rename/Merge `CreateIssue` in `modCQRules` and `modInspectionAudit` <!-- id: 5 -->
+
+## Verification
+- [ ] Run VBA compilation check (`test-vbide-and-compile.ps1`) <!-- id: 6 -->
+- [ ] Run QA analysis again to verify resolution of conflicts <!-- id: 7 -->
+- [ ] Final project integrity check <!-- id: 8 -->
+- [ ] Create walkthrough documentation <!-- id: 9 -->

@@ -1,0 +1,5 @@
+{
+  "artifactType": "ARTIFACT_TYPE_IMPLEMENTATION_PLAN",
+  "summary": "Run `fix-mojibake.ps1` on all VBA files to correct encoding issues. Verify by recompiling and checking UI strings.",
+  "updatedAt": "2026-02-03T18:51:57.231595500Z"
+}

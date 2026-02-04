@@ -1,0 +1,7 @@
+# Task: Prévention des Problèmes d'Encodage
+
+- [x] Vérifier et mettre à jour [.vscode/settings.json](file:///c:/VBA/SGQ%201.65/.vscode/settings.json) <!-- id: 0 -->
+- [x] Vérifier et mettre à jour [.editorconfig](file:///c:/VBA/SGQ%201.65/.editorconfig) <!-- id: 1 -->
+- [x] Auditer les scripts d'import/export pour CP1252 <!-- id: 2 -->
+- [x] Documenter les bonnes pratiques d'encodage <!-- id: 3 -->
+- [x] Tester l'import/export avec les nouveaux paramètres <!-- id: 4 -->

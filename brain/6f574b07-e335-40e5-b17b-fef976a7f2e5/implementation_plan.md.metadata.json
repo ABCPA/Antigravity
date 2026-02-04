@@ -1,0 +1,5 @@
+{
+  "artifactType": "ARTIFACT_TYPE_IMPLEMENTATION_PLAN",
+  "summary": "Refactoring `CreateSubfolderFile` and `CopyRequiredModulesToTrackingFile` in `modSGQTrackingBuilder.bas`. The goal is to simplify folder creation, use `manifest.json` for module copying, and standardize error handling with `appScope`.",
+  "updatedAt": "2026-01-27T04:22:02.035140200Z"
+}

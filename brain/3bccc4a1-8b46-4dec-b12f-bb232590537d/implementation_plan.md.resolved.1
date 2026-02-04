@@ -1,0 +1,42 @@
+# Structural Optimization Plan - VBA Workspace & SGQ 1.65
+
+This plan addresses design discrepancies, reduces clutter, and enforces architectural standards across the VBA environment.
+
+## User Review Required
+
+> [!IMPORTANT]
+> - **Archiving**: I propose moving the **3.66 GB** file [C:\VBA\SGQ 1.65.zip](file:///VBA/SGQ%201.65.zip) to an `archives/` folder to clean up the root directory.
+> - **Renaming**: To ensure zero collision between projects in the `VBA` root, I recommend prefixing all modules in `SGQ 1.65` with `modSGQ...` (e.g., `modDiagnostics` -> `modSGQDiagnostics`). 
+> - **Global Rules**: Should I create a global `.agent` folder in `C:\VBA` to host CPA-wide standards?
+
+## Proposed Changes
+
+### [VBA Root] (C:\VBA)
+#### [NEW] [archives/](file:///C:/VBA/archives)
+- Create a directory for heavy backups.
+#### [NEW] [.agent/](file:///C:/VBA/.agent)
+- Initialize global agents and rules for the cabinet.
+#### [DELETE] [SGQ 1.65.zip](file:///C:/VBA/SGQ 1.65.zip)
+- Move to `archives/`.
+
+### [SGQ 1.65 Sub-Project] (C:\VBA\SGQ 1.65)
+#### [DELETE] [test-update-temp/](file:///C:/VBA/SGQ 1.65/test-update-temp)
+- Remove temporary testing directory.
+#### [MODIFY] [xvba_modules](file:///C:/VBA/SGQ 1.65/xvba_modules)
+- Audit and remove redundant library copies (`Xdebug`, `Xlog`) already present in `vba-files/Class`.
+#### [MODIFY] [Module Naming]
+- Rename generic modules to include the `SGQ` prefix:
+    - `modDiagnostics.bas` -> `modSGQDiagnostics.bas`
+    - `modConstants.bas` -> `modSGQConstants.bas`
+    - `modExcelUtils.bas` -> `modSGQExcelUtils.bas`
+    - `modUnitTestEngine.bas` -> `modSGQUnitTestEngine.bas`
+    - `modVBAInspector.bas` -> `modSGQVBAInspector.bas`
+
+## Verification Plan
+
+### Automated Tests
+- Run `scripts\test-vbide-and-compile.ps1` after any renaming to ensure all calls are updated correctly.
+- Verify `manifest.json` coherence.
+
+### Manual Verification
+- Confirm that the `VBA` root is clean and contains only active projects and global configs.

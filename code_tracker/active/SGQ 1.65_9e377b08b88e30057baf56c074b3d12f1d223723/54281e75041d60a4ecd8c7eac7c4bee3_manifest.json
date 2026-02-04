@@ -1,0 +1,48 @@
+Œ{
+  "exclude": [
+    "modSGQEvenements",
+    "modSGQFiles",
+    "modSGQAppScopeHelpers",
+    "modSGQSettings"
+  ],
+  "imports": [
+    "vba-files/Class/CAppStateScopeImpl.cls",
+    "vba-files/Class/CRibbonGateway.cls",
+    "xvba_modules/modAnalyticCalc.bas",
+    "xvba_modules/modAnalyticETL.bas",
+    "xvba_modules/modAnalyticReporting.bas",
+    "xvba_modules/modTest_AnalyticalBug.bas",
+    "xvba_modules/modCQReporting.bas",
+    "xvba_modules/modCQRules.bas",
+    "xvba_modules/modCQScanner.bas",
+    "xvba_modules/modInspectionAudit.bas",
+    "xvba_modules/modInspectionReport.bas",
+    "vba-files/Module/JsonConverter.bas",
+    "vba-files/Module/modAppStateGuard.bas",
+    "vba-files/Module/modConstants.bas",
+    "vba-files/Module/modSheetLists.bas",
+    "vba-files/Module/modDiagnostics.bas",
+    "vba-files/Module/modExcelUtils.bas",
+    "vba-files/Module/modLegacyAutoRefactor.bas",
+    "vba-files/Module/modRibbonGateway.bas",
+    "vba-files/Module/modRibbonSGQ.bas",
+    "vba-files/Module/modSGQAdministration.bas",
+    "vba-files/Module/modSGQContextuel.bas",
+    "vba-files/Module/modSGQCreation.bas",
+    "vba-files/Module/modSGQExport.bas",
+    "vba-files/Module/modSGQFileSystem.bas",
+    "vba-files/Module/modSGQInterface.bas",
+    "vba-files/Module/modSGQProtection.bas",
+    "vba-files/Module/modSGQRefactor.bas",
+    "vba-files/Module/modSGQTheme.bas",
+    "vba-files/Module/modSGQUIActionDispatcher.bas",
+    "vba-files/Module/modSGQUpdateManager.bas",
+    "vba-files/Module/modSGQUtilitaires.bas",
+    "vba-files/Module/modSGQVBProjectHelpers.bas",
+    "vba-files/Module/modSGQViews.bas",
+    "vba-files/Module/modTestWorkbookEvents.bas",
+    "vba-files/Module/modVBAInspector.bas",
+    "vba-files/Module/modWorkbookHandlers.bas"
+  ]
+}
+Œ"(9e377b08b88e30057baf56c074b3d12f1d22372321file:///c:/VBA/SGQ%201.65/vba-files/manifest.json:file:///c:/VBA/SGQ%201.65

@@ -1,0 +1,41 @@
+# Implementation Plan - Refactor CreateSubfolderFile
+
+The goal is to restore and refactor the `CreateSubfolderFile` procedure, which is currently missing but called by the UI dispatchers. The new implementation will be simplified, using `modSGQFileSystem` for file operations and `appScope` for error handling.
+
+## User Review Required
+
+> [!IMPORTANT]
+> **Missing Procedure**: `CreateSubfolderFile` was completely missing from the codebase. This plan recreates it based on the standard folder structure requirements implied by the project context (CPA/Audit Firm Standard Folders).
+> **Folder Structure**: The proposed standard folder list is: `2-Clients`, `3-Fournisseurs`, `4-Salariés`, `5-Banque`, `6-Divers`, `7-Caisse`, `8-Immobilisations`, `9-Taxes`, `10-Correspondance`. Please confirm if this list is correct or if specific subfolders are needed.
+
+## Proposed Changes
+
+### `modSGQCreation.bas`
+
+#### [NEW] `CreateSubfolderFile`
+- **Logic**:
+    1. Check if the active workbook has a valid path (is saved).
+    2. Prompt user using `PROMPT_CREATE_STANDARD_FOLDER_TREE`.
+    3. Iterate through a standard list of folders.
+    4. Use `modSGQFileSystem.EnsureFolder` to create them.
+    5. Report success/failure using `appScope` and standard messaging.
+
+### Dependencies
+- `modSGQFileSystem.bas`: Utilization of `EnsureFolder` (or `ForceCreateFolder`).
+- [modConstants.bas](file:///C:/VBA/SGQ%201.65/vba-files/Module/modConstants.bas): Utilization of logical constants (`TITLE_CREATE_FOLDERS_PROMPT`, etc.).
+
+## Verification Plan
+
+### Manual Verification
+1.  **Open Excel**: Open the main SGQ workbook.
+2.  **Trigger**: Click the "Créer Dossiers" button in the Ribbon (or run the macro `btnSheet_CreateSubfolderFile`).
+3.  **Confirm**: Accept the prompt.
+4.  **Verify**: Check Windows Explorer in the workbook's directory to see if the folders (`2-Clients`, `3-Fournisseurs`, etc.) are created.
+5.  **Idempotency**: Run it again to ensure no errors occur if folders already exist.
+
+### Automated Test (PowerShell)
+- Create a test script `tests/test-create-subfolders.ps1` that:
+    - Opens Excel.
+    - Runs `CreateSubfolderFile`.
+    - Checks for folder existence.
+    - (Optional) This may be overkill for a simple folder creation, manual verification is preferred for UI-triggered actions.

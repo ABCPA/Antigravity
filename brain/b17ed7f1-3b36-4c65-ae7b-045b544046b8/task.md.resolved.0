@@ -1,0 +1,14 @@
+# System Root Audit & Optimization
+
+- [ ] **Structural Integrity Check**
+    - [/] Validate [workspaces.json](file:///C:/Users/AbelBoudreau/.gemini/antigravity/workspaces.json) schema and paths
+    - [ ] Check `.agent` configuration files
+    - [ ] Inspect `global_workflows` definitions
+    - [ ] Review [mcp_config.json](file:///C:/Users/AbelBoudreau/.gemini/antigravity/mcp_config.json)
+- [ ] **Content & Hygiene Analysis**
+    - [ ] Analyze `brain` directory (orphaned flows, size)
+    - [ ] Check `scratch` and `playground` usage
+    - [ ] Verify `global_workflows` consistency
+- [ ] **Functional Improvement Proposals**
+    - [ ] Draft improvement plan (Architecture, Performance, Features)
+    - [ ] Review proposals with User

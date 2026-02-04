@@ -1,0 +1,32 @@
+# Plan d'Implémentation - Phase 14 : Industrialisation
+
+## Objectif
+Sécuriser le développement VBA en imposant des standards stricts d'encodage (Windows-1252) et de fin de ligne (CRLF) pour éviter la corruption des accents et les diffs Git inutiles.
+
+## User Review Required
+> [!IMPORTANT]
+> Cette modification va imposer l'encodage `windows1252` pour tous les fichiers VBA. Si certains fichiers sont actuellement en UTF-8, ils devront être convertis (je fournirai un script pour cela).
+
+## Proposed Changes
+
+### 1. Configuration de l'Éditeur (`.editorconfig`)
+Création de fichiers `.editorconfig` à la racine du Workspace et dans `C:\VBA` pour forcer :
+- `charset = windows-1252` pour `.bas`, `.cls`, `.frm`
+- `end_of_line = crlf`
+- `insert_final_newline = true`
+
+### 2. Paramètres VS Code (`.vscode/settings.json`)
+Mise à jour pour :
+- Désactiver la détection automatique (`files.autoGuessEncoding: false`).
+- Forcer l'encodage par défaut pour les fichiers VBA.
+
+### 3. Hook Pre-Commit (Git)
+Création d'un script PowerShell `scripts/git-hooks/pre-commit-vba.ps1` qui :
+- Vérifie que les fichiers `.bas/.cls` modifiés sont bien en CP1252.
+- Bloque le commit si des caractères UTF-8 (ou BOM) sont détectés.
+
+## Verification Plan
+
+### Automated Tests
+- Créer un fichier test en UTF-8 et vérifier que le hook bloque le commit.
+- Créer un fichier test en CP1252 et vérifier que le hook passe.

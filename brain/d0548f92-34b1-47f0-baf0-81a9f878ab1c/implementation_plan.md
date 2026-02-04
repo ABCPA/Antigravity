@@ -1,0 +1,58 @@
+# Simplification de la Génération de Fichiers (Phase 24)
+
+## Goal Description
+Analyze and refactor the file generation process to eliminate the creation of two separate files ("0-SGQ..." and "6-Suivi..."), which is a source of bugs and confusion. The goal is to produce a single, robust tracking file or a cleaner sequential generation process.
+
+## User Review Required
+> [!IMPORTANT]
+> This plan is currently in the **ANALYSIS** phase. The proposed solution will be detailed after reviewing the code.
+
+## Proposed Changes
+
+### Analysis (Final Decision)
+The user proposed an optimal alternative: **Keep a single file but use "View Modes" (System vs Tracking) to manage complexity.**
+ This combines the technical stability of a single file with the user experience (simplicity) of separate files.
+
+**Benefits:**
+-   **Zero Redundancy**: Data lives in one place.
+-   **Stability**: Eliminates the fragile "Workbook Creation & Sheet Copy" process (`modSGQTrackingBuilder`).
+-   **User Experience**: The user can toggle between "Full System Audit" and "Annual Tracking" views instantly without closing/opening files.
+
+### Proposed Solution
+**Single File with Dynamic View Modes**
+
+1.  **View Mode Toggle**:
+    -   Implement a feature to switch between `Mode Complet` (System + Tracking) and `Mode Suivi` (Tracking only).
+    -   Use `xlSheetVeryHidden` to hide irrelevant sheets in "Tracking Mode" so they don't clutter the tab bar.
+
+2.  **Refactor Generation (`BuildClientDeliverables`)**:
+    -   Generate **ONLY** the "0-SGQ" file (Complete).
+    -   **Remove** the generation of "6-Suivi".
+    -   Renaming: The single file can simply be the "SGQ Client File".
+
+3.  **Deprecation**:
+    -   Delete `modSGQTrackingBuilder.bas` (200+ lines of complex, fragile copy logic).
+#### [MODIFY] [modRibbonSGQ.bas](file:///c:/VBA/SGQ%201.65/vba-files/Module/modRibbonSGQ.bas)
+#### [NEW] [modSGQViews.bas](file:///c:/VBA/SGQ%201.65/vba-files/Module/modSGQViews.bas)
+#### [DELETE] [modSGQTrackingBuilder.bas](file:///c:/VBA/SGQ%201.65/vba-files/Module/modSGQTrackingBuilder.bas)
+
+### [Fixes & Stabilisation]
+#### [MODIFY] [modSGQUIActionDispatcher.bas](file:///c:/VBA/SGQ%201.65/vba-files/Module/modSGQUIActionDispatcher.bas) (Ajout ExecuteActionSafely)
+#### [MODIFY] [modDiagnostics.bas](file:///c:/VBA/SGQ%201.65/vba-files/Module/modDiagnostics.bas) (Restauration ScanCircularDependencies)
+#### [MODIFY] [ThisWorkbook.cls](file:///c:/VBA/SGQ%201.65/vba-files/Class/ThisWorkbook.cls) (Nettoyage Headers)
+
+#### Implementation Details
+-   **Storage**: Store the current View Mode in a Workbook Name (e.g., `_CurrentViewMode`).
+-   **Sheet Lists**: Reuse `TRACKING_SHEETS` and `SYSTEM_SHEETS` arrays from `modConstants.bas`.
+-   **UI**: Add a button in the Ribbon (already has `modRibbonSGQ`) to toggle modes.
+
+## Verification Plan
+
+### Automated Tests
+- [ ] Run `BuildClientDeliverables` -> Verify only 1 file is created.
+- [ ] Call `SetViewMode("TRACKING")` -> Verify System sheets are hidden.
+- [ ] Call `SetViewMode("FULL")` -> Verify all sheets are visible.
+
+### Manual Verification
+- [ ] User generates the file.
+- [ ] User opens it and tests the "Switch View" button.

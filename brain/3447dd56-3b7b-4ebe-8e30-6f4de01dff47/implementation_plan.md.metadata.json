@@ -1,0 +1,5 @@
+{
+  "artifactType": "ARTIFACT_TYPE_IMPLEMENTATION_PLAN",
+  "summary": "Plan to add 'Vue Suivi' button to the Ribbon and implement a helper to add buttons to worksheets.\nIncludes updates to:\n- `ribbons/customUI14.xml`: Add the toggle button.\n- `xvba_modules/modRibbonSGQ.bas`: Ensure callback handles the event.\n- `xvba_modules/modSGQInterface.bas`: Add `AddTrackingButtonToSheet` procedure.",
+  "updatedAt": "2026-01-28T03:33:55.296861800Z"
+}

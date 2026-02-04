@@ -1,0 +1,70 @@
+# Create CPA_Dashboard_App Workspace
+
+This plan describes how to create a new workspace folder for the "CPA Dashboard Overview" Stitch project and link it to the existing `CPA_Unified` workspace.
+
+## Proposed Changes
+
+### Workspace Structure
+
+#### [NEW] [CPA_Dashboard_App](file:///C:/Users/AbelBoudreau/Workspace_CPA_AI/CPA_Dashboard_App)
+
+Create a new directory for the dashboard application.
+
+### Antigravity Configuration
+
+#### [MODIFY] [workspaces.json](file:///C:/Users/AbelBoudreau/.gemini/antigravity/workspaces.json)
+
+Register the new workspace in the central registry.
+
+```json
+{
+  "id": "cpa-dashboard-app",
+  "name": "CPA Dashboard App - Stitch Dashboard",
+  "path": "C:\\Users\\AbelBoudreau\\Workspace_CPA_AI\\CPA_Dashboard_App",
+  "type": "project",
+  "maturity": "new",
+  "priority": 2,
+  "governance": {
+    "backupRequired": true
+  }
+}
+```
+
+### VS Code Integration
+
+#### [MODIFY] [CPA_Unified.code-workspace](file:///C:/Users/AbelBoudreau/Workspace_CPA_AI/CPA_Unified.code-workspace)
+
+Add the new folder to the VS Code workspace folders list.
+
+```json
+{
+  "name": "📊 CPA Dashboard App",
+  "path": "CPA_Dashboard_App"
+}
+```
+
+---
+
+### Project Initialization
+
+#### [NEW] [CPA_Dashboard_App/stitch.json](file:///C:/Users/AbelBoudreau/Workspace_CPA_AI/CPA_Dashboard_App/stitch.json)
+
+Initialize a basic Stitch configuration file to mark the project.
+
+```json
+{
+  "projectName": "CPA Dashboard Overview",
+  "version": "1.0.0",
+  "description": "CPA Dashboard App linked to Stitch"
+}
+```
+
+## Verification Plan
+
+### Automated Tests
+- Verify directory existence: `Test-Path "C:\Users\AbelBoudreau\Workspace_CPA_AI\CPA_Dashboard_App"`
+- Verify `stitch.json` creation.
+- Validate [workspaces.json](file:///C:/Users/AbelBoudreau/.gemini/antigravity/workspaces.json) syntax.
+
+### Manual Verification
+- Open the `CPA_Unified` workspace in VS Code and verify the "📊 CPA Dashboard App" folder appears.

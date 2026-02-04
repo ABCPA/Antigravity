@@ -1,0 +1,9 @@
+# Task List: Codebase Integrity & Circular Dependencies
+
+- [x] Implement `ScanCircularDependencies` in `modDiagnostics` <!-- id: 0 -->
+    - [x] Design dependency graph parser for VBA modules <!-- id: 1 -->
+    - [x] Implement `TraceDependencies` logic <!-- id: 2 -->
+    - [x] Implement `KeepCycleOnly` algorithm <!-- id: 3 -->
+    - [x] Output results to `logs/diagnostics` <!-- id: 4 -->
+- [x] Verify `CreateSubfolderFile` implementation <!-- id: 5 -->
+- [x] Run Full Compilation & Tests <!-- id: 6 -->

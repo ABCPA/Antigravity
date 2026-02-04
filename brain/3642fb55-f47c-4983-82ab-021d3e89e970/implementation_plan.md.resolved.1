@@ -1,0 +1,41 @@
+# Implementation Plan - Secure Update Mechanism
+
+## Goal Description
+Implement a "Cloud-first" update mechanism (`modSecureUpdate`) that allows the Excel Add-in to self-update by downloading the latest VBA modules from a centralized SharePoint location via Microsoft Graph.
+
+## User Review Required
+> [!IMPORTANT]
+> **SharePoint Path**: We need to define *where* in SharePoint the update files reside (Site ID, Drive ID, or Path). The code will currently use placeholder constants that the user must update.
+
+## Proposed Changes
+
+### VBA Core
+#### [NEW] [modSecureUpdate.bas](file:///C:/VBA/SGQ%201.65/modules/modSecureUpdate.bas)
+- **Dependencies**: `modGraphClient`, `modConstants`, `JsonConverter`.
+- **Functions**:
+    - `CheckForUpdates(force As Boolean)`: 
+        - Downloads `manifest.json` from Graph `GRAPH_UPDATE_FOLDER`.
+        - Compares `manifest.version` with `App.Version`.
+        - Returns `True` if new version available.
+    - `DownloadUpdates(manifest As Object)`:
+        - Iterates through `manifest.modules`.
+        - Downloads each file using `modGraphClient.DownloadFileFromGraph`.
+        - Saves to `tmp/updates/`.
+    - `ApplyUpdates()`:
+        - Triggers the legacy import logic on the downloaded files.
+
+#### [MODIFY] [modConstants.bas](file:///C:/VBA/SGQ%201.65/modules/modConstants.bas)
+- Add `GRAPH_SITE_ID` (Optional, if using specific site).
+- Add `GRAPH_UPDATE_PATH` (e.g., `/sites/root:/VBA_Updates:` or Drive Item ID).
+
+## Verification Plan
+
+### Automated Tests
+- **Simulate Update**:
+    - Manually upload a defined `manifest.json` (v9.9.9) to the target SharePoint folder.
+    - Run `modSecureUpdate.CheckForUpdates`.
+    - Expectation: "Update Available" message (Debug.Print).
+    - Checks `tmp` folder for downloaded files.
+
+### Manual Verification
+- User to run `TestSecureUpdate` macro.

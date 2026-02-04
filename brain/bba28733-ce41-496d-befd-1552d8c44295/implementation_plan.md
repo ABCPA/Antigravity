@@ -1,0 +1,49 @@
+# Plan d'Exécution : Synchronisation et Optimisation Workspace
+
+Ce plan détaille les actions requises pour aligner l'environnement de développement CPA avec les standards de sécurité et de performance.
+
+## 🚨 Validation Requise
+> [!IMPORTANT]
+> **Modifications de Sécurité** : L'exclusion des fichiers `.xlsx` et `.csv` dans `.gitignore` empêchera leur suivi futur. Si des fichiers existants sont déjà suivis, ils devront être retirés du cache git manuellement (action non incluse ici sauf demande).
+
+## 1. Fichiers de Configuration
+
+### [MODIFY] [.gitignore](file:///c:/Users/AbelBoudreau/Workspace_CPA_AI/.gitignore)
+- **Ajout** : `*.xlsx` et `*.csv` pour prévenir la fuite de données confidentielles.
+- **Vérification** : Maintien de l'exclusion `_CONFIDENTIEL/`.
+
+### [MODIFY] [CPA_Unified.code-workspace](file:///c:/Users/AbelBoudreau/Workspace_CPA_AI/CPA_Unified.code-workspace)
+- **Ajout** : Exclusions `search.exclude` pour `**/*.xlsx` et `**/*.csv`.
+- **Mise à jour** : Instructions IA (`AI.context.rules`) pour renforcer la directive "ARRAYS uniquement".
+
+### [EXECUTE] Nettoyage du Cache Git
+- **Action** : Exécuter `git rm --cached -r *.xlsx *.csv` (ou ciblé sur `vba-files/reports/`) pour sortir les fichiers techniques existants du suivi de version.
+- **But** : Rendre effective l'exclusion `.gitignore` sur l'existant.
+
+## 2. Performance VBA & Rigueur
+
+### Analyse des Boucles Range
+Les modules suivants ont été identifiés comme contenant potentiellement des boucles sur `Range` ou `Cells` :
+- `modSGQProtection.bas` (Detected: `For Each rng In editableRanges` pattern likely)
+- `modExcelUtils.bas` (Utility functions often iterate cells)
+
+**Action** :
+1.  **Refactoriser** `modSGQProtection.bas` pour charger les données `Value2` dans un `Variant` Array avant d'itérer, si la logique le permet (manipulation de données). Si c'est pour du formatage, optimiser avec `Union`.
+2.  **Audit** : Vérifier `modExcelUtils.bas` pour s'assurer que les itérations sont optimisées.
+
+### Rigueur (Option Explicit / Error Handling)
+- **Action** : Scanner tous les fichiers `.bas` et `.cls` (via script ou regex) pour garantir la présence de :
+    - `Option Explicit` (Entête).
+    - `On Error GoTo` (Dans procédures > 5 lignes).
+- **Target** : `modSGQAdministration.bas`, `modSGQCreation.bas` (modules critiques).
+
+## 3. Protocole de Validation
+
+### Automated Verification
+- **Commande** : `/compile` (Compile VBA Project).
+- **Commande** : `/review ALL` (Full Code Review).
+
+## Échéancier
+1.  Application des configurations (Immédiat).
+2.  Refactorisation `modSGQProtection` (Immédiat).
+3.  Scan global et correction Rigueur (Suivant).

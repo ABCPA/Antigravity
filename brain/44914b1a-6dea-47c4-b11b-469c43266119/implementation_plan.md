@@ -1,0 +1,34 @@
+# Plan de Finalisation QA & Résolution des Doublons (Phase 36)
+
+Ce plan vise à clôturer la Phase 36 en résolvant les derniers doublons de haute priorité identifiés par l'audit QA et en stabilisant l'infrastructure de scan automatique.
+
+## User Review Required
+
+> [!IMPORTANT]
+> - La procédure `SetAdminSheetsVisibility` sera définitivement retirée de `modSGQAdministration` au profit de sa version centralisée dans `modSGQProtection`.
+> - Nous allons archiver `modSheetLists` après avoir vérifié que toutes les listes critiques sont présentes dans `modConstants`.
+> - Le workflow `/qa-audit` sera validé comme point d'entrée officiel pour les futurs audits.
+
+## Proposed Changes
+
+### [Noyau & Services]
+
+#### [MODIFY] [modSGQAdministration.bas](file:///c:/VBA/SGQ%201.65/vba-files/Module/modSGQAdministration.bas)
+- Supprimer la définition de `SetAdminSheetsVisibility` (déjà présente dans `modSGQProtection`).
+- S'assurer que les appels vers cette procédure sont correctement routés.
+
+#### [DELETE] [modSheetLists.bas](file:///c:/VBA/SGQ%201.65/vba-files/Module/modSheetLists.bas)
+- Transférer les constantes manquantes vers `modConstants` si nécessaire.
+- Retirer du `manifest.json`.
+
+#### [MODIFY] [ARCHITECTURE_ET_PLAN.md](file:///c:/VBA/SGQ%201.65/docs/ARCHITECTURE_ET_PLAN.md)
+- Mettre à jour le statut de la Phase 36 pour refléter la complétion de la définition du workflow.
+
+## Verification Plan
+
+### Automated Tests
+- **Compilation Check** : Exécuter `/vba-compile` (ou `scripts\test-vbide-and-compile.ps1`) pour confirmer l'absence d'erreurs de type "Ambiguous name" ou "Variable not defined".
+- **QA Scan** : Exécuter `scripts\vba-analyze.ps1` et vérifier que `logs\qa\duplicates-latest.json` ne contient plus de conflits de priorité Haute.
+
+### Manual Verification
+- Ouvrir le classeur et tester la bascule en "Mode Admin" depuis le Ruban pour vérifier que la gestion de visibilité centralisée fonctionne comme prévu.

@@ -1,0 +1,31 @@
+# Workspace Structure Optimization Plan
+
+The goal of this plan is to resolve design discrepancies where workspaces appear nested or redundant, specifically regarding `SGQ 1.65`, `VBA`, and `CPA_Dashboard_App`.
+
+## User Review Required
+
+> [!IMPORTANT]
+> I have identified that `CPA_Dashboard_App` is listed twice in your unified VS Code workspace because it is a subfolder of the root project.
+> I also noted that `SGQ 1.65` is located inside `C:\VBA`, which is also listed as a workspace folder.
+
+**Proposed Solution:**
+- Remove redundant folder entries in `CPA_Unified.code-workspace`.
+- Standardize the registry (`workspaces.json`) to avoid overlapping paths.
+- Consolidate the `VBA` root if `SGQ 1.65` is the only active project there.
+
+## Proposed Changes
+
+### [VS Code Workspace]
+#### [MODIFY] [CPA_Unified.code-workspace](file:///C:/Users/AbelBoudreau/Workspace_CPA_AI/CPA_Unified.code-workspace)
+- Remove the redundant folder `📊 CPA Dashboard App` (it is already inside `🤖 CPA AI (Python/PS)`).
+- Decide whether to keep `📋 VBA Projects` (C:\VBA) or point directly to `SGQ 1.65`. Recommendation: Keep `C:\VBA` but remove any other overlapping refs (none currently found, but user noted confusion).
+
+### [Workspace Registry]
+#### [MODIFY] [workspaces.json](file:///C:/Users/AbelBoudreau/.gemini/antigravity/workspaces.json)
+- Add clear identifiers and ensure paths do not overlap where possible.
+
+## Verification Plan
+
+### Manual Verification
+- Re-open the workspace in VS Code and verify the sidebar hierarchy is clean.
+- Check that all agents still correctly identify their respective projects.

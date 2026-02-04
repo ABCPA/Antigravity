@@ -1,0 +1,168 @@
+# Analyse et Architecture - Antigravity Orchestrator
+
+## 1. Cartographie Actuelle
+
+### Workspaces Identifiés
+
+| Workspace | Chemin | Objectif | Type | Niveau de maturité |
+| :--- | :--- | :--- | :--- | :--- |
+| **System Root** | `~/.gemini/antigravity` | Méta-gestion, mémoires globales, workflows transverses | **Infrastructure** | Bas (Exploratoire) |
+| **SGQ 1.65** | `C:\VBA\SGQ 1.65` | Développement VBA Excel expert, normes CPA strictes | **Production** | **Élevé** (Règles strictes, CI/CD, Agents définis) |
+
+### Agents Existants (Workspace SGQ 1.65)
+
+Basé sur `.github/copilot/agents.json` et `AGENTS.md`.
+
+| Nom Agent | Modèle | Rôle Réel | Forces | Faiblesses |
+| :--- | :--- | :--- | :--- | :--- |
+| **vba-expert** | `claude-opus-4` | Refactoring lourd, analyse structurelle, patterns d'erreurs (Step 11.4) | Excellente gestion de contexte complexe | Lent, coûteux pour tâches simples |
+| **copilot-coding-agent** | `gpt-4-turbo` | Résolution issue, PRs, coding quotidien | Rapide, intégré au flux GitHub | Moins rigoureux sur l'architecture globale |
+| **documentation-agent** | `gpt-4-turbo` | Maintien `ARCHITECTURE.md`, `CHANGELOG`, Docs | Garant de la cohérence documentaire | Passif (ne réagit pas aux changements sans ordre) |
+| **VBA Compatibility Craftsman** | *N/A (Persona)* | Persona unifié pour l'interaction utilisateur (VS Code) | Ton professionnel et constant | Ce n'est pas un agent autonome |
+
+### Diagnostic Global
+
+**Forces :**
+- **Gouvernance SGQ exemplaire** : Les règles (CP1252, Backups, Headers) sont codifiées et respectées.
+- **Spécialisation claire** : Séparation nette entre "Coding" et "Refactoring".
+- **Outillage** : Scripts PowerShell de validation (`test-vbide-and-compile.ps1`) et Workflows (`vba-compile`, `fix-mojibake`) matures.
+
+**Lacunes :**
+- **Absence d'Orchestre** : Pas de point d'entrée unique. L'utilisateur doit savoir quel agent/workflow appeler.
+- **Silos** : Le Root ne "connaît" pas formellement les capacités de SGQ.
+- **Risque Cognitif** : L'utilisateur porte la charge du contexte ("Suis-je en mode global ou projet ?").
+
+---
+
+## 2. Architecture Cible Proposée
+
+### Schéma Logique (Textuel)
+
+```mermaid
+flowchart TD
+    User[Utilisateur] --> Orchestrator[Agent Chef d'Orchestre (Root)]
+    
+    subgraph "Couche Orchestration & Gouvernance"
+        Orchestrator -->|Analyse Intention| Classifier{Classifier}
+        Classifier -->|Tâche Complexe/Plan| Planner[Mode Planning]
+        Classifier -->|Question/Quick Fix| Runner[Mode Exécution]
+        Orchestrator -.->|Validation| Governance[Garde-Fous Globaux]
+    end
+    
+    subgraph "Couche Agents Spécialisés (Routage Dynamique)"
+        Runner -->|Domaine VBA/SGQ| AgentSGQ[Proxy vers SGQ Agent]
+        Runner -->|Domaine Système| AgentSys[System/Ops Agent]
+        AgentSGQ -->|Refactoring| VBAExpert(vba-expert)
+        AgentSGQ -->|Coding| CodAgent(copilot-coding-agent)
+        AgentSGQ -->|Docs| DocAgent(documentation-agent)
+    end
+    
+    subgraph "Couche Expérimentation"
+        Runner -->|Sandbox| Playground[Playground Zone]
+    end
+```
+
+### Rôles des Couches
+
+1.  **Couche Orchestration (The Front Desk)** :  
+    *   **Rôle** : Point de contact unique. Ne fait RIEN lui-même sauf router et valider.
+    *   **Responsabilité** : Comprendre ("Fixer l'encodage"), Mapper vers une capacité ("Use workflow fix-mojibake"), Contextualiser ("Dans SGQ 1.65").
+2.  **Couche Agents Spécialisés (The Workers)** :  
+    *   **Rôle** : Exécuter la tâche avec expertise.
+    *   **Responsabilité** : Respecter les règles locales (SGQ > Root).
+3.  **Couche Gouvernance (The Sheriff)** :  
+    *   **Rôle** : Vérifier AVANT et APRÈS.
+    *   **Règles** : "Pas d'hallucination de fichiers", "Respect du CP1252", "Validation utilisateur pour actions destructives".
+
+---
+
+## 3. Spécification de l'Agent Chef d'Orchestre
+
+**Mission :**  
+Être l'interface intelligente entre l'intention floue de l'utilisateur et la rigeur mécanique des agents spécialisés.
+
+**Responsabilités :**
+1.  **Qualifier la demande** : Est-ce une tâche de Planification, d'Exécution ou de Vérification ?
+2.  **Identifier le Contexte** : Quel workspace est concerné ?
+3.  **Router** : Vers l'agent ou le workflow le plus apte.
+4.  **Synthétiser** : Rapporter le résultat final à l'utilisateur.
+
+**Ce qu'il ne doit JAMAIS faire :**
+- Modifier directement un fichier code (hors fichiers méta/tâches).
+- Inventer une commande ou un chemin de fichier.
+- Ignorer une erreur d'un sous-agent.
+
+**Matrice de Décision :**
+| Type de Décision | Exemple | Autorité |
+| :--- | :--- | :--- |
+| **Automatique** | Lecture de fichiers, listage de dossiers, appel de workflows de lecture | 100% Agent |
+| **Assistée** | Proposition de plan, choix d'architecture | Agent propose, Humain valide |
+| **Validation Humaine** | Suppression de fichiers, écriture sur `main`, déploiement | **BLOQUANT** sans `notify_user` |
+
+---
+
+## 4. Prompt Système de l'Agent Chef d'Orchestre (V1)
+
+```markdown
+# Role: Antigravity Orchestrator
+Tu es le Chef d'Orchestre du système Antigravity. Ton but est d'analyser l'intention de l'utilisateur et de coordonner les ressources spécialisées (Agents, Workflows) pour accomplir la mission.
+
+## Directives Fondamentales
+1.  **Context-First** : Ne jamais agir sans avoir situé le contexte (Workspace actif). Utilise `list_dir` et `task_boundary` immédiatement.
+2.  **No Hallucination** : Si tu ne vois pas un fichier, il n'existe pas. Si tu ne connais pas une commande, ne l'invente pas.
+3.  **Delegation-Over-Action** : Ta valeur ajoutée est le routage. Si une tâche concerne le VBA, délègue aux règles du "VBA Compatibility Craftsman".
+
+## Logique de Routage
+1.  **Analyse** :
+    - Si la demande est vague ("Ça bug"), passe en MODE PLANNING.
+    - Si la demande est précise ("Lance le script X"), passe en MODE EXECUTION.
+2.  **Identification Domaine** :
+    - **Projet SGQ** (`C:\VBA\SGQ 1.65`) -> Applique STRICTEMENT `AGENTS.md` et `.github/copilot/agents.json`.
+    - **Système** (`.gemini/antigravity`) -> Gestion de configuration, mémoires.
+3.  **Exécution** :
+    - Utilise `task_boundary` pour structurer l'avancement.
+    - Utilise `notify_user` si tu es bloqué ou dois valider une destruction.
+
+## Format de Sortie
+Toujours commencer tes réponses par un micro-résumé de l'état :
+"🎯 **Objectif** : [Rappel court] | 📂 **Contexte** : [Workspace Actif] | 🤖 **Agent Actif** : [Nom]"
+
+## Gestion d'Erreur
+Si un outil échoue :
+1.  Ne pas réessayer stupidement la même chose.
+2.  Lire le message d'erreur.
+3.  Proposer une correction ou demander de l'aide à l'utilisateur.
+
+## Conventions Spécifiques (SGQ 1.65)
+- Encodage : CP1252 OBLIGATOIRE.
+- Langue : Code EN, Commentaires FR.
+- Sécurité : Backups avant toute édition (`.bak`).
+```
+
+---
+
+## 5. Plan d'Exécution Recommandé
+
+### Phase 1 : Consolidation (Immédiat)
+1.  **Officialiser** ce document dans `C:\Users\AbelBoudreau\.gemini\antigravity\brain\ARCHITECTURE_TYPE.md`.
+2.  **Créer** l'Agent Chef d'Orchestre via un fichier `.agent/orchestrator.json` (ou format compatible) à la racine.
+3.  **Tester** le routage manuel : "Analyse le projet SGQ" -> Doit lister les fichiers et proposer de charger le contexte SGQ.
+
+### Phase 2 : Intégration (Moyen Terme)
+1.  **Connecter** les workflows globaux (`fix-mojibake`) pour qu'ils soient appelables par l'Orchestrator.
+2.  **Déprécier** l'usage direct des agents spécialisés hors contexte.
+
+### Phase 3 : Automatisation (Long Terme)
+1.  Mise en place d'un "Classifier" automatique basé sur l'historique des conversations (`brain/conversations`).
+
+---
+
+## Actions Immédiates Suggestées
+- [ ] Valider cette architecture cible.
+- [ ] Sauvegarder ce plan dans `~/.gemini/antigravity/docs/ORCHESTRATION_PLAN.md`.
+- [ ] Créer le prompt système du Chef d'Orchestre.
+
+## Décisions à Valider par l'Humain
+1.  **Centralisation** : Acceptez-vous que le dossier `.gemini/antigravity` devienne le point d'entrée unique ?
+2.  **Autorité** : Confirmez-vous que les règles locales (SGQ) prévalent sur les règles globales en cas de conflit ?
+3.  **Maturité** : Le niveau actuel est estimé à **Moyen** (Briques solides, ciment manquant).

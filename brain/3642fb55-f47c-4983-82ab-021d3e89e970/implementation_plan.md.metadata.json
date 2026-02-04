@@ -1,0 +1,6 @@
+{
+  "artifactType": "ARTIFACT_TYPE_IMPLEMENTATION_PLAN",
+  "summary": "Refined plan for Secure Updates using a defined Distribution Folder.\nSpecifies the Workflow: GitHub (Source) -> SharePoint (Distribution).\nDefines `modSecureUpdate` logic to target `/General/SGQ_Updates/Production`.",
+  "updatedAt": "2026-02-02T20:45:38.148497800Z",
+  "version": "2"
+}

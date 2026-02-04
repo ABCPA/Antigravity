@@ -1,0 +1,7 @@
+{
+  "version": "9.9.9",
+  "description": "Test Update Release",
+  "modules": {
+    "modTestUpdate": "modTestUpdate.bas"
+  }
+}

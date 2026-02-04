@@ -1,0 +1,14 @@
+# Task: Refactor CreateSubfolderFile and CopyModules with Manifest
+
+- [x] Update [docs/ARCHITECTURE_ET_PLAN.md](file:///c:/VBA/SGQ%201.65/docs/ARCHITECTURE_ET_PLAN.md) with the new task <!-- id: 0 -->
+- [x] Create implementation plan <!-- id: 11 -->
+- [ ] Refactor [modSGQUpdateManager.bas](file:///c:/VBA/SGQ%201.65/vba-files/Module/modSGQUpdateManager.bas) to make `ParseManifestJSON` and `ReadAllText` accessible <!-- id: 1 -->
+- [ ] Refactor [modSGQTrackingBuilder.bas](file:///c:/VBA/SGQ%201.65/vba-files/Module/modSGQTrackingBuilder.bas) <!-- id: 2 -->
+    - [ ] Simplify `CreateSubfolderFile` <!-- id: 3 -->
+    - [ ] Update `CopyRequiredModulesToTrackingFile` to use [manifest.json](file:///c:/VBA/SGQ%201.65/vba-files/manifest.json) <!-- id: 4 -->
+    - [ ] Standardize error handling and `appScope` usage <!-- id: 5 -->
+- [ ] Verify changes <!-- id: 6 -->
+    - [ ] Run compilation check using `test-vbide-and-compile.ps1` <!-- id: 7 -->
+    - [ ] Manual verification of folder creation and module copying <!-- id: 8 -->
+- [ ] Finalize documentation <!-- id: 9 -->
+    - [ ] Update [ARCHITECTURE_ET_PLAN.md](file:///c:/VBA/SGQ%201.65/docs/ARCHITECTURE_ET_PLAN.md) to mark task as completed <!-- id: 10 -->

@@ -1,0 +1,15 @@
+# Task List: UX Improvements & Global Import
+
+- [ ] Planning & Documentation
+    - [ ] Update `docs/ARCHITECTURE_ET_PLAN.md` with the new task. <!-- id: 0 -->
+    - [ ] Create `implementation_plan.md` for UX features. <!-- id: 1 -->
+- [ ] Implement Home Dashboard ('Accueil')
+    - [ ] Create logic to generate/reset the 'Accueil' sheet. <!-- id: 2 -->
+    - [ ] Add buttons: 'Système de Gestion de la Qualité' (Go to TDM), 'Activités de suivi' (Go to TDM-Suivi). <!-- id: 3 -->
+    - [ ] Add Settings gear icon. <!-- id: 4 -->
+- [ ] Implement Visual Polish
+    - [ ] Add routine to Hide Gridlines on all sheets. <!-- id: 5 -->
+    - [ ] Add routine to Force Zoom to 100% on all sheets. <!-- id: 6 -->
+- [ ] Verify & Finalize
+    - [ ] Review code changes. <!-- id: 7 -->
+    - [ ] Prepare for global import (notify user). <!-- id: 8 -->

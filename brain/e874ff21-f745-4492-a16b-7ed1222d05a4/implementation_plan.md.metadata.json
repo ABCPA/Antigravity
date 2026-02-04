@@ -1,0 +1,6 @@
+{
+  "artifactType": "ARTIFACT_TYPE_IMPLEMENTATION_PLAN",
+  "summary": "Implementing fixes for high-priority duplicate declarations found by QA audit.",
+  "updatedAt": "2026-02-04T03:30:06.548956900Z",
+  "version": "3"
+}

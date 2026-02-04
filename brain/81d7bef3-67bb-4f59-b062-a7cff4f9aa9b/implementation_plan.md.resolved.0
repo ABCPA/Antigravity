@@ -1,0 +1,32 @@
+# Upgrade Pull Request Template for AI Collaboration
+
+## Goal Description
+Enhance the existing [PULL_REQUEST_TEMPLATE.md](file:///c:/VBA/SGQ%201.65/.github/PULL_REQUEST_TEMPLATE.md) to enforce stricter manual validation of AI-generated code, ensuring alignment with the project's "AI Collaboration Guide". This completes Phase 14 of the industrialization process.
+
+## User Review Required
+None. This is a documentation/process update.
+
+## Proposed Changes
+
+### Configuration
+#### [MODIFY] [.github/PULL_REQUEST_TEMPLATE.md](file:///c:/VBA/SGQ%201.65/.github/PULL_REQUEST_TEMPLATE.md)
+Update the "AI Collaboration & Quality Checklist" section to:
+1.  Link to [docs/guides/GUIDE_COLLABORATION_IA.md](file:///c:/VBA/SGQ%201.65/docs/guides/GUIDE_COLLABORATION_IA.md).
+2.  Add explicit items for visual/manual verification of AI code (hallucinations, logic).
+3.  Add item for Manifest compliance (if modules added).
+
+```markdown
+## ✅ AI Collaboration & Quality Checklist
+
+-   [ ] **Encoding:** I confirm my VBA files are `CP1252` and the pre-commit hook passes.
+-   [ ] **Manual Verification:** I have manually verified the AI-generated code (logic, edge cases, no hallucinations).
+-   [ ] **Compliance:** Changes respect [GUIDE_COLLABORATION_IA.md](../docs/guides/GUIDE_COLLABORATION_IA.md) (No hallucinations, Manifest updated, Zero Risk).
+-   [ ] **Copilot Review:** Copilot's suggestions were integrated and reviewed.
+-   [ ] **Architect (Gemini) Validation:** The overall strategy and risks were validated (if applicable).
+-   [ ] **CLI Agent (Codex) Execution:** Associated scripts were run successfully.
+```
+
+## Verification Plan
+
+### Manual Verification
+1.  Review the file content after modification to ensure correct markdown formatting and links.

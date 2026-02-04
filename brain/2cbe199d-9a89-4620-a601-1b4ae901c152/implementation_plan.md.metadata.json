@@ -1,0 +1,5 @@
+{
+  "artifactType": "ARTIFACT_TYPE_IMPLEMENTATION_PLAN",
+  "summary": "Plan to resolve encoding issues (mojibake) in VBA files by converting them to Windows-1252 and cleaning up corrupted characters.",
+  "updatedAt": "2026-02-03T15:02:57.315811200Z"
+}

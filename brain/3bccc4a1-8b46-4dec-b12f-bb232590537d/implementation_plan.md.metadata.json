@@ -1,0 +1,6 @@
+{
+  "artifactType": "ARTIFACT_TYPE_IMPLEMENTATION_PLAN",
+  "summary": "Urgent cleanup plan to remove duplicate modules causing compilation errors. The previous renaming process left behind original files, creating ambiguous definitions.",
+  "updatedAt": "2026-02-04T16:12:11.673625900Z",
+  "version": "4"
+}

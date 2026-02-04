@@ -1,0 +1,29 @@
+Ÿ<?xml version="1.0" encoding="UTF-8"?>
+<customUI xmlns="http://schemas.microsoft.com/office/2009/07/customui" onLoad="RibbonOnLoad">
+  <ribbon>
+    <tabs>
+      <tab id="tabSGQ" label="SGQ">
+        <group id="grpActions" label="Actions Principales">
+          <button id="btnUpdateView" label="Recharger" imageMso="Refresh" size="large" onAction="UpdateInterfaceView" />
+          <button id="btnToggleView" label="Vue Suivi" imageMso="ViewSwitch" size="large" onAction="CallbackToggleView" />
+          <button id="btnAdminOn" label="Activer Admin" imageMso="ReviewProtectWorkbook" size="large" onAction="ActivateAdminMode" getVisible="GetAdminOnVisibility" />
+          <button id="btnAdminOff" label="Desactiver Admin" imageMso="ReviewProtectWorkbook" size="large" onAction="DeactivateAdminMode" getVisible="GetAdminOffVisibility" />
+        </group>
+        <group id="grpTools" label="Outils">
+           <button id="btnCreateClient" label="Nouveau Client" imageMso="FileNew" size="normal" onAction="CreateClientStructure" />
+           <button id="btnExportPDF" label="Export PDF" imageMso="FileSaveAsPdfOrXps" size="normal" onAction="ExportToPDF" />
+           <button id="btnCreateArchive" label="Generer Archive" imageMso="FileSaveAs" size="large" onAction="CreateArchiveCopy_Wrapper" getVisible="GetArchiveVisibility" />
+           <toggleButton id="btnToggleFormulaBar" label="Barre Formule" imageMso="FormulaBar" size="large" onAction="ToggleFormulaBar" getPressed="GetFormulaBarPressed" />
+           <menu id="mnuCreateWP" label="Nouveaux Docs" imageMso="FileNew" size="large">
+             <button id="btnWP1" label="6.20-1 Entretien" onAction="RibbonAction_CreateWP6_20_1" />
+             <button id="btnWP2" label="6.20-2 Entretien" onAction="RibbonAction_CreateWP6_20_2" />
+             <button id="btnWP3" label="6.35-1 A.C.P." onAction="RibbonAction_CreateWP6_35_1" />
+             <button id="btnWP4" label="5.60-7 Formations" onAction="RibbonAction_CreateWP5_60_7" />
+             <button id="btnWP5" label="5.60-9 Fournisseurs" onAction="RibbonAction_CreateWP5_60_9" />
+           </menu>
+        </group>
+      </tab>
+    </tabs>
+  </ribbon>
+</customUI>
+Ÿ"(9e377b08b88e30057baf56c074b3d12f1d22372320file:///c:/VBA/SGQ%201.65/ribbons/customUI14.xml:file:///c:/VBA/SGQ%201.65

@@ -1,0 +1,258 @@
+# Walkthrough: Infrastructure d'Agents Virtuels
+
+**Date** : 2026-02-03  
+**Objectif** : Créer une infrastructure d'agents virtuels pour pallier l'absence de fonctionnalités Agent Builder dans le plan Google AI Pro
+
+---
+
+## 🎯 Contexte
+
+### Problème Initial
+L'utilisateur ne voyait pas d'option pour créer des agents ou des Knowledge items dans l'Agent Manager d'Antigravity.
+
+### Diagnostic Effectué
+1. **Analyse des Settings** : Vérification des paramètres Experimental, Antigravity Settings, et Account
+2. **Identification du Plan** : Google AI Pro (plan consommateur)
+3. **Conclusion** : Le plan ne permet pas la création d'agents via l'interface graphique
+
+### Solution Retenue
+Création d'une infrastructure d'**agents virtuels** basée sur des fichiers Markdown, offrant :
+- ✅ Auditabilité (fichiers versionnés dans Git)
+- ✅ Portabilité (fonctionne avec n'importe quel LLM)
+- ✅ Gouvernance (contrôle total sur les instructions)
+- ✅ Coût zéro (utilise le plan actuel)
+
+---
+
+## 📁 Structure Créée
+
+```
+c:\VBA\SGQ 1.65\.agent\agents\
+├── README.md                    # Documentation complète du système
+├── _template-agent.md           # Template pour créer de nouveaux agents
+├── diagnostic-agent.md          # Agent de diagnostic Antigravity
+├── vba-audit-agent.md           # Agent d'audit VBA selon normes CPA
+├── documentation-agent.md       # Agent de synchronisation documentation
+└── compliance-agent.md          # Agent de conformité CPA
+```
+
+---
+
+## 🔧 Agents Créés
+
+### 1. Agent de Diagnostic Antigravity
+**Fichier** : [diagnostic-agent.md](file:///c:/VBA/SGQ%201.65/.agent/agents/diagnostic-agent.md)
+
+**Rôle** : Expert en configuration et diagnostic Antigravity/VS Code
+
+**Capacités** :
+- Diagnostiquer les problèmes de configuration
+- Identifier les limitations liées au plan d'abonnement
+- Guider vers des solutions réalistes
+- Documenter les configurations
+
+**Format de sortie** : Rapport structuré avec sections 🎯 Objectif, 📂 État, 🔍 Diagnostic, ✅ Possible, ❌ Impossible, ➡️ Étapes, ⚠️ Points à confirmer
+
+---
+
+### 2. Agent d'Audit VBA
+**Fichier** : [vba-audit-agent.md](file:///c:/VBA/SGQ%201.65/.agent/agents/vba-audit-agent.md)
+
+**Rôle** : Expert en audit de code VBA selon normes "Audit-grade reliability"
+
+**Capacités** :
+- Réviser le code selon les standards du cabinet (encodage CP1252, gestion d'erreurs, état)
+- Détecter le code mort et les variables inutilisées
+- Valider la conformité des en-têtes
+- Identifier les violations de sécurité
+
+**Processus** :
+1. Analyse structurelle (Option Explicit, en-têtes, dépendances)
+2. Audit de sécurité (encodage, credentials, validations)
+3. Audit de qualité (code mort, appScope, gestion d'erreurs)
+4. Audit de conformité (nomenclature, messages, architecture)
+5. Rapport par niveau de sévérité (CRITIQUE → BAS)
+
+---
+
+### 3. Agent de Documentation
+**Fichier** : [documentation-agent.md](file:///c:/VBA/SGQ%201.65/.agent/agents/documentation-agent.md)
+
+**Rôle** : Expert en documentation technique et synchronisation code/docs
+
+**Capacités** :
+- Synchroniser les en-têtes VBA avec [ARCHITECTURE_ET_PLAN.md](file:///c:/VBA/SGQ%201.65/docs/ARCHITECTURE_ET_PLAN.md)
+- Maintenir le plan à jour après chaque tâche majeure
+- Générer des walkthroughs après vérification
+- Détecter les incohérences entre code et documentation
+
+**Processus** :
+1. Audit de cohérence (plan vs. code)
+2. Synchronisation des en-têtes (description, dépendances, changelog)
+3. Mise à jour du plan (tâches complétées, nouvelles tâches, décisions)
+4. Génération de walkthrough (changements, tests, validations)
+5. Validation (liens, format, vocabulaire)
+
+---
+
+### 4. Agent de Conformité CPA
+**Fichier** : [compliance-agent.md](file:///c:/VBA/SGQ%201.65/.agent/agents/compliance-agent.md)
+
+**Rôle** : Expert en conformité et gouvernance CPA
+
+**Capacités** :
+- Valider les interactions utilisateur (messages, terminologie)
+- Vérifier le vocabulaire professionnel CPA
+- Auditer la traçabilité des opérations
+- Identifier les risques de non-conformité
+
+**Vocabulaire Obligatoire** :
+| ❌ Générique | ✅ CPA |
+|---|---|
+| Projet | Mission |
+| Fichier | Dossier |
+| Année | Exercice |
+| Liste de comptes | Balance de vérification |
+
+**Processus** :
+1. Audit de vocabulaire (MsgBox, InputBox, cohérence)
+2. Audit de traçabilité (logs pour opérations critiques)
+3. Audit de sécurité (credentials, validations, confirmations)
+4. Audit d'UX (messages actionnables, ton professionnel)
+5. Rapport de conformité avec score
+
+---
+
+## 🔄 Workflow d'Invocation
+
+**Fichier** : [invoke-agent.md](file:///c:/VBA/SGQ%201.65/.agent/workflows/invoke-agent.md)
+
+### Méthode 1 : Via commande slash (Recommandé)
+```
+/invoke-agent diagnostic
+```
+
+### Méthode 2 : Manuellement
+1. Ouvrir le fichier de l'agent dans `.agent/agents/`
+2. Copier le contenu complet
+3. Coller dans une nouvelle conversation avec :
+   ```
+   Tu agis maintenant comme [Nom de l'Agent].
+   
+   [Contenu copié]
+   ```
+
+### Exemples d'Utilisation
+
+**Diagnostiquer un problème Antigravity** :
+```
+/invoke-agent diagnostic
+
+"Je ne vois pas l'option pour créer des agents dans Agent Manager."
+```
+
+**Auditer un module VBA** :
+```
+/invoke-agent audit
+
+"Révise le module modSGQInterface.bas selon les standards du cabinet."
+```
+
+**Synchroniser la documentation** :
+```
+/invoke-agent doc
+
+"J'ai terminé le refactoring de CreateSubfolderFile. Mets à jour ARCHITECTURE_ET_PLAN.md."
+```
+
+**Valider la conformité CPA** :
+```
+/invoke-agent compliance
+
+"Audite tous les messages utilisateur dans modSGQInterface pour conformité CPA."
+```
+
+---
+
+## 📊 Fichiers Créés/Modifiés
+
+### Nouveaux Fichiers
+- [.agent/agents/README.md](file:///c:/VBA/SGQ%201.65/.agent/agents/README.md) - Documentation du système
+- [.agent/agents/_template-agent.md](file:///c:/VBA/SGQ%201.65/.agent/agents/_template-agent.md) - Template standardisé
+- [.agent/agents/diagnostic-agent.md](file:///c:/VBA/SGQ%201.65/.agent/agents/diagnostic-agent.md) - Agent de diagnostic
+- [.agent/agents/vba-audit-agent.md](file:///c:/VBA/SGQ%201.65/.agent/agents/vba-audit-agent.md) - Agent d'audit VBA
+- [.agent/agents/documentation-agent.md](file:///c:/VBA/SGQ%201.65/.agent/agents/documentation-agent.md) - Agent de documentation
+- [.agent/agents/compliance-agent.md](file:///c:/VBA/SGQ%201.65/.agent/agents/compliance-agent.md) - Agent de conformité
+- [.agent/workflows/invoke-agent.md](file:///c:/VBA/SGQ%201.65/.agent/workflows/invoke-agent.md) - Workflow d'invocation
+
+### Fichiers Modifiés
+- [docs/ARCHITECTURE_ET_PLAN.md](file:///c:/VBA/SGQ%201.65/docs/ARCHITECTURE_ET_PLAN.md#L573-L591) - Ajout de la Phase 34
+
+---
+
+## ✅ Validation
+
+### Tests Effectués
+- ✅ Création de la structure de répertoires
+- ✅ Génération de tous les fichiers Markdown
+- ✅ Validation du format et de la cohérence
+- ✅ Mise à jour de la documentation projet
+
+### Vérifications
+- ✅ Tous les fichiers encodés en UTF-8 (standard pour Markdown)
+- ✅ Format Markdown valide (en-têtes, tableaux, listes)
+- ✅ Liens de fichiers fonctionnels
+- ✅ Vocabulaire professionnel respecté
+
+---
+
+## 📈 Bénéfices
+
+### Gouvernance
+- **Auditabilité** : Chaque agent est un fichier texte versionné dans Git
+- **Traçabilité** : Modifications documentées via commits
+- **Contrôle** : Instructions explicites et modifiables
+
+### Technique
+- **Portabilité** : Fonctionne avec n'importe quel LLM (Claude, GPT, Gemini)
+- **Maintenabilité** : Template standardisé pour créer de nouveaux agents
+- **Extensibilité** : Facile d'ajouter de nouveaux agents spécialisés
+
+### Opérationnel
+- **Coût** : Gratuit (utilise le plan Google AI Pro actuel)
+- **Efficacité** : Workflow `/invoke-agent` pour invocation rapide
+- **Spécialisation** : Chaque agent optimisé pour un domaine spécifique
+
+---
+
+## 🎓 Prochaines Étapes Suggérées
+
+### Utilisation Immédiate
+1. Tester chaque agent avec un cas d'usage réel
+2. Affiner les instructions selon les résultats
+3. Créer des agents supplémentaires si nécessaire (ex: Agent de Performance, Agent de Sécurité)
+
+### Amélioration Continue
+1. Documenter les cas d'usage réussis dans chaque agent
+2. Créer un CHANGELOG pour chaque agent
+3. Partager les bonnes pratiques avec l'équipe
+
+### Intégration
+1. Ajouter des exemples de prompts dans les workflows existants
+2. Créer des raccourcis VS Code pour les commandes `/invoke-agent`
+3. Intégrer les agents dans les processus de révision de code
+
+---
+
+## 📝 Notes
+
+- **Encodage** : Tous les fichiers Markdown sont en UTF-8 (standard pour Markdown, différent des fichiers VBA en CP1252)
+- **Versionnement** : Les agents sont versionnés dans Git comme tout autre fichier du projet
+- **Évolution** : Les agents peuvent être mis à jour au fil du temps selon les besoins
+- **Collaboration** : Les agents peuvent être partagés avec d'autres projets ou membres de l'équipe
+
+---
+
+**Auteur** : Abel Boudreau CPA  
+**Date de création** : 2026-02-03  
+**Dernière modification** : 2026-02-03

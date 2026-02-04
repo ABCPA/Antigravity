@@ -1,0 +1,140 @@
+{
+    "version": "1.0.0",
+    "metadata": {
+        "description": "Antigravity Workspace Registry",
+        "lastUpdated": "2026-02-03T16:24:00Z",
+        "schema": "hybrid"
+    },
+    "registeredWorkspaces": [
+        {
+            "id": "sgq-1.65",
+            "name": "SGQ 1.65 - VBA Quality System",
+            "path": "C:\\VBA\\SGQ 1.65",
+            "type": "production",
+            "maturity": "high",
+            "priority": 1,
+            "agentConfig": ".github/copilot/agents.json",
+            "localWorkflows": ".agent/workflows",
+            "documentation": "AGENTS.md",
+            "governance": {
+                "encoding": "CP1252",
+                "lineEndings": "CRLF",
+                "backupRequired": true,
+                "validationRequired": true,
+                "language": {
+                    "code": "EN",
+                    "comments": "FR"
+                }
+            },
+            "agents": [
+                {
+                    "id": "vba-expert",
+                    "name": "VBA Code Expert",
+                    "model": "claude-opus-4",
+                    "capabilities": [
+                        "vba-analysis",
+                        "refactoring",
+                        "error-handling",
+                        "audit-compliance"
+                    ]
+                },
+                {
+                    "id": "copilot-coding-agent",
+                    "name": "Copilot Coding Agent",
+                    "model": "gpt-4-turbo",
+                    "capabilities": [
+                        "issue-analysis",
+                        "pr-generation",
+                        "test-validation"
+                    ]
+                },
+                {
+                    "id": "documentation-agent",
+                    "name": "Documentation Agent",
+                    "model": "gpt-4-turbo",
+                    "capabilities": [
+                        "documentation-generation",
+                        "architecture-mapping",
+                        "changelog-management"
+                    ]
+                }
+            ],
+            "workflows": [
+                "sgq-fix-mojibake",
+                "sgq-vba-compile",
+                "sgq-vba-review",
+                "sgq-vba-cleanup",
+                "sgq-vba-audit-ui",
+                "sgq-vba-doc-sync"
+            ]
+        },
+        {
+            "id": "system-root",
+            "name": "Antigravity System Root",
+            "path": "C:\\Users\\AbelBoudreau\\.gemini\\antigravity",
+            "type": "infrastructure",
+            "maturity": "low",
+            "priority": 2,
+            "agentConfig": ".agent/orchestrator.json",
+            "globalWorkflows": "global_workflows",
+            "governance": {
+                "backupRequired": false,
+                "validationRequired": false
+            },
+            "agents": [
+                {
+                    "id": "orchestrator",
+                    "name": "Antigravity Orchestrator",
+                    "model": "gpt-4-turbo",
+                    "capabilities": [
+                        "coordination",
+                        "routing",
+                        "governance"
+                    ]
+                }
+            ],
+            "workflows": [
+                "sgq-fix-mojibake",
+                "sys-git-commit",
+                "sys-gov-check",
+                "sys-python-audit",
+                "sgq-vba-audit-ui",
+                "sgq-vba-cleanup",
+                "sgq-vba-compile",
+                "sgq-vba-doc-sync",
+                "sgq-vba-review",
+                "sys-cleanup"
+            ]
+        },
+        {
+            "id": "cpa-dashboard-app",
+            "name": "CPA Dashboard App - Stitch Dashboard",
+            "path": "C:\\Users\\AbelBoudreau\\Workspace_CPA_AI\\CPA_Dashboard_App",
+            "type": "project",
+            "maturity": "new",
+            "priority": 2,
+            "governance": {
+                "backupRequired": true
+            }
+        }
+    ],
+    "autoDiscovery": {
+        "enabled": true,
+        "note": "Auto-discovery disabled in Phase 1. Can be enabled later for scratch/playground directories.",
+        "searchRoots": [
+            "C:\\Users\\AbelBoudreau\\.gemini\\antigravity\\scratch",
+            "C:\\Users\\AbelBoudreau\\.gemini\\antigravity\\playground"
+        ],
+        "markers": [
+            ".agent/",
+            ".github/copilot/",
+            "AGENTS.md"
+        ],
+        "maxDepth": 2,
+        "excludePatterns": [
+            "**/node_modules",
+            "**/.git",
+            "**/backups"
+        ]
+    }
+}

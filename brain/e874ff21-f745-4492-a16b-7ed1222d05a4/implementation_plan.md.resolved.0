@@ -1,0 +1,24 @@
+# Implementation Plan - Project Maintenance & Documentation Cleanup
+
+## Goal Description
+The [ARCHITECTURE_ET_PLAN.md](file:///c:/VBA/SGQ%201.65/docs/ARCHITECTURE_ET_PLAN.md) file contains significant duplication (lines 1-204 vs 205+), likely due to a previous merge or copy-paste error. This plan aims to consolidate the file into a single, clean source of truth and verify the project's technical health.
+
+## User Review Required
+> [!NOTE]
+> This is a maintenance task initiated automatically to fix documentation integrity. No code changes are planned, only documentation and verification.
+
+## Proposed Changes
+
+### Documentation
+#### [MODIFY] [ARCHITECTURE_ET_PLAN.md](file:///c:/VBA/SGQ%201.65/docs/ARCHITECTURE_ET_PLAN.md)
+- Remove duplicate "Phase 0" through "Phase 12" sections.
+- Ensure the "Target Architecture Schema" is accurate and appears only once.
+- Consolidate the "Backlog" and "Work Plan" sections.
+
+### Validation
+- Run `vba-files/scripts/test-vbide-and-compile.ps1` to confirm no regressions.
+
+## Verification Plan
+### Automated Tests
+- `pwsh -File vba-files/scripts/test-vbide-and-compile.ps1`
+- `git status` to ensure clean working directory before commit.

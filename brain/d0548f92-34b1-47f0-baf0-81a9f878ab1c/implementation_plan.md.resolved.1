@@ -1,0 +1,47 @@
+# Simplification de la Génération de Fichiers (Phase 24)
+
+## Goal Description
+Analyze and refactor the file generation process to eliminate the creation of two separate files ("0-SGQ..." and "6-Suivi..."), which is a source of bugs and confusion. The goal is to produce a single, robust tracking file or a cleaner sequential generation process.
+
+## User Review Required
+> [!IMPORTANT]
+> This plan is currently in the **ANALYSIS** phase. The proposed solution will be detailed after reviewing the code.
+
+## Proposed Changes
+
+### Analysis
+The procedure `BuildClientDeliverables` in [modSGQCreation.bas](file:///c:/VBA/SGQ%201.65/vba-files/Module/modSGQCreation.bas/c:/VBA/SGQ%201.65/vba-files/Module/modSGQCreation.bas) orchestrates the generation of two files:
+1.  **0-SGQ (System)**: Generated via `CreateClientCopy`, which uses `ThisWorkbook.SaveCopyAs`. This creates a complete copy of the Master file, including **ALL** sheets (System + Tracking).
+2.  **6-Suivi (Tracking)**: Generated via `CreateQmgTrackingFile_Wrapper` -> `modSGQTrackingBuilder`, which creates a new workbook and copies *only* the specific tracking sheets defined in `TRACKING_SHEETS`.
+
+**Key Observation**: The "0-SGQ" file already contains all the sheets present in "6-Suivi". The separate "6-Suivi" file appears to be a redundant subset, likely intended for a "lighter" deliverable. Generating both creates:
+-   **Risk of Divergence**: If data is entered in one, it's not in the other.
+-   **Complexity**: Two processes to maintain.
+-   **Bugs**: Reports of file corruption or conflicts when generating both simultaneously.
+
+### Proposed Solution
+**Simplification to a SINGLE File Structure.**
+
+Since "0-SGQ" contains everything, we propose to **eliminate the separate generation of "6-Suivi"**.
+The "0-SGQ" file will serve as the single source of truth for both System and Tracking implementation.
+
+#### Changes Required:
+1.  Modify `BuildClientDeliverables` ('modSGQCreation.bas') to:
+    -   Keep `CreateClientCopy` (Generation of 0-SGQ).
+    -   **Remove** the call to `modSGQTrackingBuilder.CreateQmgTrackingFile_Wrapper`.
+    -   Update the completion message to reference only the single generated file.
+2.  (Optional) Deprecate/Remove `modSGQTrackingBuilder.bas` if it is no longer used for anything else.
+
+#### Alternative (If User insist on 2 files)
+If the "Lighter" file is strictly required, we must verify why it fails. But for "Simplification", the Single File approach is optimal.
+
+## Verification Plan
+
+### Automated Tests
+- [ ] Run `BuildClientDeliverables`.
+- [ ] Verify "0-SGQ..." file is created.
+- [ ] Verify "6-Suivi..." file is **NOT** created.
+- [ ] Open "0-SGQ..." and verify it contains the Tracking sheets (sanity check).
+
+### Manual Verification
+- [ ] User confirms the Single File workflow meets business needs.

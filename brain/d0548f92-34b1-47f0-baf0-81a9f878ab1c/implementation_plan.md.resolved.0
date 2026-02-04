@@ -1,0 +1,21 @@
+# Simplification de la Génération de Fichiers (Phase 24)
+
+## Goal Description
+Analyze and refactor the file generation process to eliminate the creation of two separate files ("0-SGQ..." and "6-Suivi..."), which is a source of bugs and confusion. The goal is to produce a single, robust tracking file or a cleaner sequential generation process.
+
+## User Review Required
+> [!IMPORTANT]
+> This plan is currently in the **ANALYSIS** phase. The proposed solution will be detailed after reviewing the code.
+
+## Proposed Changes
+
+### [Analysis Pending]
+
+## Verification Plan
+
+### Automated Tests
+- [ ] Verify file existence after generation.
+- [ ] Check content of the generated file.
+
+### Manual Verification
+- [ ] User to run `BuildClientDeliverables` (or new equivalent) and confirm only one correct file is produced.

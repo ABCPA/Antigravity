@@ -1,0 +1,28 @@
+# Plan d'Implémentation - Backlog 2 : Ouverture et Mise à Jour Sécurisée
+
+## Objectif
+Automatiser l'ouverture des ressources (manifests, configs) et l'application de mises à jour tout en garantissant l'intégrité des fichiers (backups, CP1252/CRLF, validation JSON).
+
+## Proposed Changes
+
+### 1. Module `modSGQFileSystem`
+Ajout de fonctions robustes pour la lecture/écriture.
+- **Ajout** : `ReadFileContent(path)` avec détection/force CP1252.
+- **Ajout** : `WriteFileContent(path, content)` avec backup automatique (`.bak`).
+
+### 2. Module `modSGQUpdateManager`
+Amélioration de la gestion des mises à jour.
+- **Modification** : Utiliser les nouvelles fonctions de `modSGQFileSystem` pour lire `manifest.json`.
+- **Ajout** : Validation du schéma JSON avant application.
+
+### 3. Tests
+- Créer un script de test qui tente d'écrire un fichier et vérifie qu'un backup est créé.
+
+## Verification Plan
+
+### Automated Tests
+- Script `scripts/test-file-system.ps1` :
+    - Écrit un fichier test.
+    - Modifie le fichier via VBA.
+    - Vérifie la présence du `.bak`.
+    - Vérifie l'encodage du résultat.

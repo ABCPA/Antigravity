@@ -1,0 +1,35 @@
+# Phase 19: Audit de Cohérence et Nettoyage
+
+Cette phase vise à finaliser les efforts de refactorisation en s'assurant de la cohérence globale du projet, en supprimant les résidus obsolètes et en validant les gains de performance.
+
+## Proposed Changes
+
+### [Documentation & Planning]
+
+#### [MODIFY] [ARCHITECTURE_ET_PLAN.md](file:///c:/VBA/SGQ%201.65/docs/ARCHITECTURE_ET_PLAN.md)
+- Ajouter la section **Phase 19 : Audit de Cohérence et Nettoyage** avec ses étapes détaillées.
+
+### [Developer Tools & Scripts]
+
+#### [DELETE] Fichiers Obsolètes
+- Supprimer définitivement les scripts marqués comme `DEPRECATED` dans `scripts/` (ex: [import-all-modules.ps1](file:///c:/VBA/SGQ%201.65/scripts/revision/import-all-modules.ps1), [import-into-copy.ps1](file:///c:/VBA/SGQ%201.65/scripts/import-into-copy.ps1)).
+
+### [VBA Code Quality]
+
+#### [AUDIT] Naming Convention Audit
+- Exécuter un audit complet sur tous les modules pour identifier les écarts de nommage (variables locales, préfixes de procédures).
+- Harmoniser les noms de variables dans les modules récemment refactorisés.
+
+#### [VERIFY] Performance & Stability
+- Exécuter le `modUnitTestEngine` pour valider l'absence de régressions.
+- Effectuer un test de performance sur les opérations de fichier (`modSGQFileSystem`).
+
+## Verification Plan
+
+### Automated Tests
+- [scripts/run-repo-diagnostics.ps1](file:///c:/VBA/SGQ%201.65/scripts/run-repo-diagnostics.ps1) pour vérifier l'intégrité du dépôt.
+- Exécution de `modUnitTestEngine.RunAllTests` dans Excel.
+
+### Manual Verification
+- Vérification visuelle que les dossiers `scripts/` et `vba-files/` sont propres.
+- Confirmation par l'utilisateur du gain de fluidité ressenti.

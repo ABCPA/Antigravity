@@ -1,0 +1,45 @@
+# Spécification : Assistant Inspection Professionnelle
+
+**Module** : CPA-Inspection-Simulator v1.0
+**Objectif** : Simuler une inspection de l'Ordre pour identifier les faiblesses structurelles du dossier AVANT qu'il ne soit trop tard.
+
+## 1. Vision Métier
+L'inspection professionnelle ne pardonne pas sur la forme et la documentation des risques. Ce module agit comme un auditeur externe impitoyable qui vérifie la cohérence globale du dossier.
+
+## 2. Fonctionnalités Principales
+
+### 2.1 Audit Chronologique (Timeline Check)
+Vérifie la séquence logique des dates (Erreur fréquente en inspection) :
+- Date de fin des travaux <= Date du rapport.
+- Date de lettre de mission <= Date de début des travaux.
+- Date de lettre d'affirmation = Date du rapport.
+*Si incohérence -> Alerte Rouge "Date Impossible".*
+
+### 2.2 Détecteur de Biais (Bias Detector)
+Analyse les commentaires et conclusions :
+- Recherche de phrases "copier-coller" d'une année à l'autre (Indice de manque d'esprit critique).
+- Vérifie si les sections "Risques Identifiés" dans la planification ont une réponse correspondante dans l'exécution (Traçabilité du risque).
+
+### 2.3 Rapport de Pré-Inspection
+Génère un PDF "Rapport d'Auto-Insépection" listant :
+- Les déficiences documentaires.
+- Le score de cohérence des dates.
+- L'indice de "fraîcheur" du dossier (vs N-1).
+
+## 3. Architecture Technique (VBA)
+
+### 3.1 Nouveaux Modules
+- `modInspectionAudit.bas` : Logique de comparaison de dates et de styles.
+- `modInspectionReport.bas` : Générateur de rapport condensé.
+
+### 3.2 Intégration
+- S'appuie sur `modCQScanner` pour les données brutes (dates, signataires).
+- Utilise `modAnalyticCalc` pour vérifier si les risques financiers (ex: Variation > Seuil) ont été documentés.
+
+## 4. Plan de Développement
+1.  **Semaine 1** : Moteur de cohérence chronologique.
+2.  **Semaine 2** : Analyseur de traçabilité des risques (Lien Planification -> Exécution).
+
+## 5. Critères de Succès
+- [ ] Identifie une lettre d'affirmation datée après le rapport.
+- [ ] Signale si la section "Stratégie" est identique mot pour mot à N-1.

@@ -1,0 +1,5 @@
+{
+  "artifactType": "ARTIFACT_TYPE_TASK",
+  "summary": "Task breakdown for creating a virtual agent system using Markdown files. Includes creation of four specialized agents (Diagnostic, VBA Audit, Documentation, Compliance) and a template for future agents. Each agent will be defined as a Markdown file with clear role definitions, objectives, and constraints following CPA governance standards.",
+  "updatedAt": "2026-02-03T21:16:21.971254100Z"
+}

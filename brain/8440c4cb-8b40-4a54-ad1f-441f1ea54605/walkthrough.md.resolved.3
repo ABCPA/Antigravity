@@ -1,0 +1,30 @@
+# Walkthrough: Espace de Travail Unifié & Industrialisation & Backlog
+
+## Backlog 1 : Détecteur de Dépendances Circulaires
+Pour prévenir les erreurs "Out of Stack Space", j'ai ajouté un scan au démarrage.
+
+- **`modDiagnostics.ScanCircularDependencies`** : Scanne les modules VBA pour trouver des références croisées simples (A <-> B).
+- **`ThisWorkbook.Open`** : Appelle le scan avant de lancer le reste de l'application.
+- **Rapport** : Si un cycle est trouvé, un rapport est généré dans `logs/diagnostics/` et l'utilisateur est averti.
+
+## Phase 16 : Optimisation de l'Espace de Travail
+- [x] **Workspace Unifié** : `CPA_Unified.code-workspace` unifie Python, VBA (`C:\VBA`) et Antigravity.
+- [x] **Prompts Révision** : Standards disponibles dans `.vscode/REVIEW_PROMPTS.md`.
+- [x] **Approbation** : "Always Proceed" activé pour fluidifier les commandes.
+
+## Phase 14 : Industrialisation (Sûreté Encodage)
+Nous avons sécurisé l'environnement contre les corruptions d'accents (VBA vs UTF-8).
+
+### 1. Configuration Force (CP1252 / Windows-1252)
+- **.editorconfig** : Ajouté à la racine et dans `C:\VBA` pour forcer `windows-1252` et `crlf` pour les fichiers `.bas/.cls`.
+- **VS Code Settings** : Désactivation de `files.autoGuessEncoding` pour éviter les erreurs de détection.
+
+### 2. Git Pre-Commit Hook
+- **Script** : `scripts/git-hooks/pre-commit-vba.ps1`
+- **Installation** : Installé automatiquement dans `.git/hooks/pre-commit`.
+- **Fonctionnement** : Bloque tout commit contenant des fichiers VBA en UTF-8 (BOM) ou avec des fins de ligne Unix (LF).
+
+## Vérification
+- [x] La détection de cycle fonctionne (testé avec modules factices).
+- [x] Le hook Git est actif.
+- [x] L'espace de travail est unifié en CP1252.

@@ -1,0 +1,47 @@
+# Microsoft 365 Tenant Administration - Task List
+
+- [x] **Initial Authentication**
+    - [x] Connect to Microsoft Graph via PowerShell
+    - [x] Verify administrator identity and tenant details
+
+- [x] **App Registration Configuration**
+    - [x] Create 'VBA_Automation_Tool' application
+    - [x] Assign Permissions (`Files.ReadWrite.All`, `Mail.Send`, `Mail.ReadWrite`, `User.Read`)
+    - [x] Generate and provide Client Secret
+
+- [x] **Python in Excel Diagnostics**
+    - [x] Identify licensing issue ("License required")
+    - [x] Confirm no blocking "Office Cloud Policies"
+    - [x] Advise on "Python in Excel" add-on purchase
+
+- [/] **Tenant Health Check**
+    - [x] Re-authenticate with `ServiceHealth.Read.All` scope
+    - [/] Retrieve and display service health overview
+
+- [ ] **Macro Security Support**
+    - [ ] (Pending User Action) User to add OneDrive path to Trusted Locations
+    - [x] (Optional) Test VBA access with new App RegistrationCredentials
+
+- [/] **Blocking Policies Analysis**
+    - [x] Authenticate with Policy Read Scope
+    - [x] Check Conditional Access Policies
+    - [x] Check Security Defaults status
+    - [x] Review Tenant-wide settings for specific service blocks
+
+- [x] **Fixing Application Permissions**
+    - [x] Identify missing Application Roles (Files.ReadWrite.All)
+    - [x] Authenticate with AppRoleAssignment.ReadWrite.All
+    - [x] Grant Admin Consent for new roles
+    - [x] Verify functionality with VBA Test Script (Ready for user test)
+    - [x] Verify functionality with VBA Test Script (Ready for user test)
+
+- [x] **Microsoft Graph Client Integration**
+    - [x] Create `C:\VBA\SGQ 1.65\modules\modGraphClient.bas`
+    - [x] Update [modConstants.bas](file:///C:/VBA/SGQ%201.65/logs/vba_backups/import_backup_20250922_122631/Module/modConstants.bas) with Graph credentials
+    - [x] Verify [JsonConverter.bas](file:///C:/VBA/SGQ%201.65/vba-files/Module/JsonConverter.bas) dependency
+
+- [x] **Secure Update Implementation**
+    - [x] Create `C:\VBA\SGQ 1.65\modules\modSecureUpdate.bas`
+    - [x] Implement `CheckForUpdates` using `modGraphClient`
+    - [x] Implement `DownloadUpdateFiles` from Graph
+    - [/] Integrate with `modSGQUpdateManager` (User testing CheckForUpdates)

@@ -1,0 +1,32 @@
+# System Root Audit & Optimization Report
+
+## Summary
+Completed a full structural and functional audit of the Antigravity System Root (`.gemini/antigravity`). Implemented hygiene policies and workflow optimizations.
+
+## Changes Implemented
+
+### 1. Configuration Changes
+- **Auto-Discovery Enabled**: `workspaces.json` now allows automatic detection of projects in `scratch/`.
+
+### 2. New Workflows
+- **`sys-cleanup`**: A new workflow to semi-automate the cleanup of old specific brain contexts and stale code trackers.
+
+### 3. Workflow Optimizations
+Added `// turbo` annotations to the following workflows to reduce manual confirmation clicks for safe read-only operations:
+- `vba-compile` (Launch validation script)
+- `vba-cleanup` (Launch static analysis)
+- `git-commit` (Check status and diff)
+
+## Audit Findings
+- **Brain**: 62 items found. Recommendation to run `sys-cleanup` periodically.
+- **Code Tracker**: 8 active items found.
+- **Structure**: All configuration files (`workspaces.json`, `mcp_config.json`, `.agent/`) are valid.
+
+## Verification Results
+- **Sys-Cleanup Test**:
+  - `brain/archive` directory created.
+  - No brain sessions found older than 30 days (simulation mode verified).
+  - Active code trackers listed successfully.
+- **Naming Standardization**: 
+  - All artifacts follow `[Context]_*.md` format.
+  - Global workflows standardized to `sgq-*` / `sys-*`.

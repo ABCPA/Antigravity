@@ -1,0 +1,224 @@
+# Walkthrough: Workspace Update for @cpa-master Routing Feature
+
+**Date:** 2026-02-03  
+**Objectif:** Intégrer la fonctionnalité de routage `@cpa-master` dans le workspace CPA AI
+
+---
+
+## 📋 Résumé des modifications
+
+J'ai mis à jour votre workspace pour intégrer complètement la fonctionnalité de routage `@cpa-master` avec une documentation exhaustive et des exemples concrets.
+
+---
+
+## 📁 Fichiers créés
+
+### 1. [CPA_MASTER_ROUTING_GUIDE.md](file:///c:/Users/AbelBoudreau/Workspace_CPA_AI/.github/CPA_MASTER_ROUTING_GUIDE.md)
+
+**Guide complet** de 15+ sections couvrant:
+
+- ✅ **Vue d'ensemble** du routage intelligent
+- ✅ **6 catégories d'exemples concrets**:
+  - Révision de code VBA
+  - Refactorisation et standardisation
+  - Documentation et planification
+  - Tests et validation
+  - Diagnostic et débogage
+  - Workflows complets
+- ✅ **Commandes REVIEW détaillées** (11 commandes × 3 scopes)
+- ✅ **Patterns de routage avancés** avec détection contextuelle
+- ✅ **Validation de conformité** automatique
+- ✅ **Audit trail** au format JSON
+- ✅ **Bonnes pratiques** et dépannage
+
+### 2. [CPA_MASTER_QUICK_REF.md](file:///c:/Users/AbelBoudreau/Workspace_CPA_AI/.github/CPA_MASTER_QUICK_REF.md)
+
+**Carte de référence rapide** pour accès immédiat:
+
+- ✅ Commandes essentielles par catégorie
+- ✅ Table des commandes REVIEW
+- ✅ Scopes disponibles
+- ✅ Workflows complets prêts à l'emploi
+- ✅ Bonnes pratiques condensées
+
+---
+
+## 🔧 Fichiers modifiés
+
+### 1. [README.md](file:///c:/Users/AbelBoudreau/Workspace_CPA_AI/README.md)
+
+**Modifications:**
+
+#### Section "Documentation Clé"
+- ✅ Ajouté `CPA_MASTER_ROUTING_GUIDE.md` en **première position** (lecture prioritaire)
+- ✅ Marqué comme **5 min** de lecture
+- ✅ Indiqué **"Avant toute demande"** pour souligner l'importance
+
+#### Section "Copilot Chat Modes"
+- ✅ Enrichi la table avec colonne **"Exemples"**
+- ✅ Ajouté sous-section **"@cpa-master — Routage Intelligent"**
+- ✅ Listé les 4 avantages clés
+- ✅ Inclus 3 exemples d'utilisation concrets
+- ✅ Lien vers le guide complet
+
+#### Checklist de démarrage
+- ✅ Ajouté lecture du guide de routage (5 min)
+- ✅ Positionné après les tests BYOM pour cohérence
+
+### 2. [CONTEXT7_APPROVED_APIS.md](file:///c:/Users/AbelBoudreau/Workspace_CPA_AI/.github/CONTEXT7_APPROVED_APIS.md)
+
+**Modifications:**
+
+#### Nouvelle section "Pattern 4 : Routage @cpa-master"
+- ✅ Documenté la validation automatique à 3 niveaux
+- ✅ Exemples de classification et révision code
+- ✅ Table des commandes disponibles avec validation
+- ✅ Lien vers le guide complet
+
+---
+
+## 🎯 Fonctionnalités principales
+
+### 1. Routage intelligent automatique
+
+`@cpa-master` analyse votre demande et:
+- Route vers le bon agent spécialisé
+- Active le profil d'outils approprié
+- Valide la conformité avec CONTEXT7
+- Génère un audit trail complet
+
+### 2. Commandes REVIEW standardisées
+
+11 commandes × 3 scopes = 33 combinaisons possibles:
+
+| Commande    | Scope     | Exemple                              |
+| ----------- | --------- | ------------------------------------ |
+| `SYNTAX`    | `ALL`     | Vérifier syntaxe de tous les modules |
+| `VARIABLES` | `CURRENT` | Vérifier variables du fichier ouvert |
+| `ALL`       | `[path]`  | Révision complète d'un dossier       |
+
+### 3. Workflows prêts à l'emploi
+
+Exemples de workflows multi-étapes:
+- Import & Validation (5 étapes)
+- Release (6 étapes)
+- Refactorisation complète
+
+### 4. Validation de conformité
+
+Toute demande est validée contre:
+- ✅ `CONTEXT7_APPROVED_APIS.md` (packages, versions, modèles)
+- ✅ `SECURITY_GUIDELINES.md` (PII, chiffrement)
+- ✅ `ARCHITECTURE_ET_PLAN.md` (patterns VBA)
+
+---
+
+## 📊 Exemples d'utilisation
+
+### Exemple 1: Révision complète d'un projet
+```
+@cpa-master REVIEW ALL c:\VBA\SGQ 1.65\src
+```
+
+**Résultat:**
+- Scanne tous les `.bas` et `.cls`
+- Exécute 11 types de vérifications
+- Génère rapport consolidé
+- Propose corrections automatiques
+
+### Exemple 2: Refactorisation standardisée
+```
+@cpa-master Refactoriser CreateSubfolderFile pour utiliser modSGQFileSystem.EnsureFolder et centraliser les noms dans modConstants
+```
+
+**Résultat:**
+- Analyse la procédure
+- Remplace par pattern standardisé
+- Extrait constantes
+- Met à jour documentation
+- Vérifie compilation
+
+### Exemple 3: Workflow complet
+```
+@cpa-master
+1. Importer les modules depuis c:\VBA\SGQ 1.65\src
+2. Vérifier la compilation
+3. Exécuter les tests unitaires
+4. Mettre à jour ARCHITECTURE_ET_PLAN.md
+5. Sauvegarder la conversation
+```
+
+**Résultat:**
+- Exécution séquentielle des 5 étapes
+- Validation à chaque étape
+- Rapport consolidé final
+- Audit trail complet
+
+---
+
+## 🔍 Points d'accès rapide
+
+### Pour démarrer
+1. Lire [CPA_MASTER_ROUTING_GUIDE.md](file:///c:/Users/AbelBoudreau/Workspace_CPA_AI/.github/CPA_MASTER_ROUTING_GUIDE.md) (5 min)
+2. Garder [CPA_MASTER_QUICK_REF.md](file:///c:/Users/AbelBoudreau/Workspace_CPA_AI/.github/CPA_MASTER_QUICK_REF.md) ouvert pour référence
+
+### Pour utiliser
+- Commencer toute demande par `@cpa-master`
+- Utiliser les commandes standardisées (REVIEW, Refactoriser, etc.)
+- Vérifier les logs dans `logs/cpa-master_*.log`
+
+### Pour approfondir
+- Consulter Pattern 4 dans [CONTEXT7_APPROVED_APIS.md](file:///c:/Users/AbelBoudreau/Workspace_CPA_AI/.github/CONTEXT7_APPROVED_APIS.md)
+- Lire section "Copilot Chat Modes" dans [README.md](file:///c:/Users/AbelBoudreau/Workspace_CPA_AI/README.md)
+
+---
+
+## ✅ Validation
+
+### Tests recommandés
+
+1. **Test de routage basique:**
+   ```
+   @cpa-master REVIEW SYNTAX CURRENT
+   ```
+
+2. **Test de workflow:**
+   ```
+   @cpa-master
+   1. Vérifier la compilation
+   2. Mettre à jour ARCHITECTURE_ET_PLAN.md
+   ```
+
+3. **Test de validation:**
+   ```
+   @cpa-master Classifier documents avec un modèle non-approuvé
+   ```
+   (Devrait rejeter et proposer alternative)
+
+---
+
+## 📞 Support
+
+### Logs
+- Logs détaillés: `logs/cpa-master_YYYYMMDD_HHMMSS.log`
+- Audit centralisé: `logs/audit_trail.log`
+- Rapports: `logs/review_reports/`
+
+### Documentation
+- Guide complet: `.github/CPA_MASTER_ROUTING_GUIDE.md`
+- Référence rapide: `.github/CPA_MASTER_QUICK_REF.md`
+- Patterns approuvés: `.github/CONTEXT7_APPROVED_APIS.md`
+
+---
+
+## 🎉 Prochaines étapes
+
+1. ✅ Tester les exemples fournis
+2. ✅ Intégrer dans votre workflow quotidien
+3. ✅ Proposer de nouveaux patterns si besoin
+4. ✅ Mettre à jour la documentation au fil de l'usage
+
+---
+
+**Workspace mis à jour avec succès!**  
+**Tous les fichiers sont prêts à l'utilisation.**

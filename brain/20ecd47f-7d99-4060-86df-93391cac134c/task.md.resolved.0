@@ -1,0 +1,24 @@
+# AI Governance Review Task List
+
+- [ ] Read governance files
+    - [ ] AGENTIC_GOVERNANCE_PLAN_2026.md
+    - [ ] CONTEXT7_APPROVED_APIS.md
+    - [ ] SECURITY_GUIDELINES.md
+    - [ ] VALIDATION_GATES.md
+    - [ ] ANTIGRAVITY_VS_CODE_ADOPTION.md
+- [ ] Read technical configuration files
+    - [ ] .vscode/settings.json
+    - [ ] AGENTS.md
+    - [ ] AI_TOOLKIT_INTEGRATION.md
+- [ ] Verify system state
+    - [ ] Check if Ollama is running/available (cannot check process but can check config/logs)
+    - [ ] Check if python dependencies are relevant (requirements.txt content)
+- [ ] Analyze findings against criteria
+    - [ ] Coherence (Phases logic)
+    - [ ] Feasibility (APIs)
+    - [ ] Security (MCP paths, 1_Clients protection)
+    - [ ] Completeness
+    - [ ] Pragmatism
+    - [ ] Coverage PROSE
+    - [ ] Codebase Integration
+- [ ] Draft Review Response

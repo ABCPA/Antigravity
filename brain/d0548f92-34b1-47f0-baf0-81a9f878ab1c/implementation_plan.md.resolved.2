@@ -1,0 +1,47 @@
+# Simplification de la Génération de Fichiers (Phase 24)
+
+## Goal Description
+Analyze and refactor the file generation process to eliminate the creation of two separate files ("0-SGQ..." and "6-Suivi..."), which is a source of bugs and confusion. The goal is to produce a single, robust tracking file or a cleaner sequential generation process.
+
+## User Review Required
+> [!IMPORTANT]
+> This plan is currently in the **ANALYSIS** phase. The proposed solution will be detailed after reviewing the code.
+
+## Proposed Changes
+
+### Analysis (Updated)
+The user confirmed that the **Separate Tracking File ("6-Suivi") IS REQUIRED** for business workflow reasons (simplifies annual testing).
+Therefore, the issue is not the *existence* of two files, but the **reliability of their generation**.
+
+**identified Risks in Current Implementation:**
+1.  **Shared State**: Both `CreateClientCopy` and `CreateQmgTrackingFile_Wrapper` run within the same `appScope`. If the first fails or leaves the app in an unstable state, the second fails.
+2.  **Context Switching**: `CreateClientCopy` uses `SaveCopyAs` (safe), but `CreateQmgTrackingFile` physically creates a new workbook and copies sheets. If `ThisWorkbook` is not correctly focused or if `modSGQTrackingBuilder` relies on `ActiveWorkbook`, it may try to copy from the wrong source.
+3.  **Concurrency/Locks**: Rapidly creating and saving files might hit file system locks if not properly serialized.
+
+### Proposed Solution
+**Robust Sequential Generation (Dual File Strategy)**
+
+We will optimize `BuildClientDeliverables` to ensure a transaction-like safety for generating both files interactively.
+
+#### Changes Required:
+1.  **Refactor `BuildClientDeliverables`** in [modSGQCreation.bas](file:///c:/VBA/SGQ%201.65/vba-files/Module/modSGQCreation.bas/c:/VBA/SGQ%201.65/vba-files/Module/modSGQCreation.bas):
+    -   Explicitly separate the two generation steps.
+    -   Add a `DoEvents` or slight pause between operations to ensure file system release.
+    -   Ensure `ThisWorkbook` is explicitly passed as the `Source` for the Tracking file generation, never relying on `ActiveWorkbook`.
+2.  **Harden `modSGQTrackingBuilder`**:
+    -   Review `CreateQmgTrackingFile_Wrapper` to ensure it accepts a `SourceWorkbook` argument.
+    -   Verify that it cleanly closes the new workbook even if errors occur.
+
+#### Alternative
+N/A - User requirement is clear.
+
+## Verification Plan
+
+### Automated Tests
+- [ ] Run `BuildClientDeliverables`.
+- [ ] Verify **BOTH** "0-SGQ..." and "6-Suivi..." files are created.
+- [ ] Verify no "Permission Denied" or "Object Required" errors during the process.
+
+### Manual Verification
+- [ ] User runs the generation.
+- [ ] User opens "6-Suivi" and confirms it contains the expected sheets and is not corrupted.

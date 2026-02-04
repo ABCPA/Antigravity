@@ -1,0 +1,5 @@
+{
+  "artifactType": "ARTIFACT_TYPE_TASK",
+  "summary": "Task list for refactoring `CreateSubfolderFile` and `CopyRequiredModulesToTrackingFile` in `modSGQTrackingBuilder.bas`.",
+  "updatedAt": "2026-01-27T04:21:48.160511400Z"
+}

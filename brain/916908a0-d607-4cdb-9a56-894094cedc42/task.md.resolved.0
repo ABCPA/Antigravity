@@ -1,0 +1,8 @@
+# Task Tracking
+
+- [/] Refactoring and Encoding Fixes
+    - [/] Cleanup [modSGQCreation.bas](file:///c:/VBA/SGQ%201.65/vba-files/Module/modSGQCreation.bas) (duplicate headers) <!-- id: 0 -->
+    - [ ] Fix encoding in `modSGQInterface.bas` <!-- id: 1 -->
+    - [ ] Fix encoding in `modSGQViews.bas` <!-- id: 2 -->
+    - [ ] Fix encoding in `modWorkbookHandlers.bas` (if any) <!-- id: 3 -->
+    - [ ] Update [ARCHITECTURE_ET_PLAN.md](file:///c:/VBA/SGQ%201.65/docs/ARCHITECTURE_ET_PLAN.md) <!-- id: 4 -->

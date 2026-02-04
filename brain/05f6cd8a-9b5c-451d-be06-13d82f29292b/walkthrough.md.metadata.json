@@ -1,0 +1,5 @@
+{
+  "artifactType": "ARTIFACT_TYPE_WALKTHROUGH",
+  "summary": "Restoration of `CreateSubfolderFile` complete. Verified via `sgq-perf.ps1`. Updated architecture plan.",
+  "updatedAt": "2026-02-02T19:29:18.352971600Z"
+}

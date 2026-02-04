@@ -1,0 +1,36 @@
+# Phase 1: Initial Integrity & Security Audit
+
+This phase focuses on establishing a stable and secure foundation for the exhaustive review of SGQ 1.65.
+
+## User Review Required
+
+> [!CAUTION]
+> **Security Leak Detected**: `modConstants.bas` reportedly contains a hardcoded `GRAPH_CLIENT_SECRET`. This secret must be removed and replaced with a secure reference (e.g., Environment Variable or Secure Vault).
+
+## Proposed Changes
+
+### [SGQ Core]
+Summary: Synchronize the project manifest with the filesystem and secure the constants module.
+
+#### [MODIFY] [manifest.json](file:///c:/VBA/SGQ%201.65/vba-files/manifest.json)
+- Update the manifest to reflect the exact state of `vba-files/`.
+- Ensure all modules are correctly categorized.
+
+#### [MODIFY] [modConstants.bas](file:///c:/VBA/SGQ%201.65/vba-files/modConstants.bas)
+- **Remove** `GRAPH_CLIENT_SECRET` and replace with a placeholder or dynamic retrieval function.
+- **Audit** for other hardcoded secrets (Passwords, Tenant IDs).
+
+### [Documentation]
+Summary: Update tracking documents.
+
+#### [MODIFY] [VBA_AUDIT_LOG.md](file:///c:/VBA/SGQ%201.65/docs/VBA_AUDIT_LOG.md)
+- Log the results of the manifest sync and the security audit.
+
+## Verification Plan
+
+### Automated Tests
+- Run `scripts\test-vbide-and-compile.ps1` after changes.
+- Verify [manifest.json](file:///c:/VBA/SGQ%201.65/vba-files/manifest.json) vs `vba-files/` using a custom check script.
+
+### Manual Verification
+- Confirm that no sensitive information remains in `modConstants.bas` via visual inspection.

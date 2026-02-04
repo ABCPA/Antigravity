@@ -1,0 +1,12 @@
+# Audit and Cleanup Tasks
+
+- [ ] **Analyze Subfolder Creation Logic** <!-- id: 0 -->
+    - [ ] Review [modSGQCreation.bas](file:///c:/VBA/SGQ%201.65/vba-files/Module/modSGQCreation.bas) for `CreateClientCopy` and folder creation logic. <!-- id: 1 -->
+    - [ ] Check [modConstants.bas](file:///d:/VBA/backup/modConstants.bas) for folder structure definitions. <!-- id: 2 -->
+    - [ ] Determine if `btnCreateSubfolderFile_wrapper` should be linked to `CreateClientCopy` or removed. <!-- id: 3 -->
+- [ ] **Investigate Missing modules** <!-- id: 4 -->
+    - [ ] Search for usage of `modSGQUpdateManager` or `UpdateModules` in the codebase. <!-- id: 5 -->
+    - [ ] Check if `modSGQTrackingBuilder` functionality exists elsewhere. <!-- id: 6 -->
+- [ ] **Code Cleanup** <!-- id: 7 -->
+    - [ ] Remove or reconnect dead buttons in `modRibbonSGQ`. <!-- id: 8 -->
+    - [ ] Standardize `appScope` usage. <!-- id: 9 -->

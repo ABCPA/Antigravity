@@ -1,0 +1,7 @@
+# Refactoring CreateSubfolderFile
+
+- [ ] Analyze existing `CreateSubfolderFile` logic (or lack thereof) <!-- id: 0 -->
+- [ ] Create `implementation_plan.md` for refactoring <!-- id: 1 -->
+- [ ] Refactor/Restore `CreateSubfolderFile` logic <!-- id: 2 -->
+- [ ] Verify changes / Compile <!-- id: 3 -->
+- [ ] Update [ARCHITECTURE_ET_PLAN.md](file:///C:/VBA/SGQ%201.65/docs/ARCHITECTURE_ET_PLAN.md) <!-- id: 4 -->

@@ -1,0 +1,29 @@
+# Implementation Plan - Phase 36 Consolidation
+
+## Goal Description
+Fix the "Audit-grade reliability" issues identified by the Antigravity Orchestrator:
+1.  **Compilation Error**: `modSGQAdministration` cannot call `TrySetSheetVisibility` because it is `Private` in `modSGQProtection`.
+2.  **Encoding Corruption**: "Mojibake" (encoding artifacts) detected in multiple modules (`modSGQUtilitaires`, `modSGQCreation`).
+
+## User Review Required
+> [!IMPORTANT]
+> The encoding fix updates `modSGQUtilitaires.bas` and other files to strictly use **Windows-1252**. This is a critical governance rule.
+
+## Proposed Changes
+
+### Core & Utilities Layer
+#### [MODIFY] [modSGQProtection.bas](file:///c:/VBA/SGQ%201.65/vba-files/Module/modSGQProtection.bas)
+- Change `Private Function TrySetSheetVisibility` to `Public Function TrySetSheetVisibility`.
+
+### Global Governance
+#### [RUN] Encoding Fix
+- Execute `vba-files/scripts/fix-mojibake.ps1` to repair identified corrupted files:
+    - `modSGQUtilitaires.bas`
+    - `modSGQCreation.bas`
+    - And others detected by the script.
+
+## Verification Plan
+
+### Automated Tests
+- **Compilation Check**: Run `scripts/test-vbide-and-compile.ps1`.
+    - Expectation: `Exit code: 0` and `Compile clean: True`.

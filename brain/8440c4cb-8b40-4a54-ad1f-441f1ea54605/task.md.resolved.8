@@ -1,0 +1,30 @@
+# Tâches - Optimisation Espace de Travail
+
+- [x] Analyser la configuration actuelle (.vscode)
+- [x] Créer `CPA_Unified.code-workspace` pour unifier Python, VBA et Artefacts
+- [x] Créer [.vscode/REVIEW_PROMPTS.md](file:///c:/Users/AbelBoudreau/Workspace_CPA_AI/.vscode/REVIEW_PROMPTS.md) pour les prompts standardisés
+- [x] Vérifier et valider les chemins (`C:\VBA`)
+- [x] Mettre à jour `docs/ARCHITECTURE_ET_PLAN.md` (Phase 16)
+- [x] Configurer 'Always Proceed' (Action Utilisateur)
+
+# Tâches - Phase 14 : Industrialisation (Encodage)
+
+- [x] Créer `.editorconfig` (Workspace & VBA Root)
+- [x] Configurer `settings.json` (Force Windows-1252)
+- [x] Créer le script `scripts/git-hooks/pre-commit-vba.ps1`
+- [x] Installer le hook dans `.git/hooks` (Instruction Utilisateur)
+- [x] Créer `docs/guides/REFACTORING_CHECKLIST.md`
+- [x] Créer `docs/guides/GUIDE_COLLABORATION_IA.md`
+- [x] Mettre à jour `README.md` et `CHANGELOG.md`
+
+# Tâches - Backlog 1 : Détecteur Dépendances Circulaires
+
+- [x] Implémenter `ScanCircularDependencies` dans `modDiagnostics`
+- [x] Hook dans `ThisWorkbook.Open`
+- [x] Tester avec des modules factices
+
+# Tâches - Backlog 2 : Ouverture & Mise à Jour Sécurisée
+
+- [x] Implémenter `ReadFileContent` / `WriteFileContent` (CP1252 + Backup) dans `modSGQFileSystem`
+- [x] Mettre à jour `modSGQUpdateManager` (Wrapper ajouté / Outils dispos)
+- [x] Tester le mécanisme de backup (Module de test créé)

@@ -1,0 +1,31 @@
+# Refactor CreateSubfolderFile and CopyModules with Manifest
+
+Refactor the `modSGQTrackingBuilder.bas` module to improve maintainability and robustness by simplifying folder creation and using the central `manifest.json` for module copying.
+
+## Proposed Changes
+
+### [modSGQUpdateManager.bas](file:///c:/VBA/SGQ%201.65/vba-files/Module/modSGQUpdateManager.bas)
+
+- [MODIFY] Change `ParseManifestJSON` and `ReadAllText` (or provide a public wrapper) to be accessible from other modules. This allows `modSGQTrackingBuilder` to read the manifest.
+
+### [modSGQTrackingBuilder.bas](file:///c:/VBA/SGQ%201.65/vba-files/Module/modSGQTrackingBuilder.bas)
+
+- [MODIFY] `CreateSubfolderFile`:
+    - Simplify the folder creation logic.
+    - Ensure robust error handling with `LogError`.
+    - Use `appScope` for state management.
+- [MODIFY] `CopyRequiredModulesToTrackingFile`:
+    - Replace the hardcoded list of modules with logic that reads from `vba-files/manifest.json`.
+    - Use `ParseManifestJSON` to get the list of files to copy.
+    - Standardize the copying process (Export/Import).
+    - Ensure `appScope` is correctly initialized.
+
+## Verification Plan
+
+### Automated Tests
+- Run `scripts/test-vbide-and-compile.ps1` to ensure the project still compiles after changes.
+- If possible, run existing unit tests with `modUnitTestEngine`.
+
+### Manual Verification
+- Test the "Créer Dossiers" button from the ribbon to verify `CreateSubfolderFile`.
+- Test the tracking file creation (which calls `CopyRequiredModulesToTrackingFile`) to ensure all necessary modules are copied to the new workbook.

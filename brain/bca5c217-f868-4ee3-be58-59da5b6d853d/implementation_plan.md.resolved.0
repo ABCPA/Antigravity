@@ -1,0 +1,166 @@
+# Plan de Test : Mécanisme de Mise à Jour Sécurisé
+
+## Objectif
+
+Valider que la fonction `TryUpdateFromFolder` dans [modSGQUpdateManager.bas](file:///c:/VBA/SGQ%201.65/vba-files/Module/modSGQUpdateManager.bas) fonctionne correctement et gère de manière sécurisée la mise à jour des modules VBA, incluant la création de backups, le parsing du manifeste, et la gestion des erreurs.
+
+## Contexte
+
+La **Phase 23** du plan d'architecture a été marquée comme TERMINÉ, mais aucun test formel n'a été exécuté pour valider l'implémentation. Cette validation est critique car la fonction gère :
+
+1. **Backup global** de tous les modules avant modification
+2. **Parsing du manifeste JSON** pour déterminer les modules à importer
+3. **Import sécurisé** via `TryReplaceModule`
+4. **Gestion d'erreurs** avec rapport détaillé
+
+## Approche de Test
+
+### Option A : Tests Unitaires Automatisés (Recommandé)
+
+Créer un nouveau module de test `modTest_UpdateManager.bas` qui s'intègre au moteur de tests existant ([modUnitTestEngine.bas](file:///c:/VBA/SGQ%201.65/vba-files/Module/modUnitTestEngine.bas)).
+
+**Avantages :**
+- Tests reproductibles et automatisés
+- Intégration avec la suite de tests existante
+- Documentation vivante du comportement attendu
+
+**Limitations :**
+- Nécessite un environnement de test isolé
+- Difficile de tester certains scénarios (ex: VBIDE access denied)
+
+### Option B : Tests Manuels avec Script PowerShell
+
+Utiliser un script PowerShell pour créer des scénarios de test et valider manuellement les résultats.
+
+**Avantages :**
+- Plus facile de simuler des conditions d'erreur
+- Peut tester l'interaction complète avec Excel
+
+**Limitations :**
+- Non reproductible automatiquement
+- Nécessite intervention manuelle
+
+## Proposition : Approche Hybride
+
+Je propose une approche hybride combinant les deux méthodes :
+
+### Phase 1 : Tests Manuels Guidés (Validation Initiale)
+
+Créer un script PowerShell de test qui :
+
+1. **Prépare l'environnement de test**
+   - Crée un dossier de test temporaire avec des modules de test
+   - Génère un [manifest.json](file:///c:/VBA/SGQ%201.65/vba-files/manifest.json) de test
+   - Sauvegarde l'état actuel du projet
+
+2. **Exécute les scénarios de test**
+   - Test avec manifeste valide
+   - Test sans manifeste (fallback)
+   - Test avec dossier manquant
+   - Test avec fichiers manquants dans le manifeste
+
+3. **Valide les résultats**
+   - Vérifie la création du backup
+   - Vérifie les logs d'erreur
+   - Compile le projet pour détecter les erreurs
+
+### Phase 2 : Tests Unitaires (Validation Continue)
+
+Créer `modTest_UpdateManager.bas` avec des tests pour :
+
+1. `ParseManifestJSON` - Validation du parsing JSON
+2. `SnapshotModules` - Validation de la création de backup
+3. Helpers de validation (vérification de l'existence de fichiers, etc.)
+
+## Changements Proposés
+
+### 1. Script PowerShell de Test
+
+**Fichier :** `scripts/test-update-manager.ps1`
+
+Ce script va :
+- Créer un environnement de test isolé
+- Générer des modules de test factices
+- Exécuter `TryUpdateFromFolder` avec différents scénarios
+- Valider les résultats et générer un rapport
+
+### 2. Module de Test Unitaire
+
+**Fichier :** `vba-files/Module/modTest_UpdateManager.bas`
+
+Ce module va contenir :
+- `Test_ParseManifestJSON_ValidManifest` - Parse un manifeste valide
+- `Test_ParseManifestJSON_EmptyManifest` - Gère un manifeste vide
+- `Test_ParseManifestJSON_InvalidJSON` - Gère un JSON invalide
+- `Test_SnapshotModules_CreatesBackup` - Vérifie la création du backup
+
+### 3. Mise à Jour du Moteur de Tests
+
+**Fichier :** [vba-files/Module/modUnitTestEngine.bas](file:///c:/VBA/SGQ%201.65/vba-files/Module/modUnitTestEngine.bas)
+
+Ajouter l'appel au nouveau module de test :
+```vba
+RunModuleTests "modTest_UpdateManager", "Test_UpdateManager"
+```
+
+## Plan de Vérification
+
+### Tests Automatisés
+
+**Commande :** Via la tâche VS Code "Run VBA Unit Tests" ou directement dans Excel :
+```vba
+modUnitTestEngine.RunAllTests
+```
+
+**Critères de succès :**
+- Tous les tests passent (0 échecs)
+- Aucune erreur de compilation
+
+### Tests Manuels
+
+**Commande :** Exécuter le script PowerShell de test :
+```powershell
+.\scripts\test-update-manager.ps1 -Verbose
+```
+
+**Critères de succès :**
+- Backup créé dans le dossier attendu
+- Modules importés correctement
+- Rapport d'erreur clair en cas d'échec
+- Aucune corruption du projet VBA
+
+### Validation de Compilation
+
+**Commande :** Utiliser le script de compilation existant :
+```powershell
+.\scripts\test-vbide-and-compile.ps1
+```
+
+**Critères de succès :**
+- Compilation réussie sans erreurs
+- Aucun avertissement critique
+
+## Risques et Limitations
+
+> [!WARNING]
+> **Risque de Corruption du Projet**
+> 
+> Les tests de mise à jour peuvent potentiellement corrompre le projet VBA si mal exécutés. Pour mitiger ce risque :
+> - Toujours créer un backup complet avant les tests
+> - Tester d'abord sur une copie du classeur
+> - Valider la compilation après chaque test
+
+> [!IMPORTANT]
+> **Accès VBIDE Requis**
+> 
+> Les tests nécessitent que l'option "Accès approuvé au modèle d'objet du projet VBA" soit activée dans les options Excel.
+
+## Questions pour l'Utilisateur
+
+1. **Préférence de méthode :** Souhaitez-vous commencer par les tests manuels guidés (plus sûr) ou directement par les tests unitaires automatisés ?
+
+2. **Environnement de test :** Avez-vous une copie de test du classeur SGQ que nous pouvons utiliser pour les tests destructifs ?
+
+3. **Scénarios prioritaires :** Y a-t-il des scénarios d'erreur spécifiques que vous avez rencontrés et que vous souhaitez tester en priorité ?
+
+4. **Validation manuelle :** Êtes-vous disponible pour valider manuellement certains résultats (ex: vérifier que les backups sont corrects) ?

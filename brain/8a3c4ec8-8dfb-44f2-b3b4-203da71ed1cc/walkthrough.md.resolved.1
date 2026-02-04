@@ -1,0 +1,37 @@
+# System Recovery & Encoding Fix Walkthrough
+
+## 1. Challenge: Widespread Corruption
+During the investigation of encoding issues ("mojibake"), verify critical modules were found to be corrupted (mashed content, likely due to a previous batch operation or write failure). 
+Affected files included:
+- [modSGQInterface.bas](file:///c:/VBA/SGQ%201.65/vba-files/Module/modSGQInterface.bas)
+- [modGraphClient.bas](file:///c:/VBA/SGQ%201.65/vba-files/Module/modGraphClient.bas)
+- [modConstants.bas](file:///c:/VBA/SGQ%201.65/vba-files/Module/modConstants.bas)
+- [modExcelUtils.bas](file:///c:/VBA/SGQ%201.65/vba-files/Module/modExcelUtils.bas)
+- [modWorkbookHandlers.bas](file:///c:/VBA/SGQ%201.65/vba-files/Module/modWorkbookHandlers.bas)
+
+## 2. Recovery Actions
+We performed a deep recovery using a combination of backups, git history, and manual reconstruction.
+
+### Restored from Backups
+Identified and restored clean versions from verified backups (dates ranging from Oct 2025 to Feb 2026):
+- [modSGQInterface.bas](file:///c:/VBA/SGQ%201.65/vba-files/Module/modSGQInterface.bas) (Cleaned of mojibake)
+- [modConstants.bas](file:///c:/VBA/SGQ%201.65/vba-files/Module/modConstants.bas) (Restored from stable backup)
+- [modExcelUtils.bas](file:///c:/VBA/SGQ%201.65/vba-files/Module/modExcelUtils.bas) (Restored from stable backup)
+- [modWorkbookHandlers.bas](file:///c:/VBA/SGQ%201.65/vba-files/Module/modWorkbookHandlers.bas) (Restored from stable backup)
+- [modSGQAdministration.bas](file:///c:/VBA/SGQ%201.65/vba-files/Module/modSGQAdministration.bas) (Restored from stable backup and patched for compilation)
+
+### Manual Reconstruction
+- [modGraphClient.bas](file:///c:/VBA/SGQ%201.65/vba-files/Module/modGraphClient.bas): Corruption was present even in the git creation commit. The file was manually reconstructed using standard Microsoft Graph logic adapted to the project structure.
+- [modSGQAdministration.bas](file:///c:/VBA/SGQ%201.65/vba-files/Module/modSGQAdministration.bas): Patched `TrySetSheetVisibility` to `Public` to resolve dependency issues with restored modules.
+
+## 3. Encoding Repair
+- Confirmed [modSGQInterface.bas](file:///c:/VBA/SGQ%201.65/vba-files/Module/modSGQInterface.bas) is now displaying "Système" correctly.
+- Created robust repair script [scripts/fix-mojibake.ps1](file:///c:/VBA/SGQ%201.65/scripts/fix-mojibake.ps1) for future targeted use.
+
+## 4. Verification
+- **Compilation**: The project now compiles successfully (`Start-VbaAction.ps1 -Action Compile` returns Exit Code 0).
+- **Integrity Scan**: Verified no other modules contain "mashed" headers (duplicate attributes).
+
+## 5. Next Steps
+- Commit the recovered state immediately.
+- Run full functional tests (UI tests).

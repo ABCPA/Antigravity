@@ -1,0 +1,40 @@
+# Implementation Plan - Simplify CreateSubfolderFile
+
+## Goal Description
+Simplify the `CreateSubfolderFile` procedure in `modSGQTrackingBuilder.bas`. Currently, this procedure contains a hardcoded list of folders and mixes folder creation logic with error reporting. The goal is to separate these concerns by moving the folder list to `modConstants.bas` and the creation logic to `modSGQFileSystem.bas`.
+
+## User Review Required
+> [!NOTE]
+> This change refactors existing functionality without changing the end-user behavior. The folder structure created will remain identical.
+
+## Proposed Changes
+
+### vba-files\Module
+
+#### [MODIFY] [modConstants.bas](file:///c:/VBA/SGQ%201.65/vba-files/Module/modConstants.bas)
+- Add a new function `GetDefaultFolderStructure() As Variant` that returns the array of folder names. This centralizes the configuration.
+
+#### [MODIFY] [modSGQFileSystem.bas](file:///c:/VBA/SGQ%201.65/vba-files/Module/modSGQFileSystem.bas)
+- Add a new public sub `EnsureFolderStructure(folderList As Variant, basePath As String)`. 
+- This sub will iterate through the provided list and use `TryEnsureFolder` to create each folder, collecting errors.
+- It will return a meaningful error message or true/success status (via error handling or return value).
+
+#### [MODIFY] [modSGQTrackingBuilder.bas](file:///c:/VBA/SGQ%201.65/vba-files/Module/modSGQTrackingBuilder.bas)
+- Refactor `CreateSubfolderFile` to:
+    1.  Call `modConstants.GetDefaultFolderStructure` to get the list.
+    2.  Call `modSGQFileSystem.EnsureFolderStructure` to perform the creation.
+    3.  Handle the result and display success/error messages.
+
+## Verification Plan
+
+### Automated Tests
+- None available for file system side effects directly in VBA unit tests without mocking.
+
+### Manual Verification
+1.  **Backup**: Ensure a backup of the current state.
+2.  **Execution**: Run the "Créer les sous-dossiers" (Create Subfolders) action from the Excel Ribbon or Macro menu.
+3.  **Validation**:
+    - Verify that all folders in the list are created in the workbook's directory.
+    - Verify that a success message is displayed if all folders are created.
+    - Test edge case: Delete one folder and run again to ensure it recreated.
+    - Test edge case: Make a path invalid (if possible) to test error reporting.

@@ -1,0 +1,8 @@
+# Task: Validation de l'Intégrité du Workspace (Phase 32)
+
+- [x] Vérifier l'intégrité du manifest.json <!-- id: 0 -->
+- [x] Valider la compilation du projet VBA <!-- id: 1 -->
+- [x] Vérifier la configuration VS Code <!-- id: 2 -->
+- [x] Auditer les dépendances et références <!-- id: 3 -->
+- [x] Vérifier la cohérence des backups <!-- id: 4 -->
+- [x] Mettre à jour ARCHITECTURE_ET_PLAN.md <!-- id: 5 -->

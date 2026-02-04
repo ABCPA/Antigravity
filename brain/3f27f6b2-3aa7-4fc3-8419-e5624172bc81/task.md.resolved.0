@@ -1,0 +1,9 @@
+# Tasks
+
+- [ ] Investigate the bug in the Analytical Review module [/]
+    - [x] List files and read [ARCHITECTURE_ET_PLAN.md](file:///c:/VBA/SGQ%201.65/docs/ARCHITECTURE_ET_PLAN.md)
+    - [x] Examine [modAnalyticCalc.bas](file:///c:/VBA/SGQ%201.65/xvba_modules/modAnalyticCalc.bas)
+    - [/] Examine [modAnalyticETL.bas](file:///c:/VBA/SGQ%201.65/xvba_modules/modAnalyticETL.bas) and check for compilation/logic errors
+- [ ] Fix the bug
+- [ ] Verify the fix
+- [ ] Update [ARCHITECTURE_ET_PLAN.md](file:///c:/VBA/SGQ%201.65/docs/ARCHITECTURE_ET_PLAN.md)

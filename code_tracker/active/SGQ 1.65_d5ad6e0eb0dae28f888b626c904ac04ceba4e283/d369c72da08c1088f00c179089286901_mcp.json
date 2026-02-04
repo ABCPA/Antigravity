@@ -1,0 +1,37 @@
+«{
+  "mcpServers": {
+    "filesystem": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "c:\\VBA\\SGQ 1.65",
+        "d:\\VBA"
+      ]
+    },
+    "git": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-git"
+      ]
+    },
+    "fetch": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-fetch"
+      ]
+    },
+    "m365agentstoolkit": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@microsoft/m365agentstoolkit-mcp@latest",
+        "server",
+        "start"
+      ]
+    }
+  }
+}
+«*cascade08"(d5ad6e0eb0dae28f888b626c904ac04ceba4e2832"file:///c:/VBA/SGQ%201.65/mcp.json:file:///c:/VBA/SGQ%201.65

@@ -1,0 +1,34 @@
+# Validation - Stratégie Fichier Unique
+
+## Correctifs appliqués (Stabilisation)
+1.  **Duplicate Objects** : Suppression de ~40 objets fantômes (`SheetXXX1`) via script de nettoyage.
+2.  **Ribbon Freeze** : Ajout de `ExecuteActionSafely` pour éviter les plantages bouton.
+3.  **Compile Errors** :
+    - Ajout de `ScanCircularDependencies` (modDiagnostics).
+    - Ajout de `WriteFileContent` (modSGQFileSystem).
+    - Ajout de `SetNamedValue` (modExcelUtils).
+4.  **Header Corruption** : Nettoyage des `BEGIN` parasites dans les feuilles.
+
+## Changements réalisés
+1.  **Création de `modSGQViews.bas`** : Module gérant l'affichage conditionnel des feuilles (Mode Suivi vs Mode Système).
+2.  **Mise à jour de `modRibbonSGQ.bas`** : Ajout du callback `CallbackToggleView` pour lier le bouton du ruban à la nouvelle fonctionnalité.
+3.  **Refactorisation de `modSGQCreation.bas`** : Simplification de `BuildClientDeliverables` pour ne générer que le fichier maître.
+4.  **Nettoyage** : Suppression de `modSGQTrackingBuilder.bas` et mise à jour du `manifest.json`.
+
+## Plan de Test
+
+### 1. Compilation et Syntaxe
+- [ ] Vérifier que le projet compile sans erreurs (notamment les appels modifiés).
+- [ ] Script : `scripts/verify-vba-compilation.ps1` (ou équivalent).
+
+### 2. Validation Fonctionnelle (Manuel Utilisateur)
+- [ ] **Génération** : Lancer "Générer Livrables Client".
+    - [ ] Résultat attendu : Un seul fichier "0-SGQ..." est créé. Pas de fichier "6-Suivi...".
+    - [ ] Message de succès indique la nouvelle logique.
+- [ ] **Vue Suivi** : Ouvrir le fichier généré, cliquer sur "Mode Suivi".
+    - [ ] Résultat attendu : Seules les feuilles de suivi sont visibles.
+- [ ] **Vue Système** : Cliquer sur "Mode Système".
+    - [ ] Résultat attendu : Toutes les feuilles réapparaissent.
+
+## Preuves de Validation
+*(A compléter après exécution)*

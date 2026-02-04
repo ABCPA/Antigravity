@@ -1,0 +1,25 @@
+# Workspace Update and Phase Planning
+
+Update the [CPA_Unified.code-workspace](file:///c:/Users/AbelBoudreau/Workspace_CPA_AI/CPA_Unified.code-workspace) file to point to the current conversation ID and plan the next steps of the project.
+
+## Proposed Changes
+
+### [Workspace Configuration]
+
+#### [MODIFY] [CPA_Unified.code-workspace](file:///c:/Users/AbelBoudreau/Workspace_CPA_AI/CPA_Unified.code-workspace)
+- Updated the path for "🧠 Antigravity Brain" to `C:/Users/AbelBoudreau/.gemini/antigravity/brain/38c0952b-538f-42ad-9b56-a1c6cc87aa8f`.
+
+### [Documentation & Planning]
+
+#### [MODIFY] [ARCHITECTURE_ET_PLAN.md](file:///c:/VBA/SGQ%201.65/docs/ARCHITECTURE_ET_PLAN.md)
+- Verify if any part of Phase 15 remains.
+- Propose **Phase 19 : Final Cleanup & Performance Audit**.
+
+## Verification Plan
+
+### Automated Tests
+- None required for workspace update (manual check in VS Code).
+
+### Manual Verification
+- Verify that the "Antigravity Brain" folder in VS Code now points to the current conversation directory.
+- Confirm with the user if they wish to proceed with Phase 19 or if they have other specific priorities for the scripts.
