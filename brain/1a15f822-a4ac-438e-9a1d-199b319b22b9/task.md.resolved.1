@@ -1,0 +1,15 @@
+# Task: Resolve M365 MCP Container Authentication and Execution Issues
+
+- [x] Diagnostic of `docker exec` freezing
+    - [x] Inspect existing configuration files ([Dockerfile](file:///c:/VBA/SGQ%201.65/docker-mcp/m365/Dockerfile), [docker-compose.yml](file:///c:/VBA/SGQ%201.65/docker-mcp/docker-compose.yml), [mcp.json](file:///c:/VBA/SGQ%201.65/mcp.json))
+    - [x] Test container connectivity and basic command execution
+- [/] Implement robust Device Login process
+    - [/] Modify [auth-m365.ps1](file:///c:/VBA/SGQ%201.65/scripts/auth-m365.ps1) for interactive login
+    - [ ] Ensure token persistence in `/root/.m365rc`
+- [/] Optimize Docker configuration
+    - [/] Update [Dockerfile](file:///c:/VBA/SGQ%201.65/docker-mcp/m365/Dockerfile) for better stability
+    - [/] Refine [docker-compose.yml](file:///c:/VBA/SGQ%201.65/docker-mcp/docker-compose.yml) if necessary
+- [ ] Verification and "Audit-grade" finalization [ ]
+    - [ ] Test end-to-end authentication and server start
+    - [ ] Add robust error handling and logging
+    - [ ] Update documentation ([docs/ARCHITECTURE_ET_PLAN.md](file:///c:/VBA/SGQ%201.65/docs/ARCHITECTURE_ET_PLAN.md))

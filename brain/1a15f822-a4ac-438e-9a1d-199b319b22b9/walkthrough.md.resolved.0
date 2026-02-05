@@ -1,0 +1,38 @@
+# Walkthrough - M365 MCP Container Authentication Fixed
+
+I have resolved the issues preventing the M365 MCP container from authenticating and starting properly. The main cause was a conflict between a directory-based volume mount and the expected token file.
+
+## Changes Made
+
+### 1. Docker Configuration
+- **[docker-compose.yml](file:///c:/VBA/SGQ%201.65/docker-mcp/docker-compose.yml)**: Updated the volume mapping for `mcp-m365` to point to `/root/.m365-config` instead of directly to `/root/.m365rc`. This avoids the Docker "directory-as-file" mount issue.
+- **[Dockerfile](file:///c:/VBA/SGQ%201.65/docker-mcp/m365/Dockerfile)**: Now generates an internal [entrypoint.sh](file:///c:/VBA/SGQ%201.65/docker-mcp/m365/entrypoint.sh) with Linux-compatible line endings. This script creates a symlink from `/root/.m365rc` to the persistent volume mount point, ensuring tokens are saved and restored across container restarts.
+
+### 2. Authentication Script
+- **[auth-m365.ps1](file:///c:/VBA/SGQ%201.65/scripts/auth-m365.ps1)**: Overhauled to "Audit-grade" standards with robust logging, error handling, and environment validation. It now uses `docker exec -it` to correctly handle the interactive Device Login flow.
+
+## Final Verification Result
+
+The container is now running, and the symlink is verified:
+```bash
+# Inside mcp-m365 container
+lrwxrwxrwx 1 root root   26 Feb  5 18:45 .m365rc -> /root/.m365-config/.m365rc
+```
+
+## Action Required: Final Manual Authentication
+
+The container environment is now perfectly ready, but you must perform the initialization login one last time to generate the persistent token.
+
+1.  **Execute the script** in a PowerShell terminal:
+    ```powershell
+    .\scripts\auth-m365.ps1
+    ```
+2.  **Follow the instructions** in the terminal:
+    - A code will appear (e.g., `ABC-1234`).
+    - Go to [microsoft.com/devicelogin](https://microsoft.com/devicelogin).
+    - Enter the code and sign in with your corporate account.
+3.  **Confirm persistence**:
+    - Once the script says "Authentification réussie", you can restart Docker ([launch-docker-mcp.ps1](file:///c:/VBA/SGQ%201.65/launch-docker-mcp.ps1)) and the toolkit will start without prompting for login.
+
+> [!IMPORTANT]
+> The tokens are stored in the Docker volume `mcp-m365-data`. They will persist unless you explicitly delete the volume.

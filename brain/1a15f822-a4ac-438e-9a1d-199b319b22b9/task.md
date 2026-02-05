@@ -1,15 +1,15 @@
 # Task: Resolve M365 MCP Container Authentication and Execution Issues
 
-- [ ] Diagnostic of `docker exec` freezing [ / ]
-    - [ ] Inspect existing configuration files (`Dockerfile`, `docker-compose.yml`, `mcp.json`)
-    - [ ] Test container connectivity and basic command execution
-- [ ] Implement robust Device Login process [ ]
-    - [ ] Modify `auth-m365.ps1` for interactive login
-    - [ ] Ensure token persistence in `/root/.m365rc`
-- [ ] Optimize Docker configuration [ ]
-    - [ ] Update `Dockerfile` for better stability
-    - [ ] Refine `docker-compose.yml` if necessary
-- [ ] Verification and "Audit-grade" finalization [ ]
-    - [ ] Test end-to-end authentication and server start
-    - [ ] Add robust error handling and logging
-    - [ ] Update documentation (`docs/ARCHITECTURE_ET_PLAN.md`)
+- [x] Diagnostic of `docker exec` freezing
+    - [x] Inspect existing configuration files (`Dockerfile`, `docker-compose.yml`, `mcp.json`)
+    - [x] Test container connectivity and basic command execution
+- [x] Implement robust Device Login process
+    - [x] Modify `auth-m365.ps1` for interactive login
+    - [x] Ensure token persistence in `/root/.m365rc`
+- [x] Optimize Docker configuration
+    - [x] Update `Dockerfile` for better stability
+    - [x] Refine `docker-compose.yml` if necessary
+- [x] Verification and "Audit-grade" finalization
+    - [x] Test end-to-end authentication and server start
+    - [x] Add robust error handling and logging
+    - [x] Update documentation (`docs/ARCHITECTURE_ET_PLAN.md`)

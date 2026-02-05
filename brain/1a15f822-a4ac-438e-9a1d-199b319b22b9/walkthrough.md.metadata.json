@@ -1,0 +1,5 @@
+{
+  "artifactType": "ARTIFACT_TYPE_WALKTHROUGH",
+  "summary": "Walkthrough of the M365 MCP Container fixes. Explains the resolution of the volume conflict and provide instructions for the final manual authentication step.",
+  "updatedAt": "2026-02-05T18:46:01.862556500Z"
+}

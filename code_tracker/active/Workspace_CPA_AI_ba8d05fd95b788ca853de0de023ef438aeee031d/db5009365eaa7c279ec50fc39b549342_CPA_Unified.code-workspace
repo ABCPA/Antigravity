@@ -1,109 +1,0 @@
-¬{
-	"folders": [
-		{
-			"name": "ü§ñ CPA AI (Python/PS)",
-			"path": "."
-		},
-		{
-			"name": "üìã VBA Projects",
-			"path": "C:/VBA"
-		},
-		{
-			"name": "üß† Antigravity Brain",
-			"path": "C:/Users/AbelBoudreau/.gemini/antigravity/brain/38c0952b-538f-42ad-9b56-a1c6cc87aa8f"
-		}
-	],
-	"settings": {
-		"files.exclude": {
-			"**/.git": true,
-			"**/__pycache__": true,
-			"**/*.pyc": true,
-			"**/~$*": true,
-			"**/*.wbk": true,
-			"**/.ruff_cache": true
-		},
-		"files.associations": {
-			"*.bas": "vb",
-			"*.cls": "vb",
-			"*.frm": "vb",
-			"*.dcm": "vb"
-		},
-		"search.exclude": {
-			"**/logs": true,
-			"**/backup": true,
-			"**/*.xlsx": true,
-			"**/*.csv": true,
-			"**/*.pdf": true,
-			"**/_CONFIDENTIEL": true
-		},
-		"editor.formatOnSave": true,
-		"vba.linting.strict": true,
-		"AI.context.rules": "R√¥le: Senior Architect. VBA: Option Explicit obligatoire. Erreurs: 'On Error GoTo Handler' structur√©. Performance: ARRAYS uniquement (Interdiction Range loops). Style: Direct et concis.",
-
-		/* --- CONFIGURATION GITHUB COPILOT --- */
-		"github.copilot.chat.instructions": [
-			"file:./README_AI.md"
-		],
-		"github.copilot.enable": {
-			"*": true,
-			"vb": true,
-			"markdown": true
-		},
-		"github.copilot.editor.enableAutoCompletions": true
-	},
-	"tasks": {
-		"version": "2.0.0",
-		"tasks": [
-			{
-				"label": "üìã Copy Review Prompt (Senior Standard)",
-				"type": "shell",
-				"command": "echo 'Agis en tant que Senior Platform Architect. Analyse ce code : 1. V√©rifie Option Explicit. 2. Identifie toute it√©ration sur Range et propose une conversion en ARRAY. 3. Valide la gestion d erreurs On Error GoTo. 4. Style direct.'",
-				"presentation": {
-					"reveal": "always",
-					"panel": "shared"
-				}
-			}
-		]
-	}
-}« ««*cascade08
-«„ „Ê*cascade08
-ÊÁ ÁË*cascade08
-ËÈ ÈÛ*cascade08
-Ûı ı¸*cascade08
-¸˛ ˛Ä*cascade08
-ÄÅ ÅÉ*cascade08
-ÉÜ Üè*cascade08
-èê êë*cascade08
-ëí íô*cascade08
-ôõ õú*cascade08
-ú§ §¶*cascade08
-¶ß ß±*cascade08
-±Ω Ω¡*cascade08
-¡√ √≈*cascade08
-≈∆ ∆Œ*cascade08
-Œ– –—*cascade08
-—“ “‘*cascade08
-‘’ ’ÿ*cascade08
-ÿŸ Ÿﬁ*cascade08
-ﬁﬂ ﬂÈ*cascade08
-ÈÍ Í
-Ò Òõ
-õú ú¢
-¢£ £•
-•¶ ¶≠
-≠Ø Ø≥*cascade08
-≥∂ ∂π*cascade08
-π∫ ∫“
-“” ”Ò
-ÒÚ ÚÄ	
-Ä	Å	 Å	è	
-è	ê	 ê	ë	*cascade08
-ë	í	 í	ö	
-ö	õ	 õ	°	
-°	£	 £	§	*cascade08
-§	•	 •	√	
-√	≈	 ≈	œ	
-œ	–	 –	—	
-—	”	 ”	÷	
-÷	ÿ	 ÿ	‡	
-‡	¬ "(ba8d05fd95b788ca853de0de023ef438aeee031d2Ifile:///c:/Users/AbelBoudreau/Workspace_CPA_AI/CPA_Unified.code-workspace:.file:///c:/Users/AbelBoudreau/Workspace_CPA_AI

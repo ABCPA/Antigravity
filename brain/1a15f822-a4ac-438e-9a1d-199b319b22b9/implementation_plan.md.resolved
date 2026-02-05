@@ -1,0 +1,112 @@
+# Implementation Plan - Resolve M365 MCP Container Authentication
+
+This plan addresses the issue where the `mcp-m365` container fails to authenticate or "freezes" due to a volume mounting conflict and TTY issues during the Device Login process.
+
+## Problem Discovery
+1.  **Volume Conflict**: `/root/.m365rc` is currently mounted as a **directory**, but the M365 Toolkit expects it to be a **file** for storing the auth token.
+2.  **Interactive Hang**: The `server start` command triggers an interactive Device Login flow which hangs when run without a proper TTY or in non-interactive sessions.
+
+## Proposed Changes
+
+### 1. [Component: Docker Infrastructure]
+
+#### [MODIFY] [docker-compose.yml](file:///c:/VBA/SGQ%201.65/docker-mcp/docker-compose.yml)
+- Change the volume mount for `mcp-m365` to map to a directory instead of a specific file path that conflicts.
+- **Change**: `- mcp-m365-data:/root/.m365-config`
+    - Example snippet to include in `docker-compose.yml`:
+
+```yaml
+services:
+    mcp-m365:
+        image: your-image-name
+        volumes:
+            - mcp-m365-data:/root/.m365-config
+        # Ensure a sensible restart policy
+        restart: unless-stopped
+
+volumes:
+    mcp-m365-data:
+        driver: local
+```
+
+#### [NEW] [entrypoint.sh](file:///c:/VBA/SGQ%201.65/docker-mcp/m365/entrypoint.sh)
+- Add a script to handle the symlink between the persistent volume and the expected config file path.
+- Logic: `ln -sf /root/.m365-config/.m365rc /root/.m365rc`
+
+    - Suggested idempotent `entrypoint.sh` (minimal):
+
+```sh
+#!/usr/bin/env sh
+set -e
+# Ensure config directory exists
+mkdir -p /root/.m365-config
+# Create an empty token file if missing (so ln has a target)
+touch /root/.m365-config/.m365rc
+# Replace /root/.m365rc with a symlink to the persisted file
+if [ -L /root/.m365rc ] || [ -f /root/.m365rc ]; then
+    rm -f /root/.m365rc
+fi
+ln -sf /root/.m365-config/.m365rc /root/.m365rc
+# Adjust permissions if needed (optional)
+chmod 600 /root/.m365-config/.m365rc || true
+# Exec the container CMD
+exec "$@"
+```
+
+    - Notes: keep the script executable (`chmod +x`) and owned by appropriate user if your container runs non-root.
+
+#### [MODIFY] [Dockerfile](file:///c:/VBA/SGQ%201.65/docker-mcp/m365/Dockerfile)
+- Copy `entrypoint.sh` and set it as the `ENTRYPOINT`.
+
+    - Example Dockerfile additions:
+
+```dockerfile
+COPY m365/entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+CMD ["/bin/sh","-c","/usr/local/bin/start-server-or-cmd"]
+```
+
+### 2. [Component: Scripts]
+
+#### [MODIFY] [auth-m365.ps1](file:///c:/VBA/SGQ%201.65/scripts/auth-m365.ps1)
+- Add a pre-check for the directory/file conflict.
+- Enhance logging and instructions "Audit-grade".
+- Ensure it uses `docker exec -it` for interactive login.
+- Verify the existence of the token file after login.
+
+    - Suggested enhancement for `auth-m365.ps1` (post-login check):
+
+```powershell
+# After running interactive docker exec -it ...
+$res = docker exec mcp-m365 ls -l /root/.m365rc 2>&1
+if ($LASTEXITCODE -ne 0) {
+    Write-Error "Token file /root/.m365rc not found in container: $res"
+    exit 1
+} else {
+    Write-Output "Token present: $res"
+}
+```
+
+    - Add audit logging (timestamped) when the token is created or updated.
+
+    - Consider UID/GID mapping notes: when mounting volumes from Windows hosts, file ownership can differ; ensure the container user can read/write `/root/.m365-config/.m365rc` or run the container as root only for the auth step.
+
+## Verification Plan
+
+### Automated Tests
+- Run `docker exec mcp-m365 ls -l /root/.m365rc` to verify it's a symlink or a file (not a directory).
+- Run [scripts/auth-m365.ps1](file:///c:/VBA/SGQ%201.65/scripts/auth-m365.ps1) (manually by user) and verify success.
+
+### Manual Verification
+1.  **Initial Cleanup**:
+    - `docker compose down`
+    - `docker volume rm mcp-m365-data` (to clear the bad directory)
+2.  **Deployment**:
+    - [launch-docker-mcp.ps1](file:///c:/VBA/SGQ%201.65/launch-docker-mcp.ps1)
+3.  **Authentication**:
+    - Execute [scripts/auth-m365.ps1](file:///c:/VBA/SGQ%201.65/scripts/auth-m365.ps1).
+    - Follow the Device Login link and enter the code.
+    - Confirm "Log-in Successful" in the console.
+4.  **Functional Test**:
+    - Verify that `m365agentstoolkit-mcp server start` runs without prompting for login after the first time.
