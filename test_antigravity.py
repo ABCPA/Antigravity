@@ -3,7 +3,7 @@ Unit tests for the antigravity module.
 """
 
 import unittest
-from unittest.mock import patch, MagicMock
+from unittest.mock import patch
 import antigravity
 
 
