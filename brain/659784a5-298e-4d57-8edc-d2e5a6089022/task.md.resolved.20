@@ -1,0 +1,6 @@
+# Task: Verify MCP Configuration
+
+- [x] Run dry-run Docker command testing volume mount <!-- id: 0 -->
+- [x] Check git status for uncommitted changes <!-- id: 1 -->
+- [ ] Commit mcp.json changes <!-- id: 3 -->
+- [ ] Notify user of status <!-- id: 2 -->

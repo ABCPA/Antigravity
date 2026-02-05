@@ -1,0 +1,5 @@
+{
+  "artifactType": "ARTIFACT_TYPE_IMPLEMENTATION_PLAN",
+  "summary": "Plan to configure MCP servers to run via Docker, using the detected Docker executable path.",
+  "updatedAt": "2026-02-04T22:35:23.909944500Z"
+}

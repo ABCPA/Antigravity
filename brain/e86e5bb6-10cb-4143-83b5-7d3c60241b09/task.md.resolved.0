@@ -1,0 +1,9 @@
+# Task: Commit and Sync Workspaces
+
+- [ ] Check git status of `c:\VBA` <!-- id: 0 -->
+- [ ] Check git status of `c:\Users\AbelBoudreau\.gemini\antigravity` <!-- id: 1 -->
+- [ ] Check git status of `c:\Users\AbelBoudreau\Workspace_CPA_AI` <!-- id: 2 -->
+- [ ] Commit changes in `c:\VBA` <!-- id: 3 -->
+- [ ] Commit changes in `c:\Users\AbelBoudreau\.gemini\antigravity` <!-- id: 4 -->
+- [ ] Commit changes in `c:\Users\AbelBoudreau\Workspace_CPA_AI` <!-- id: 5 -->
+- [ ] Push all changes to remote <!-- id: 6 -->

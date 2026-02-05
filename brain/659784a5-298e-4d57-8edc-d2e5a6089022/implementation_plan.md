@@ -1,0 +1,26 @@
+# Implementation Plan - Docker for MCP
+
+## Goal
+Configure `mcp.json` to run MCP servers (specifically `m365agentstoolkit`) using Docker containers instead of local `npx`. This improves isolation and reproducibility.
+
+## User Review Required
+> [!IMPORTANT]
+> **Docker Path**: System PATH does not include Docker. We will use the absolute path: `C:\Program Files\Docker\Docker\resources\bin\docker.exe`.
+> **Image Strategy**: Since `m365agentstoolkit` behaves as a CLI, we will run it inside a lightweight `node:18-alpine` container if no official image is found/preferred.
+
+## Proposed Changes
+
+### Configuration
+#### [MODIFY] [mcp.json](file:///C:/Users/AbelBoudreau/Workspace_CPA_AI/mcp.json)
+- Update `command` to absolute path of `docker.exe`
+- Update `args` to `run -i --rm -v ${PWD}:/app ... node:18-alpine npx ...` pattern.
+
+## Verification Plan
+
+### Automated Tests
+- Run `docker --version` via full path (completed).
+- Attempt to start the MCP server via the new command configuration.
+- Check logs for successful startup.
+
+### Manual Verification
+- User to confirm MCP server is active in the host application.

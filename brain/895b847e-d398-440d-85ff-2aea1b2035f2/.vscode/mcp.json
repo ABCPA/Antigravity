@@ -2,7 +2,7 @@
 	"servers": {
 		"io.github.github/github-mcp-server": {
 			"type": "stdio",
-			"command": "docker",
+			"command": "C:\\Program Files\\Docker\\Docker\\resources\\bin\\docker.exe",
 			"args": [
 				"run",
 				"-i",

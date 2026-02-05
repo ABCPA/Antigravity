@@ -1,0 +1,6 @@
+# Task: Commit and Sync Work
+
+- [ ] Add all changed and untracked files <!-- id: 0 -->
+- [ ] Commit changes with descriptive message <!-- id: 1 -->
+- [ ] Pull and Rebase from origin main <!-- id: 2 -->
+- [ ] Push to origin main <!-- id: 3 -->
