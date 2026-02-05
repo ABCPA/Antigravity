@@ -24,6 +24,9 @@ def geohash(latitude, longitude, datedow):
     Compute geohash using the XKCD algorithm.
     
     This implements the geohashing algorithm from XKCD comic #426.
+    The algorithm uses the integer parts of latitude/longitude to define
+    a 1°×1° graticule, then hashes the date+DJIA to get pseudo-random
+    fractional offsets within that square.
     
     Args:
         latitude (float): The latitude coordinate
@@ -37,8 +40,16 @@ def geohash(latitude, longitude, datedow):
         >>> lat, lon = geohash(37.421542, -122.085589, b'2005-05-26-10458.68')
         >>> print(f"Offset: {lat:.6f}, {lon:.6f}")
     """
-    # Compute MD5 hash of the date and Dow value
-    h = hashlib.md5(datedow, usedforsecurity=False).hexdigest()
+    # Get integer parts for the graticule (1°×1° square)
+    lat_int = int(latitude)
+    lon_int = int(longitude)
+    
+    # Create the hash input by combining graticule and date info
+    # This ensures different graticules get different results for the same date
+    hash_input = f"{lat_int},{lon_int},{datedow.decode()}".encode()
+    
+    # Compute MD5 hash - compatible with Python 3.6+
+    h = hashlib.md5(hash_input).hexdigest()
     
     # Split hash into two parts for latitude and longitude
     lat_hash = h[:16]

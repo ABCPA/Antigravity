@@ -4,7 +4,10 @@ Unit tests for the antigravity module.
 
 import unittest
 from unittest.mock import patch
-import antigravity
+
+# Import antigravity with mocked webbrowser to prevent browser opening during test discovery
+with patch('webbrowser.open'):
+    import antigravity
 
 
 class TestAntigravity(unittest.TestCase):
@@ -55,6 +58,13 @@ class TestAntigravity(unittest.TestCase):
         # Verify the values are reasonable (between 0 and 1)
         self.assertTrue(0 <= lat <= 1)
         self.assertTrue(0 <= lon <= 1)
+    
+    def test_geohash_different_coordinates(self):
+        """Test that geohash returns different values for different coordinates."""
+        # Same date, different locations should produce different results
+        result1 = antigravity.geohash(37.421542, -122.085589, b'2005-05-26-10458.68')
+        result2 = antigravity.geohash(40.712776, -74.005974, b'2005-05-26-10458.68')  # NYC
+        self.assertNotEqual(result1, result2)
 
 
 if __name__ == '__main__':

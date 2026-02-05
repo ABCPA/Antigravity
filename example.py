@@ -19,8 +19,12 @@ def main():
     print("-" * 60)
     print("Code: import antigravity")
     print()
+    # Note: The module auto-imports on first load. This demonstrates the concept.
     with patch('antigravity.webbrowser.open') as mock_open:
+        # Import with mock active (though module may already be loaded)
         import antigravity
+        # Call fly() explicitly to demonstrate
+        antigravity.fly()
         print(f"✓ Would open browser to: {mock_open.call_args[0][0]}")
     print()
     
