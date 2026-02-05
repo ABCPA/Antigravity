@@ -19,7 +19,7 @@ def main():
     print("-" * 60)
     print("Code: import antigravity")
     print()
-    with patch('webbrowser.open') as mock_open:
+    with patch('antigravity.webbrowser.open') as mock_open:
         import antigravity
         print(f"✓ Would open browser to: {mock_open.call_args[0][0]}")
     print()
