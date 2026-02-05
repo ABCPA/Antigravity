@@ -1,0 +1,14 @@
+# Task: Environment Validation & Path Correction
+
+- [x] Initialize and Investigate <!-- id: 0 -->
+    - [x] Explore project structure and locate all script directories <!-- id: 1 -->
+    - [x] Check `verify-mcp-health.ps1` for path-related bugs <!-- id: 2 -->
+- [x] Fix Path Issues <!-- id: 3 -->
+    - [x] Update scripts to handle spaces robustly if needed <!-- id: 4 -->
+    - [x] Resolve 'docker' command missing issue or document limitation <!-- id: 5 -->
+- [/] Rerun Validation <!-- id: 6 -->
+    - [ ] Run `test-vbide-and-compile.ps1` <!-- id: 7 -->
+    - [ ] Run `verify-mcp-health.ps1` <!-- id: 8 -->
+- [ ] Finalize <!-- id: 9 -->
+    - [ ] Update `ARCHITECTURE_ET_PLAN.md` <!-- id: 10 -->
+    - [ ] Create walkthrough <!-- id: 11 -->
