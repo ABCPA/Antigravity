@@ -125,7 +125,6 @@ The orchestrator enforces workspace-specific governance:
 - **Operations**: Non-destructive only
 
 ## Adding a New Workspace
-
 To register a new workspace:
 
 1. **Edit** `workspaces.json`
@@ -177,3 +176,4 @@ Implement context persistence across conversations:
 - [Workspace Discovery Analysis](file:///C:/Users/AbelBoudreau/.gemini/antigravity/brain/e97b35d5-e8d1-41aa-9047-c77eb3426476/ANALYSIS_AND_ARCHITECTURE.md.resolved)
 - [SGQ Agents Configuration](file:///C:/VBA/SGQ%201.65/AGENTS.md)
 - [Implementation Plan](file:///C:/Users/AbelBoudreau/.gemini/antigravity/brain/aa271dc3-4092-484a-ba77-7a022ffb1849/implementation_plan.md)
+
