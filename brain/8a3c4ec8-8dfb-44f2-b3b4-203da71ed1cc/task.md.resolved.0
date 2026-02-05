@@ -1,0 +1,6 @@
+# Task: Fix Encoding Issues in Homepage
+
+- [ ] Locate source of "SystÃ¨me de Gestion de la QualitÃ©" and other garbled text <!-- id: 0 -->
+- [ ] Fix encoding in relevant VBA modules or configuration files <!-- id: 1 -->
+- [ ] Verify if other UI elements are affected <!-- id: 2 -->
+- [ ] Commit changes <!-- id: 3 -->

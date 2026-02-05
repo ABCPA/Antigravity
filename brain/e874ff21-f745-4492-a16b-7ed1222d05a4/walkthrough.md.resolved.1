@@ -1,0 +1,24 @@
+# Walkthrough - Project Maintenance & Fixes
+
+I have cleaned up the project documentation and resolved the "Ambiguous name detected" compilation error.
+
+## Changes
+
+### Documentation
+- **[ARCHITECTURE_ET_PLAN.md](file:///c:/VBA/SGQ%201.65/docs/ARCHITECTURE_ET_PLAN.md)**: Consolidated the Architecture Schema and Work Plan, removing approximately 150 lines of duplicate content.
+
+### Bug Fix: Ambiguous Name
+- **Issue**: `Ambiguous name detected: UpdateInterfaceView` due to duplicate modules.
+- **Resolution**:
+    - User manually deleted duplicate modules (`modSGQInterface1`, etc.) in the VBE.
+    - **Deleted** [vba-files/Module/modSGQInterface_RECOVERED.bas](file:///c:/VBA/SGQ%201.65/vba-files/Module/modSGQInterface_RECOVERED.bas) (source of duplication).
+    - **Deleted** `vba-files/temp_modSGQViews.bas` (temporary file).
+
+## Verification Results
+
+### Automated Tests
+- **Compilation Check**: `test-vbide-and-compile.ps1` passed successfully (Exit Code 0).
+- **Manifest Check**: `vba-files/manifest.json` integrity verified.
+
+## Next Steps
+- The project environment is now clean and stable.

@@ -1,0 +1,6 @@
+{
+  "artifactType": "ARTIFACT_TYPE_TASK",
+  "summary": "Updated tasks with findings: Restore UpdateManager, cleanup TrackingBuilder, fix UI button.",
+  "updatedAt": "2026-01-28T15:18:45.526433700Z",
+  "version": "1"
+}

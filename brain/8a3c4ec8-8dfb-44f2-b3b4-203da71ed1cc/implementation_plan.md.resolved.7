@@ -1,0 +1,45 @@
+# Implementation Plan - Fix Encoding Issues (Mojibake)
+
+The project suffers from widespread encoding issues ("Mojibake") where UTF-8 characters are interpreted as Windows-1252, resulting in garbled text (e.g., "SystÃ¨me" instead of "Système"). This affects the VBA source files and consequently the User Interface.
+
+## User Review Required
+> [!IMPORTANT]
+> This operation modifies multiple files in `vba-files`. A backup is recommended, although the script detects changes before writing.
+
+## Proposed Changes
+### Recovery of Corrupted Modules
+Due to widespread file corruption (likely from a previous batch operation), the following modules are being restored:
+- [modSGQInterface.bas](file:///c:/VBA/SGQ%201.65/vba-files/Module/modSGQInterface.bas) (Restored from backup, encoding fixed)
+- [modGraphClient.bas](file:///c:/VBA/SGQ%201.65/vba-files/Module/modGraphClient.bas) (Manually reconstructed)
+- [modConstants.bas](file:///c:/VBA/SGQ%201.65/vba-files/Module/modConstants.bas) (Restored from 2025-10-24 backup)
+- [modExcelUtils.bas](file:///c:/VBA/SGQ%201.65/vba-files/Module/modExcelUtils.bas) (Restored from import_backup_20251024 - clean, contains SetNamedValue)
+- [modWorkbookHandlers.bas](file:///c:/VBA/SGQ%201.65/vba-files/Module/modWorkbookHandlers.bas) (Reset to minimal state due to corruption)
+- [modSGQAdministration.bas](file:///c:/VBA/SGQ%201.65/vba-files/Module/modSGQAdministration.bas) (Restored from 2025-10-24 backup)
+
+### Encoding Fixes
+- [modSGQInterface.bas](file:///c:/VBA/SGQ%201.65/vba-files/Module/modSGQInterface.bas) checked for "Système" encoding.
+- [fix-mojibake.ps1](file:///c:/VBA/SGQ%201.65/scripts/fix-mojibake.ps1) script fixed and available for targeted use.
+
+### Global
+- Run [scripts/fix-mojibake.ps1](file:///c:/VBA/SGQ%201.65/scripts/fix-mojibake.ps1) on the entire `vba-files` directory.
+- This script scans for common UTF-8 byte sequences interpreted as Windows-1252 (e.g., `Ã©`, `Ã¨`, `â€“`) and replaces them with their correct CP1252 counterparts (`é`, `è`, `-`).
+
+### vba-files/Module
+#### [MODIFY] [modSGQInterface.bas](file:///c:/VBA/SGQ 1.65/vba-files/Module/modSGQInterface.bas)
+#### [MODIFY] [modConstants.bas](file:///c:/VBA/SGQ 1.65/vba-files/Module/modConstants.bas)
+#### [MODIFY] [modSGQUtilitaires.bas](file:///c:/VBA/SGQ 1.65/vba-files/Module/modSGQUtilitaires.bas)
+And potentially others found by the script.
+
+## Verification Plan
+### Automated Tests
+- Run [scripts/validate-encoding-cp1252.ps1](file:///c:/VBA/SGQ%201.65/scripts/validate-encoding-cp1252.ps1) to ensure no "Hebrew" or other anomalous characters remain.
+- Run `scripts/Start-VbaAction.ps1 -Action Compile` to ensure code integrity.
+
+### Manual Verification
+- **User Action**: Open the Excel workbook ([index.xlsm](file:///c:/VBA/SGQ%201.65/index.xlsm)).
+- **User Action**: Check the "Console" / Homepage.
+- **User Action**: The text "Système de Gestion de la Qualité" and "Activités de suivi" should appear correctly.
+- **User Action**: If text is still garbled, run the "Mise à jour Interface" macro or "UpdateInterfaceView" if exposed in the ribbon, to refresh the UI from the corrected code.
+
+> [!WARNING]
+> **Manual Import Required**: Automated import of `modWorkbookHandlers` and `modSGQAdministration` may not update the workbook correctly due to Excel COM limitations. If compilation fails, manually import these modules via VBE (Alt+F11 → Remove module → Import File).

@@ -1,0 +1,16 @@
+Œroot = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+indent_style = space
+indent_size = 4
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+[*.{bas,cls,frm,dcm,vbs}]
+charset = windows-1252
+end_of_line = crlf
+indent_style = space
+indent_size = 4
+Œ"(b3eea256776ced57c23cbf87c776d2461e607ebe2<file:///c:/Users/AbelBoudreau/Workspace_CPA_AI/.editorconfig:.file:///c:/Users/AbelBoudreau/Workspace_CPA_AI

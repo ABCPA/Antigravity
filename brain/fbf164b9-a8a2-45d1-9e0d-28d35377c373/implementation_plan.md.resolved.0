@@ -1,0 +1,35 @@
+# Implementation Plan - UX Improvements
+
+## Goal Description
+Enhance the user experience of the SGQ application by introducing a professional "Landing Page" (Dashboard) and applying global visual polish (removing gridlines, standardizing zoom). This aims to create a "Wow" factor and make the tool feel like a standalone application.
+
+## User Review Required
+> [!NOTE]
+> The 'Accueil' sheet will be the new entry point. Ensure 'TDM' and 'TDM-Suivi' sheets are the correct destinations for the buttons.
+
+## Proposed Changes
+
+### UI/Interface Layer
+
+#### [MODIFY] [modSGQInterface.bas](file:///c%3A/VBA/SGQ%201.65/vba-files/Module/modSGQInterface.bas)
+- **New Procedure `SetupDashboard`**:
+    - Check if 'Accueil' sheet exists, create if not.
+    - Clear existing content/shapes.
+    - Set styling: No gridlines, background color (e.g., rigid white or soft gray), Zoom 100%.
+    - **Draw Buttons**:
+        - "Système de Gestion de la Qualité" -> Links to Sheet 'TDM'.
+        - "Activités de suivi" -> Links to Sheet 'TDM-Suivi'.
+        - Gear Icon (Shape) -> Links to a settings macro (placeholder or existing).
+- **New Procedure `ApplyVisualPolish`**:
+    - Iterate through all worksheets.
+    - set `ActiveWindow.DisplayGridlines = False`.
+    - set `ActiveWindow.Zoom = 100`.
+    - set `Range("A1").Select`.
+
+## Verification Plan
+
+### Manual Verification
+- Since we cannot run Excel, verification will rely on:
+    - Code review of the VBA logic (Shape creation, event linkage).
+    - Checking that proper error handling is in place.
+    - User checks after re-import.

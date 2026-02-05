@@ -1,0 +1,30 @@
+# Task: Testing Secure Update Mechanism
+
+## Objective
+Validate that the `TryUpdateFromFolder` function in [modSGQUpdateManager.bas](file:///c:/VBA/SGQ%201.65/vba-files/Module/modSGQUpdateManager.bas) works correctly and securely handles VBA module updates.
+
+## Test Checklist
+
+### Phase 1: Pre-Test Preparation
+- [ ] Review current implementation of `TryUpdateFromFolder`
+- [ ] Identify test scenarios (happy path, error cases, edge cases)
+- [ ] Check for required dependencies (`modSGQVBProjectHelpers`, `JsonConverter`, etc.)
+- [ ] Verify test environment setup
+
+### Phase 2: Test Execution
+- [ ] Test 1: Manifest-based update (normal case)
+- [ ] Test 2: Fallback to all .bas files (no manifest)
+- [ ] Test 3: Missing update folder
+- [ ] Test 4: VBIDE access denied
+- [ ] Test 5: Backup creation verification
+- [ ] Test 6: Partial failure handling (some modules fail)
+
+### Phase 3: Verification
+- [ ] Compile the project after tests
+- [ ] Review backup files created
+- [ ] Check error logging
+- [ ] Document findings
+
+### Phase 4: Documentation
+- [ ] Create walkthrough with test results
+- [ ] Update architecture plan if needed

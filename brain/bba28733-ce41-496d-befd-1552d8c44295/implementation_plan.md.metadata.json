@@ -1,0 +1,6 @@
+{
+  "artifactType": "ARTIFACT_TYPE_IMPLEMENTATION_PLAN",
+  "summary": "Ajout de l'étape de nettoyage du cache Git pour les fichiers .xlsx et .csv existants (Option A validée).",
+  "updatedAt": "2026-01-28T16:54:44.059448400Z",
+  "version": "1"
+}

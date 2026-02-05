@@ -1,0 +1,7 @@
+# Task: Integrate GitHub MCP Server into Docker
+
+- [ ] Create `docker-mcp/github/Dockerfile` for the GitHub MCP server <!-- id: 0 -->
+- [ ] Update [docker-mcp/docker-compose.yml](file:///c:/VBA/SGQ%201.65/docker-mcp/docker-compose.yml) to use the custom build <!-- id: 1 -->
+- [ ] Update [.env](file:///c:/VBA/SGQ%201.65/.env) to include `GITHUB_PERSONAL_ACCESS_TOKEN` <!-- id: 2 -->
+- [ ] Update [mcp.json](file:///c:/VBA/SGQ%201.65/mcp.json) to configure the `github` server via Docker <!-- id: 3 -->
+- [ ] Notify user to provide `GITHUB_PERSONAL_ACCESS_TOKEN` and restart <!-- id: 4 -->

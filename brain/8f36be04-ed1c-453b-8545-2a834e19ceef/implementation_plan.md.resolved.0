@@ -1,0 +1,48 @@
+# Plan d'ajout de Rules et Workflows pour Antigravity
+
+Basé sur l'analyse de votre codebase VBA (SGQ 1.65) et les récents travaux (refactorisation massive, gestion de l'encodage CP1252), ce plan propose une structure de règles et de flux de travail pour optimiser votre productivité avec Antigravity.
+
+## Proposed Changes
+
+### [Rules] Configuration des Directives de Développement
+Ces règles doivent être ajoutées dans l'onglet **Rules** de votre interface Antigravity ou dans un fichier `.agent/rules` pour garantir que l'IA respecte vos standards à chaque interaction.
+
+#### [NEW] [vba-coding-standards.md](file:///c:/VBA/SGQ%201.65/.agent/rules/vba-coding-standards.md)
+*   **Encodage STRICT** : Toujours utiliser `Windows-1252` (CP1252) sans BOM. Fin de ligne `CRLF`.
+*   **Option Explicit** : Obligatoire en haut de chaque module.
+*   **Gestion d'état** : Utiliser exclusivement `BeginAppStateScope` pour optimiser l'affichage/calcul.
+*   **Gestion d'erreurs** : Utiliser `LogError` systématiquement.
+*   **Manifeste** : Toute modification de fichier VBA doit être reflétée dans `vba-files/manifest.json`.
+
+#### [NEW] [process-rules.md](file:///c:/VBA/SGQ%201.65/.agent/rules/process-rules.md)
+*   **Priorité au Plan** : Consulter [docs/ARCHITECTURE_ET_PLAN.md](file:///c:/VBA/SGQ%201.65/docs/ARCHITECTURE_ET_PLAN.md) avant toute action.
+*   **Validation Continue** : Lancer [test-vbide-and-compile.ps1](file:///c:/VBA/SGQ%201.65/vba-files/scripts/test-vbide-and-compile.ps1) après chaque changement structurel.
+*   **Audit de Conformité** : Vérifier les en-têtes de procédures selon `docs/VBA_FILE_HEADER_CONVENTIONS.md`.
+
+---
+
+### [Workflows] Automatisation des Tâches Récurrentes
+Ces workflows permettent de lancer des séquences de commandes complexes via des raccourcis simples.
+
+#### [MODIFY] [review.md](file:///c:/VBA/SGQ%201.65/.agent/workflows/review.md)
+*   Mise à jour pour pointer vers les bons fichiers de prompts locaux (au lieu de chemins génériques).
+
+#### [NEW] [fix-mojibake.md](file:///c:/VBA/SGQ%201.65/.agent/workflows/fix-mojibake.md)
+*   Workflow pour identifier et réparer les problèmes d'accentuation (UTF-8 lu comme CP1252).
+
+#### [NEW] [test-all.md](file:///c:/VBA/SGQ%201.65/.agent/workflows/test-all.md)
+*   Séquence complète : Compilation -> Tests Unitaires -> Rapport.
+
+#### [NEW] [refactor-feature.md](file:///c:/VBA/SGQ%201.65/.agent/workflows/refactor-feature.md)
+*   Guide interactif pour transformer un vieux module en respectant la nouvelle architecture 4-couches.
+
+---
+
+## Verification Plan
+
+### Automated Tests
+*   Test manuel de chaque commande slash : `/compile`, `/fix-mojibake`, `/review`.
+
+### Manual Verification
+*   Vérifier que les nouvelles règles sont bien prises en compte lors d'une demande de création de code.
+*   Valider que le workflow `vba-sync` utilise bien les scripts robustes.

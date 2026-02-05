@@ -1,0 +1,43 @@
+# Task: Testing Secure Update Mechanism
+
+## Objective
+Validate that the `TryUpdateFromFolder` function in [modSGQUpdateManager.bas](file:///c:/VBA/SGQ%201.65/vba-files/Module/modSGQUpdateManager.bas) works correctly and securely handles VBA module updates.
+
+## Test Checklist
+
+### Phase 1: Pre-Test Preparation
+- [x] Review current implementation of `TryUpdateFromFolder`
+- [x] Identify test scenarios (happy path, error cases, edge cases)
+- [x] Check for required dependencies (`modSGQVBProjectHelpers`, `JsonConverter`, etc.)
+- [x] Review existing test framework ([modUnitTestEngine.bas](file:///c:/VBA/SGQ%201.65/vba-files/Module/modUnitTestEngine.bas))
+- [x] Create implementation plan with hybrid testing approach
+- [ ] Get user approval on testing approach
+
+### Phase 2: Test Implementation
+- [ ] Create PowerShell test script (`scripts/test-update-manager.ps1`)
+- [ ] Create unit test module (`modTest_UpdateManager.bas`)
+- [ ] Update test engine to include new tests
+- [ ] Create test fixtures (sample modules, manifests)
+
+### Phase 3: Test Execution
+- [ ] Test 1: `ParseManifestJSON` with valid manifest
+- [ ] Test 2: `ParseManifestJSON` with empty/invalid JSON
+- [ ] Test 3: `SnapshotModules` backup creation
+- [ ] Test 4: Full update with manifest (happy path)
+- [ ] Test 5: Fallback to all .bas files (no manifest)
+- [ ] Test 6: Missing update folder error handling
+- [ ] Test 7: VBIDE access denied scenario
+- [ ] Test 8: Partial failure (some modules fail to import)
+
+### Phase 4: Verification
+- [ ] Run automated unit tests via `modUnitTestEngine.RunAllTests`
+- [ ] Execute PowerShell test script
+- [ ] Compile project with `test-vbide-and-compile.ps1`
+- [ ] Review backup files created
+- [ ] Check error logging in logs directory
+- [ ] Validate no project corruption
+
+### Phase 5: Documentation
+- [ ] Create walkthrough with test results
+- [ ] Update architecture plan if needed
+- [ ] Document any issues found

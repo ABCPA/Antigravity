@@ -1,0 +1,8 @@
+# Task: Workspace Analysis and Correction
+
+## Status
+- [/] Analyze directory structure of `C:\VBA` and scratch space
+- [ ] Identify nested or redundant workspaces
+- [ ] Create implementation plan for consolidation
+- [ ] Execute consolidation/cleanup
+- [ ] Verify final structure and update docs

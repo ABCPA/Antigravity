@@ -1,0 +1,26 @@
+# Implementation Plan - Fix Compilation Error (UpdateInterfaceView)
+
+## Goal Description
+The user reported a VBA compilation error: `Ambiguous name detected: UpdateInterfaceView` within `modWorkbookHandlers.HandleWorkbookOpen`. This indicates `UpdateInterfaceView` is defined in multiple accessible scopes (likely multiple modules). We need to identify the duplicate definition and remove it or qualify the function call.
+
+## User Review Required
+> [!IMPORTANT]
+> This fix is currently **PLANNED ONLY**. Execution triggers later.
+> The error likely stems from [modSGQInterface_RECOVERED.bas](file:///c:/VBA/SGQ%201.65/vba-files/Module/modSGQInterface_RECOVERED.bas) or `temp_modSGQViews.bas` being present in the user's VBE environment, even if not in the manifest.
+
+## Proposed Changes
+
+### VBA Modules
+#### [MODIFY] [modWorkbookHandlers.bas](file:///c:/VBA/SGQ%201.65/vba-files/Module/modWorkbookHandlers.bas)
+- **Action**: Qualify the call to `UpdateInterfaceView` to explicitly use `modSGQInterface.UpdateInterfaceView` if necessary, OR clean up the project to remove duplicate modules.
+- **Preferred Approach**: Clean up the `index.xlsm` by removing `modSGQInterface_RECOVERED` if it exists in the VBE. (The agent should check if it can detect this, otherwise standardizing the call is safer).
+
+#### [DELETE] Orphaned Files
+- Remove [vba-files/Module/modSGQInterface_RECOVERED.bas](file:///c:/VBA/SGQ%201.65/vba-files/Module/modSGQInterface_RECOVERED.bas) if it exists and is not needed.
+- Remove `vba-files/temp_modSGQViews.bas` if it exists and is not needed.
+
+## Verification Plan
+### Manual Verification
+- User to re-compile in VBE.
+### Automated Tests
+- `run_command` check for duplicate grep results in `vba-files/Module/`.

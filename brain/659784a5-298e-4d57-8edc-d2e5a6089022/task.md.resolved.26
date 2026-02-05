@@ -1,0 +1,6 @@
+# Task: Integrate Markitdown MCP
+
+- [x] Create [mcp-servers/markitdown/Dockerfile](file:///C:/Users/AbelBoudreau/Workspace_CPA_AI/mcp-servers/markitdown/Dockerfile) <!-- id: 0 -->
+- [/] Build Docker image `local/markitdown-mcp` (Running...) <!-- id: 1 -->
+- [x] Add configuration to [mcp.json](file:///C:/Users/AbelBoudreau/Workspace_CPA_AI/mcp.json) <!-- id: 2 -->
+- [ ] Verify conversion capability <!-- id: 3 -->

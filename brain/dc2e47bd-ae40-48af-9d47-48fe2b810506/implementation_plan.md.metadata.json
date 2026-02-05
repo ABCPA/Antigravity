@@ -1,0 +1,5 @@
+{
+  "artifactType": "ARTIFACT_TYPE_IMPLEMENTATION_PLAN",
+  "summary": "Plan to resolve Mojibake encoding issues in VBA files by creating a PowerShell script to check for and replace corrupted character sequences (UTF-8 interpreted as CP1252).",
+  "updatedAt": "2026-02-02T21:52:51.185131800Z"
+}

@@ -1,0 +1,161 @@
+# Plan d'Implémentation: Correction Encodage et Compilation VBA
+
+## Objectif
+
+Résoudre les problèmes identifiés lors du `@cpa-master REVIEW SYNTAX modSGQCreation.bas`:
+1. **Corriger l'encodage (mojibake)** dans [modSGQCreation.bas](file:///c:/VBA/SGQ%201.65/vba-files/Module/modSGQCreation.bas)
+2. **Résoudre l'erreur de compilation** du projet VBA
+3. **Générer un rapport de révision syntaxique complet**
+
+---
+
+## Problèmes Identifiés
+
+### 1. Encodage (Mojibake) dans modSGQCreation.bas
+
+**Lignes affectées:**
+- Ligne 38: `s?curis?` → `sécurisé`
+- Ligne 39: `compl?te` → `complète`
+- Ligne 258: `�tape`, `g�n�ration`, `s�par�ment` → `Étape`, `génération`, `séparément`
+- Ligne 264: `d�sormais`, `Syst�me` → `désormais`, `Système`
+
+**Cause:** Fichier sauvegardé avec un encodage incorrect (probablement UTF-8 au lieu de CP1252/Windows-1252).
+
+### 2. Erreur de Compilation
+
+**Symptôme:**
+```
+Compile attempted: True
+Compile clean: False
+Active module: modGraphClient, around line: 50
+```
+
+**Analyse:**
+- La constante `GRAPH_BASE_URL` existe dans `modConstants.bas:315`
+- `modGraphClient.bas:42` l'utilise correctement
+- **Hypothèse:** Ordre de chargement des modules ou problème de dépendance circulaire
+
+---
+
+## Changements Proposés
+
+### Composant: modSGQCreation.bas
+
+#### [MODIFY] [modSGQCreation.bas](file:///c:/VBA/SGQ%201.65/vba-files/Module/modSGQCreation.bas)
+
+**Changements:**
+1. **Corriger l'encodage des caractères accentués** (lignes 38, 39, 258, 264)
+   - Convertir le fichier en CP1252 (Windows-1252)
+   - Remplacer tous les caractères mojibake par leurs équivalents corrects
+
+2. **Vérifier la syntaxe VBA** (déjà conforme)
+   - ✅ `Option Explicit` présent
+   - ✅ Toutes les procédures utilisent `appScope`
+   - ✅ Gestion d'erreurs standardisée
+   - ✅ Pas d'erreurs de syntaxe détectées
+
+**Fichiers de backup:**
+- Créer backup: `vba-files/backups/20260203_HHMMSS/modSGQCreation.bas.bak`
+
+---
+
+### Composant: Compilation VBA
+
+#### Investigation et correction
+
+**Étapes:**
+1. Vérifier l'ordre de chargement des modules dans `index.xlsm`
+2. S'assurer que `modConstants` est chargé avant `modGraphClient`
+3. Vérifier qu'il n'y a pas de dépendances circulaires
+4. Si nécessaire, ajouter une déclaration explicite dans `modGraphClient`:
+   ```vba
+   ' Requires: modConstants (GRAPH_BASE_URL, GRAPH_TENANT_ID, etc.)
+   ```
+
+**Alternative:** Si le problème persiste, vérifier si [modConstants.bas](file:///c:/VBA/SGQ%201.65/vba-files/Module/modConstants.bas) est bien importé dans le projet.
+
+---
+
+## Plan de Vérification
+
+### Tests Automatisés
+
+#### 1. Vérification de Compilation
+```powershell
+# Commande exacte à exécuter
+pwsh -NoProfile -ExecutionPolicy Bypass -File "c:\VBA\SGQ 1.65\vba-files\scripts\test-vbide-and-compile.ps1" -AttemptCompile -WorkbookPath "c:\VBA\SGQ 1.65\index.xlsm"
+```
+
+**Critères de succès:**
+- `Compile attempted: True`
+- `Compile clean: True`
+- Aucune erreur dans le module actif
+- Exit code: 0
+
+#### 2. Vérification d'Encodage
+```powershell
+# Vérifier que le fichier est en CP1252
+Get-Content "c:\VBA\SGQ 1.65\vba-files\Module\modSGQCreation.bas" -Encoding Default | Select-String "sécurisé|complète|Étape|génération|séparément|désormais|Système"
+```
+
+**Critères de succès:**
+- Tous les caractères accentués s'affichent correctement
+- Aucun caractère `?` ou `�` dans les résultats
+
+### Tests Manuels
+
+> [!IMPORTANT]
+> **Test de l'interface utilisateur**
+> 
+> Après correction, l'utilisateur devra:
+> 1. Ouvrir `index.xlsm` dans Excel
+> 2. Ouvrir l'éditeur VBA (Alt+F11)
+> 3. Naviguer vers `modSGQCreation`
+> 4. Vérifier visuellement que les commentaires affichent correctement:
+>    - Ligne 38: "Export PDF **sécurisé**"
+>    - Ligne 39: "Refactorisation **complète**"
+>    - Ligne 258: "**Étape** 11.4"
+> 5. Compiler le projet (Debug → Compile VBAProject)
+> 6. Confirmer: "Compilation réussie" (pas de message d'erreur)
+
+---
+
+## Ordre d'Exécution
+
+1. ✅ **Backup** de [modSGQCreation.bas](file:///c:/VBA/SGQ%201.65/vba-files/Module/modSGQCreation.bas)
+2. ✅ **Correction encodage** dans [modSGQCreation.bas](file:///c:/VBA/SGQ%201.65/vba-files/Module/modSGQCreation.bas)
+3. ✅ **Investigation compilation** (vérifier ordre modules)
+4. ✅ **Correction compilation** si nécessaire
+5. ✅ **Test automatisé** (compilation script)
+6. ✅ **Génération rapport** REVIEW SYNTAX
+7. ⚠️ **Test manuel utilisateur** (vérification visuelle)
+
+---
+
+## Risques et Mitigations
+
+| Risque | Impact | Mitigation |
+|--------|--------|------------|
+| Perte de données lors de la conversion d'encodage | ÉLEVÉ | Backup automatique avant modification |
+| Compilation échoue après correction | MOYEN | Vérifier dépendances et ordre de chargement |
+| Caractères accentués corrompus dans d'autres modules | MOYEN | Scanner tous les [.bas](file:///c:/VBA/SGQ%201.65/vba-files/Module/modConstants.bas)/`.cls` pour mojibake |
+| Utilisateur ne peut pas tester manuellement | FAIBLE | Fournir instructions détaillées |
+
+---
+
+## Fichiers Affectés
+
+- [c:\VBA\SGQ 1.65\vba-files\Module\modSGQCreation.bas](file:///VBA/SGQ%201.65/vba-files/Module/modSGQCreation.bas) (MODIFY)
+- `c:\VBA\SGQ 1.65\vba-files\backups\20260203_HHMMSS\modSGQCreation.bas.bak` (NEW)
+- Potentiellement: ordre de chargement dans `index.xlsm` (INVESTIGATE)
+
+---
+
+## Prochaines Étapes Après Approbation
+
+1. Créer backup horodaté
+2. Corriger encodage avec conversion CP1252
+3. Vérifier et corriger ordre de compilation
+4. Exécuter tests automatisés
+5. Générer rapport final REVIEW SYNTAX
+6. Demander validation utilisateur pour test manuel

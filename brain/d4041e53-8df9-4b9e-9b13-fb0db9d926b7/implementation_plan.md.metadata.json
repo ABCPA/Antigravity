@@ -1,0 +1,5 @@
+{
+  "artifactType": "ARTIFACT_TYPE_IMPLEMENTATION_PLAN",
+  "summary": "Plan to implement the ScanCircularDependencies feature in modDiagnostics to detect module recursion/dependency cycles.",
+  "updatedAt": "2026-02-03T16:59:57.318746300Z"
+}

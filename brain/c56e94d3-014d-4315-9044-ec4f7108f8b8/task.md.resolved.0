@@ -1,0 +1,5 @@
+# Task: Setup Dockerized MCP Environment
+
+- [ ] Create `docker-compose.yml` for Memory, Filesystem, and Fetcher MCPs <!-- id: 0 -->
+- [ ] Create `.env` template <!-- id: 1 -->
+- [ ] Create `README_MCP.md` implementation guide <!-- id: 2 -->

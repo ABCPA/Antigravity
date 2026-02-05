@@ -1,0 +1,34 @@
+# Phase 20: UI/UX Modernization
+
+## Goal Description
+Modernize the user interface to align with "Premium Design" principles (Start of Art), improving the CPA productivity and providing a consistent visual identity.
+Since the project relies on Excel Worksheets and Ribbon (no UserForms detected), the focus is on:
+1.  **Ribbon**: Review icons, labels, and organization in [customUI14.xml](file:///c:/VBA/SGQ%201.65/ribbons/customUI14.xml) and callbacks.
+2.  **Worksheets**: Standardize "Theme" (Colors/Fonts) via a new `modSGQTheme.bas`.
+3.  **Visuals**: Implement a "Dark Mode" compatible styling logic for cells.
+
+## User Review Required
+-   Approval of the visual direction (Color Palette).
+-   Confirmation of the Ribbon layout changes.
+
+## Proposed Changes
+
+### UI Components
+#### [MODIFY] [ribbons/customUI14.xml](file:///c:/VBA/SGQ%201.65/ribbons/customUI14.xml)
+-   Refine group structure.
+-   Update `imageMso` to more modern/relevant icons if needed.
+
+#### [NEW] [vba-files/Module/modSGQTheme.bas](file:///c:/VBA/SGQ%201.65/vba-files/Module/modSGQTheme.bas)
+-   `ApplyThemeToSheet(ws)`: Applies standard background, font, and headers.
+-   `ApplyThemeToRange(rng, style)`: Applies specific styles (Header, Input, Calculated).
+-   Constants for Corporate Colors (Blue/Gray/White/Accent).
+
+#### [MODIFY] [vba-files/Module/modSGQInterface.bas](file:///c:/VBA/SGQ%201.65/vba-files/Module/modSGQInterface.bas)
+-   Integrate `modSGQTheme` calls in `UpdateInterfaceView`.
+
+## Verification Plan
+
+### Manual Verification
+1.  Open [index.xlsm](file:///c:/VBA/SGQ%201.65/index.xlsm).
+2.  Run `ApplyThemeToSheet` on a sample sheet.
+3.  Verify Ribbon callbacks trigger correctly.

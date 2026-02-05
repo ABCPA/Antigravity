@@ -1,0 +1,45 @@
+# Plan de Révision Exhaustive SGQ 1.65
+
+Ce plan définit une stratégie systématique pour auditer l'ensemble du projet afin de garantir une fiabilité absolue ("Audit-grade reliability") conforme aux normes CPA du cabinet Abel Boudreau.
+
+## Objectifs de la révision
+- Confirmer l'intégrité technique (compilation, synchronisation).
+- Valider la conformité aux standards (encodage, en-têtes, gestion d'erreurs).
+- Assurer le professionnalisme de l'interface (normes CPA).
+- Nettoyer le code mort et les redondances.
+
+## Stratégie de Révision (Phasée)
+
+### Phase 1 : Intégrité et Infrastructure
+Vérification de la structure et de la compilation globale.
+1. **Validation du Manifeste** : `/vba-sync` pour s'assurer que `manifest.json` reflète fidèlement la codebase.
+2. **Compilation Totale** : `/compile-all` pour identifier toute erreur de syntaxe ou dépendance manquante.
+3. **Audit de Gouvernance** : `/gov-check` pour valider l'encodage CP1252 et la politique de sauvegarde.
+
+### Phase 2 : Analyse Statique (Code Quality)
+Utilisation des nouveaux outils de la Phase 36.
+1. **Audit QA** : `/qa-audit` (ou appel direct à [scripts/vba-analyze.ps1](file:///c:/VBA/SGQ%201.65/scripts/vba-analyze.ps1)) pour détecter :
+   - Variables inutilisées.
+   - Déclarations en double.
+   - Types de variables non optimisés.
+2. **Nettoyage** : `/vba-cleanup` pour extraire ou signaler le code mort.
+
+### Phase 3 : Standards Professionnels CPA
+Focus sur l'interaction utilisateur et l'architecture.
+1. **Audit UI** : `/vba-audit-ui` pour réviser tous les messages (MsgBox) et garantir un ton professionnel unifié.
+2. **Revue d'Architecture** : `/review ALL ALL` pour valider l'adhésion aux 4 couches (UI, App, Core, Dev) et l'utilisation de `AppStateGuard`.
+
+### Phase 4 : Documentation et Finalisation
+1. **Synchronisation Doc** : `/vba-doc-sync` pour aligner les en-têtes et les commentaires.
+2. **Mise à jour du Plan** : `/plan-update` pour consigner les résultats de la révision dans [docs/ARCHITECTURE_ET_PLAN.md](file:///c:/VBA/SGQ%201.65/docs/ARCHITECTURE_ET_PLAN.md).
+
+## Plan de Vérification
+
+### Tests Automatisés
+- `scripts\test-vbide-and-compile.ps1` : Doit retourner Exit Code 0.
+- [scripts\vba-analyze.ps1](file:///c:/VBA/SGQ%201.65/scripts/vba-analyze.ps1) : Doit produire un rapport JSON sans erreurs critiques.
+- `/test-all` : Lancer la suite complète de tests unitaires (`modUnitTestEngine`).
+
+### Vérification Manuelle
+- Ouverture du fichier [index.xlsm](file:///c:/VBA/SGQ%201.65/index.xlsm) pour valider l'absence d'erreurs au démarrage (`Workbook_Open`).
+- Test visuel du Ruban pour confirmer que les callbacks sont fonctionnels.

@@ -1,0 +1,5 @@
+{
+  "artifactType": "ARTIFACT_TYPE_IMPLEMENTATION_PLAN",
+  "summary": "Plan to integrate MarkitDown MCP server into the Docker environment and configure Claude Desktop to use it.",
+  "updatedAt": "2026-02-05T05:12:22.567349300Z"
+}

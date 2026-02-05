@@ -1,0 +1,21 @@
+- [/] **Analyse et Conception** <!-- id: 0 -->
+    - [x] Auditer `modSGQCreation` et `modSGQTrackingBuilder` <!-- id: 1 -->
+    - [x] Valider la stratégie avec l'utilisateur (Option "Vue Dynamique" retenue) <!-- id: 3 -->
+    - [x] Mettre à jour [implementation_plan.md](file:///C:/Users/AbelBoudreau/.gemini/antigravity/brain/d0548f92-34b1-47f0-baf0-81a9f878ab1c/implementation_plan.md) <!-- id: 6 -->
+- [x] **Implémentation - Modes d'Affichage** <!-- id: 4 -->
+    - [x] Créer `modSGQViews` (Gestionnaire de vues) <!-- id: 10 -->
+        - [x] Implémenter `ToggleViewMode` <!-- id: 17 -->
+        - [x] Implémenter logic `ShowSheets` / `HideSheets` <!-- id: 18 -->
+    - [x] Implémenter `ToggleViewMode(mode)` (Logique Show/Hide) <!-- id: 11 -->
+    - [x] Ajouter le bouton dans le Ruban (`modRibbonSGQ`) <!-- id: 12 -->
+- [x] **Nettoyage - Génération de Fichiers** <!-- id: 7 -->
+    - [x] Modifier `BuildClientDeliverables` (Génération unique 0-SGQ) <!-- id: 8 -->
+    - [x] Supprimer `modSGQTrackingBuilder.bas` (Code mort) <!-- id: 13 -->
+    - [x] Vérifier et nettoyer [manifest.json](file:///c:/VBA/SGQ%201.65/vba-files/manifest.json) <!-- id: 14 -->
+- [x] **Déploiement** <!-- id: 19 -->
+    - [x] Exécuter [import-modules-noninteractive.ps1](file:///c:/VBA/SGQ%201.65/vba-files/import-modules-noninteractive.ps1) (Mise à jour index.xlsm) <!-- id: 20 -->
+- [ ] **Nettoyage - Doublons Audit** <!-- id: 21 -->
+    - [ ] Exécuter `cleanup-duplicates.ps1` (Suppression des fantômes ThisWorkbook1 etc.) <!-- id: 22 -->
+- [/] **Vérification** <!-- id: 9 -->
+    - [ ] Tester le basculement de vue (Performance & Exactitude) <!-- id: 15 -->
+    - [ ] Tester la génération finale <!-- id: 16 -->

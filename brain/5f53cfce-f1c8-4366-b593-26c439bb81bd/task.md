@@ -1,0 +1,16 @@
+# Audit and Cleanup Tasks
+
+- [x] **Analyze Subfolder Creation Logic** <!-- id: 0 -->
+    - [x] Review `modSGQCreation.bas` for `CreateClientCopy` and folder creation logic. <!-- id: 1 -->
+    - [x] Check `modConstants.bas` for folder structure definitions. <!-- id: 2 -->
+    - [x] Determine if `btnCreateSubfolderFile_wrapper` should be linked to `CreateClientCopy`. <!-- id: 3 -->
+- [x] **Investigate Missing modules** <!-- id: 4 -->
+    - [x] Search for usage of `modSGQUpdateManager` or `UpdateModules` in the codebase (Found in backup). <!-- id: 5 -->
+    - [x] Check if `modSGQTrackingBuilder` functionality exists elsewhere (Replaced by single-file strategy). <!-- id: 6 -->
+- [ ] **Implementation Plan** <!-- id: 10 -->
+    - [ ] Create `implementation_plan.md` proposing restoration and cleanup. <!-- id: 11 -->
+- [ ] **Restoration & Fixes** <!-- id: 12 -->
+    - [x] Restore `modSGQUpdateManager.bas` from backup. <!-- id: 13 -->
+    - [x] Update `manifest.json` to include `modSGQUpdateManager`. <!-- id: 14 -->
+    - [x] Update `btnCreateSubfolderFile_wrapper` in `modRibbonSGQ` to call `CreateClientCopy`. <!-- id: 15 -->
+    - [x] Remove `modSGQTrackingBuilder` refs from `ARCHITECTURE_ET_PLAN.md` audit list (mark as verified obsolete). <!-- id: 16 -->

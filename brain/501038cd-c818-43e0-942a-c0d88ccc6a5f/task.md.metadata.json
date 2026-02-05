@@ -1,0 +1,6 @@
+{
+  "artifactType": "ARTIFACT_TYPE_TASK",
+  "summary": "Tasks for integrating GitHub MCP server into Docker environment.",
+  "updatedAt": "2026-02-05T05:02:25.902945500Z",
+  "version": "4"
+}

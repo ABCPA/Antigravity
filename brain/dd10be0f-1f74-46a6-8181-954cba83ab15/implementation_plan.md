@@ -1,0 +1,43 @@
+# Implementation Plan - MarkitDown MCP Integration
+
+## Goal Description
+Integrate the **MarkitDown MCP server** into the existing Dockerized MCP environment and configure **Claude Desktop** to access it. This allows the user to convert various file formats (Office, PDF, etc.) to Markdown directly within the chat context using the `docker-markitdown` tool.
+
+## User Review Required
+> [!IMPORTANT]
+> This change modifies `claude_desktop_config.json`. You will need to **restart Claude Desktop** after these changes are applied for them to take effect.
+
+## Proposed Changes
+
+### Docker Environment
+#### [MODIFY] [docker-compose.yml](file:///c:/VBA/SGQ%201.65/docker-mcp/docker-compose.yml)
+*   Ensure the `mcp-markitdown` service is defined and correctly configured (already present in the provided context, but will verify).
+
+### Client Configuration
+#### [MODIFY] [claude_desktop_config.json](file:///c:/Users/AbelBoudreau/AppData/Roaming/Claude/claude_desktop_config.json)
+*   Add the `docker-markitdown` server configuration to the `mcpServers` object.
+*   Use the `docker exec` method to interact with the running container, as recommended in `README.md`.
+
+```json
+"docker-markitdown": {
+  "command": "docker",
+  "args": [
+    "exec",
+    "-i",
+    "mcp-markitdown",
+    "python",
+    "server.py"
+  ]
+}
+```
+
+## Verification Plan
+
+### Automated Verification
+*   **Script**: Run `c:\VBA\SGQ 1.65\docker-mcp\launch_env.ps1` to ensure all containers (including `mcp-markitdown`) start correctly.
+*   **Command**: Run `docker ps` to verify `mcp-markitdown` is in `Up` status.
+
+### Manual Verification
+*   **User Action**: Restart Claude Desktop.
+*   **User Action**: Verify that the `convert` tool is available in the Claude interface.
+*   **User Action**: Test converting a file (e.g., a Word doc or PDF) using the new tool.

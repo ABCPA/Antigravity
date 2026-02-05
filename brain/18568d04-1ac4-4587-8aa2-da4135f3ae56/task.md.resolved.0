@@ -1,0 +1,11 @@
+# Verifying MCP Health and VBA Compilation
+
+- [/] Verify MCP Environment Health <!-- id: 0 -->
+    - [x] Run `verify-mcp-health.ps1` <!-- id: 1 -->
+    - [ ] Confirm all required containers are running <!-- id: 2 -->
+- [/] Verify VBA Project State <!-- id: 3 -->
+    - [x] Run `test-vbide-and-compile.ps1` <!-- id: 4 -->
+    - [ ] Confirm VBIDE access and compile status <!-- id: 5 -->
+- [ ] Documentation & Handover <!-- id: 6 -->
+    - [ ] Update `docs/ARCHITECTURE_ET_PLAN.md` <!-- id: 7 -->
+    - [ ] Create `walkthrough.md` <!-- id: 8 -->

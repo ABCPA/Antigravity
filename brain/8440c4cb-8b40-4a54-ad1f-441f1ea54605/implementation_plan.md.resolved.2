@@ -1,0 +1,26 @@
+# Plan d'Implémentation - Backlog 1 : Détecteur de Dépendances Circulaires
+
+## Objectif
+Détecter automatiquement les cycles de dépendances (ex: A dépend de B qui dépend de A) lors du démarrage de l'application VBA pour prévenir les plantages "Out of Stack Space" ou les comportements indéterminés.
+
+## Proposed Changes
+
+### 1. Module `modDiagnostics`
+Ajout d'une fonctionnalité de scan au démarrage.
+- **Ajout** : `Function ScanCircularDependencies() As Boolean`
+- **Ajout** : Logique de parsing (simplifiée) pour identifier les appels croisés entre modules critiques.
+
+### 2. Classe `ThisWorkbook`
+Intégration du hook dans l'événement Open.
+- **Modification** : Appel de `modDiagnostics.ScanCircularDependencies` dans `Workbook_Open`.
+
+### 3. Rapport
+- Si un cycle est détecté, écrire un rapport dans `logs/diagnostics/circular_deps_YYYYMMDD.txt`.
+- Afficher une alerte non-bloquante (MsgBox avec timeout ou Status Bar).
+
+## Verification Plan
+
+### Automated Tests
+- Créer deux modules temporaires `modCycleA` et `modCycleB` qui s'appellent mutuellement.
+- Lancer le scan et vérifier qu'il détecte le cycle.
+- Supprimer les modules de test.

@@ -1,0 +1,40 @@
+# Stratégie d'Intégration AI : NotebookLM & Google AI
+
+Ce document détaille comment optimiser l'utilisation des outils IA pour le projet CPA AI, en mettant l'accent sur la qualité des sources et l'automatisation.
+
+## 1. Optimisation pour NotebookLM (RAG Personnel)
+
+NotebookLM est excellent pour le "Retrieval-Augmented Generation". Pour qu'il soit performant sur ce projet :
+
+- **Consolidation en Markdown** : NotebookLM préfère le texte structuré. Nous devrions générer des fichiers `.md` consolidés contenant :
+    - Le manifeste (`vba-files/manifest.json`) converti en table Markdown.
+    - Les en-têtes de toutes les procédures (`modDiagnostics.bas` peut aider ici).
+    - Les résumés de phases de `ARCHITECTURE_ET_PLAN.md`.
+- **Indexation des Normes (NCECF)** : Charger tous les PDFs de recherche Knotia et les normes NCECF dans une source dédiée. 
+- **Fiches de Cas** : Créer des sources spécifiques par dossier client pour permettre à l'IA de répondre à des questions complexes sur un audit spécifique.
+
+## 2. Écosystème Google AI (Gemini & Vertex AI)
+
+Pour aller plus loin que la simple consultation :
+
+- **Gemini API & Python** : Utiliser les scripts Python existants pour envoyer des extraits de balance de vérification ou de mémos à Gemini Pro 1.5 pour identification de risques.
+- **VBA Bridge** : Implémenter un appel API direct depuis Excel VBA vers un petit serveur local (Flask/Python) qui fait le pont avec Gemini. Cela permettrait un bouton "Demander à l'IA" directement dans Excel.
+- **Multimodalité** : Envoyer des captures d'écran de documents sources (factures, contrats) à Gemini Vision pour extraction automatisée vers les feuilles de travail.
+
+## 3. Optimisation du Dépôt (KNOWLEDGE_BASE)
+
+Adapter la structure du projet pour être "AI-First" :
+
+- **Directory `docs/AI/`** : Maintenir des fichiers `CONTEXT_VBA.md`, `CONTEXT_BUSINESS.md`, et `DATABASE_SCHEMA.md` (si applicable).
+- **Formatage JSON** : Pour les outils plus techniques (comme les agents Autogen ou CrewAI), fournir des descriptions de fonctions en JSON Schema pour permettre le "Function Calling".
+
+## 4. Outils tiers (Cursor, Ollama)
+
+- **Cursor** : Utiliser l'indexation `.cursorrules` pour forcer les conventions de nommage VBA (PascalCase / camelCase) vues précédemment.
+- **Local LLM (Ollama)** : Pour les données hautement confidentielles (T1, données clients nominatives), utiliser Ollama avec `mistral` ou `llama3` pour traiter les données en local sans sortir du réseau.
+
+## Étapes de Mise en Œuvre Suggérées
+
+1. [ ] Créer un script `Generate-AI-Context.ps1` qui exporte tout le projet en un seul fichier Markdown structuré pour NotebookLM.
+2. [ ] Tester l'upload des normes NCECF dans NotebookLM pour vérifier la précision des citations.
+3. [ ] Développer un prototype de bouton VBA "Analyze with Gemini".

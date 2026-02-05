@@ -1,0 +1,6 @@
+{
+  "artifactType": "ARTIFACT_TYPE_IMPLEMENTATION_PLAN",
+  "summary": "Updated implementation plan for SGQ 1.65 Phase 1, focusing on removing hardcoded secrets and resolving duplicate declarations in modConstants.bas.",
+  "updatedAt": "2026-02-04T05:27:31.253217700Z",
+  "version": "1"
+}

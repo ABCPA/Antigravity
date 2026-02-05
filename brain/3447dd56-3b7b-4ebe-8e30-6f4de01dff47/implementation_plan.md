@@ -1,0 +1,76 @@
+# Implementation Plan - Vue Suivi UI
+
+## Goal Description
+The user wants to easily toggle between "System View" (all sheets) and "Tracking View" (relevant sheets only). This feature is implemented in `modSGQViews` but lacks UI entry points.
+We will:
+1.  Add a button to the Excel Ribbon ("Vue Suivi").
+2.  Create a helper to add buttons directly to worksheets for quick access.
+
+## User Review Required
+> [!NOTE]
+> The Ribbon change requires a re-import or manual update of the CustomUI part in the Excel file if not using a dynamic loader. The user seems to be using an external XML file `c:\VBA\SGQ 1.65\ribbons\customUI14.xml` which is likely loaded by a script or tool.
+
+## Proposed Changes
+
+### Ribbon
+#### [MODIFY] [customUI14.xml](file:///c:/VBA/SGQ%201.65/ribbons/customUI14.xml)
+- **Rename Tab**: "SGQ 2.0" -> "SGQ".
+- **Refresh Button**: Explain functionality (Resets Ribbon/Formula Bar visibility). Keep as is or add tooltip.
+- **Admin Buttons**: Split `btnToggleAdmin` into:
+  - `btnAdminOn`: "Activer Admin" (Lock Open), Visible when Admin=False. Icon: `ReviewProtectWorkbook` (or `Lock`).
+  - `btnAdminOff`: "Désactiver Admin" (Lock Closed), Visible when Admin=True. Icon: `ReviewProtectWorkbook` (or `Unlock`).
+- **Archive Button**: Add `btnCreateArchive` to `grpTools`.
+  - Label: "Générer Archive"
+  - Image: `FileSaveAs`
+  - Action: `CreateArchiveCopy` (Wrapper needed in Ribbon module or direct call if signature matches).
+
+### VBA Modules
+#### [MODIFY] [modRibbonSGQ.bas](file:///c:/VBA/SGQ%201.65/vba-files/Module/modRibbonSGQ.bas)
+- Add callbacks `GetAdminOnVisibility` and `GetAdminOffVisibility`.
+- Add `ActivateAdminMode` and `DeactivateAdminMode` wrappers calling `modSGQAdministration.ToggleAdminMode`.
+- Add `CreateArchiveCopy_Wrapper` to call `modSGQCreation.CreateArchiveCopy` safely.
+
+### VBA Modules
+### Visibility Logic (Strict)
+#### [MODIFY] [modConstants.bas](file:///c:/VBA/SGQ%201.65/vba-files/Module/modConstants.bas)
+- Define `TECHNICAL_SHEETS`: Array("Calcul", "Data", "Zcopy", "Entete", "Link", "EnteteSuivi", "LinkSuivi")
+- Ensure `SYSTEM_SHEETS` and `TRACKING_SHEETS` can be processed to exclude these.
+
+#### [MODIFY] [modSGQViews.bas](file:///c:/VBA/SGQ%201.65/vba-files/Module/modSGQViews.bas)
+- `SetViewMode(MODE_TRACKING)`:
+  - Show: `TRACKING_SHEETS` (excluding Technical).
+  - Hide: `SYSTEM_SHEETS` AND `TECHNICAL_SHEETS`.
+- `SetViewMode(MODE_SYSTEM)`:
+  - Show: `SYSTEM_SHEETS` (excluding Technical).
+  - Hide: `TRACKING_SHEETS` AND `TECHNICAL_SHEETS`.
+- **Admin Override**: When Admin=True, `TECHNICAL_SHEETS` become visible (or accessible).
+
+#### [MODIFY] [modRibbonSGQ.bas](file:///c:/VBA/SGQ%201.65/vba-files/Module/modRibbonSGQ.bas)
+- **Archive Button**: Add `getVisible` callback (`GetArchiveVisibility`).
+  - Visible ONLY if `GetCurrentViewMode() = MODE_TRACKING`.
+- **Export PDF**: Check logic.
+
+#### [MODIFY] [modSGQInterface.bas](file:///c:/VBA/SGQ%201.65/vba-files/Module/modSGQInterface.bas)
+- Fix `UpdateInterfaceView`: Ensure `ActiveWindow.DisplayWorkbookTabs = True`.
+
+### Debugging Plan
+#### [FIX] Macro Availability Error
+- **Action**: Run `scripts/Start-VbaAction.ps1 -Action Import` AFTER applying above changes.
+
+
+## Verification Plan
+
+### Automated Tests
+- None possible for UI appearance.
+- Compilation check using `scripts/validate-assistant-config.ps1` (implied workflow).
+
+### Manual Verification
+- **Ribbon**:
+  1.  Reload the Ribbon/Add-in.
+  2.  Click "Vue Suivi".
+  3.  Verify sheets hide/show and message box appears.
+- **Worksheet Button**:
+  1.  Run `modSGQInterface.AddTrackingButtonToWorksheets` via Immediate Window.
+  2.  Check a tracking sheet (e.g., "Suivi").
+  3.  Click the new button.
+  4.  Verify view toggles.

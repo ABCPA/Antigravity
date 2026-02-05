@@ -1,0 +1,5 @@
+{
+  "artifactType": "ARTIFACT_TYPE_IMPLEMENTATION_PLAN",
+  "summary": "This plan details the simplification of `CreateSubfolderFile` in `modSGQTrackingBuilder.bas`. \\nIt involves moving the hardcoded folder list to `modConstants.bas` and the folder creation logic to `modSGQFileSystem.bas`, \\nthen simplifying `CreateSubfolderFile` to use these centralized resources.",
+  "updatedAt": "2026-01-28T05:41:43.662125100Z"
+}

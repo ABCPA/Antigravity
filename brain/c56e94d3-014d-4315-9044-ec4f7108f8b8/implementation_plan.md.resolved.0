@@ -1,0 +1,50 @@
+# Implementation Plan - Dockerized MCP Environment
+
+## Goal
+Establish a robust, "Audit-grade" Docker environment hosting three key Model Context Protocol (MCP) servers:
+1.  **Memory (Knowledge Graph)**: To persist project context and rules.
+2.  **Filesystem**: To securely access the codebase.
+3.  **Fetcher**: For external research and documentation.
+
+## Proposed Changes
+
+### [NEW] Directory: `c:\VBA\SGQ 1.65\docker-mcp\`
+
+#### [NEW] `docker-compose.yml`
+Defines the 3 services.
+- **Base Image**: `node:18-alpine` (lightweight, secure).
+- **Network**: `mcp-network` (isolated).
+- **Volumes**:
+    - Host `c:\VBA` mounted to `/projects/vba` for the Filesystem server.
+    - Local `./data/memory` mounted for the Memory server persistence.
+
+#### [NEW] `.env` & `.env.example`
+Configuration for Docker (user/uid mapping if needed, paths).
+
+#### [NEW] `README.md`
+Documentation on:
+- Prerequisites (Docker Desktop for Windows).
+- How to run (`docker-compose up -d`).
+- How to connect the Agent (Claude/Cursor config snippets).
+
+## Verification Plan
+
+### Manual Verification
+1.  **Build & Run**:
+    - Run `docker-compose up -d`.
+    - Verify containers are running via `docker ps`.
+2.  **Connection Test**:
+    - Use `docker logs [container_id]` to see if the servers started successfully (listening on stdio or SSE - *Note: Standard MCP servers usually communicate via Stdio. For Docker, we might need an SSE adapter or run them via an `exec` bridge. However, the user asked for "via mon docker".*
+    - **Crucial Detail**: Standard MCP servers over **Stdio** are hard to access purely remotely via Docker from a local desktop app without a bridge.
+    - **Refinement**: I will configure them to use **SSE (Server-Sent Events)** if supported by the package, OR provide a `mcp-proxy` service, OR simply instruct how to use `docker exec` in the agent config.
+    - *Decision*: The simplest "Audit-grade" way for local Docker is using `docker exec` as the command in the Agent config.
+    - *Example Config provided in README*:
+      ```json
+      "mcpServers": {
+        "filesystem": {
+          "command": "docker",
+          "args": ["exec", "-i", "mcp-filesystem", "node", "index.js"] 
+          // or similar
+        }
+      }
+      ```

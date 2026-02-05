@@ -1,0 +1,12 @@
+# Task: Simplification de la Génération de Fichiers (Phase 24)
+
+- [/] **Analyse de l'existant** <!-- id: 0 -->
+    - [ ] Auditer `modSGQCreation.bas` (Procédure `BuildClientDeliverables`) <!-- id: 1 -->
+    - [ ] Auditer `modSGQTrackingBuilder.bas` <!-- id: 2 -->
+    - [ ] Documenter le flux actuel générant "0-SGQ" et "6-Suivi" <!-- id: 3 -->
+- [ ] **Proposition de Solution** <!-- id: 4 -->
+    - [ ] Définir la structure cible (Fichier unique ?) <!-- id: 5 -->
+    - [ ] Créer `implementation_plan.md` <!-- id: 6 -->
+- [ ] **Implémentation** <!-- id: 7 -->
+    - [ ] Refactoriser `modSGQCreation` <!-- id: 8 -->
+    - [ ] Tester la génération <!-- id: 9 -->

@@ -1,0 +1,23 @@
+# Sources pour NotebookLM : "CPA Master Reference"
+
+Ce document liste les fichiers détectés dans `...\Doc utiles` qui doivent être uploadés manuellement dans NotebookLM pour constituer votre "Oracle Normatif".
+
+## 1. Priorité Haute (Fondamentaux)
+*Ces fichiers définissent le cadre théorique.*
+
+- [ ] `PSAP purchase and sale of accounting practice.pdf` (Référence transactionnelle)
+- [ ] `Purchase_Price_Allocation_Theory_and_Practice.pdf` (Référence évaluation)
+- [ ] `Articles et lectures\02775-RG-cadre-reference-intention-deci...pdf`
+
+## 2. Pistes d'Amélioration (Fichiers Recommandés mais manquants)
+*L'analyse du dossier montre peu de normes NCECF/NIV pures. Il faudrait ajouter :*
+
+- [ ] Manuel CPA Canada (PDF complet ou chapitres clés : Audit, Certification).
+- [ ] Loi sur les Impôts (L.I.R. / L.I.) en PDF.
+- [ ] Guides de l'Ordre sur les missions d'examen.
+
+## 3. Procédure d'Upload
+1. Accédez à [NotebookLM](https://notebooklm.google.com/).
+2. Créez un nouveau Notebook nommé "CPA Master Reference".
+3. Cliquez sur "Add Source" -> "File upload".
+4. Glissez-déposez les fichiers listés ci-dessus depuis votre dossier `C:\Users\AbelBoudreau\Abel Boudreau\intranet - Documents\Doc utiles`.

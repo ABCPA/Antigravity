@@ -1,0 +1,58 @@
+# Plan d'Implémentation : Phase 24 - Consolidation et Qualité
+
+## Objectif
+
+Unifier la structure du projet en intégrant les modules "étendus" (`xvba_modules`) dans la structure principale (`vba-files`) et centraliser les outils d'inspection de code.
+
+## Contexte
+
+Le projet contient actuellement deux emplacements pour les modules :
+1. `vba-files/Module/` : Modules principaux
+2. `xvba_modules/` : Modules analytiques et d'inspection (Phase 18)
+
+De plus, le fichier [manifest.json](file:///c:/VBA/SGQ%201.65/vba-files/manifest.json) actuel est statique et incomplet (il manque les nouveaux modules de test). Il doit devenir la source de vérité dynamique générée par le système.
+
+## Changements Proposés
+
+### 1. Consolidation et Nettoyage
+
+**Critique :** Le module `modSGQTrackingBuilder` est identifié comme "Fantôme" (présent dans Excel, absent du disque) et cause la double génération de fichiers.
+
+**Action Immédiate :**
+- [ ] Supprimer `modSGQTrackingBuilder` du classeur (via script PowerShell).
+- [ ] Retirer la référence dans `modSGQAdministration` (`modulesToToggle`).
+- [ ] Supprimer du [manifest.json](file:///c:/VBA/SGQ%201.65/vba-files/manifest.json).
+
+**Action de Consolidation :**
+- [ ] Déplacer les modules de `xvba_modules/` vers `vba-files/Module/`.
+
+**Modules à déplacer :**
+- [modAnalyticCalc.bas](file:///c:/VBA/SGQ%201.65/xvba_modules/modAnalyticCalc.bas), [modAnalyticETL.bas](file:///c:/VBA/SGQ%201.65/xvba_modules/modAnalyticETL.bas), [modAnalyticReporting.bas](file:///c:/VBA/SGQ%201.65/xvba_modules/modAnalyticReporting.bas)
+- `modCQ...` (Reporting, Rules, Scanner)
+- `modInspection...` (Audit, Report)
+- [modTest_AnalyticalBug.bas](file:///c:/VBA/SGQ%201.65/xvba_modules/modTest_AnalyticalBug.bas)
+
+### 2. Standardisation du Manifeste
+
+**Action :** Mettre à jour [manifest.json](file:///c:/VBA/SGQ%201.65/vba-files/manifest.json) pour refléter tous les modules du projet, y compris les tests.
+**Action :** S'assurer que `modSGQUpdateManager.SaveModelChange` génère un manifeste complet.
+
+### 3. Intégration des Outils de Qualité
+
+**Action :** Auditer et (si possible) fusionner `modVBAInspector` et `modInspectionReport` pour éviter les redondances dans les outils d'analyse de code.
+
+## Plan de Validation
+
+### Tests de Non-Régression
+- [ ] Compiler le projet après migration ([test-vbide-and-compile.ps1](file:///c:/VBA/SGQ%201.65/vba-files/scripts/test-vbide-and-compile.ps1))
+- [ ] Exécuter tous les tests unitaires (`modUnitTestEngine.RunAllTests`)
+
+### Vérification Structurelle
+- [ ] Vérifier que `xvba_modules` est vide/supprimé
+- [ ] Vérifier que tous les modules sont présents dans `vba-files/Module`
+- [ ] Vérifier que [manifest.json](file:///c:/VBA/SGQ%201.65/vba-files/manifest.json) est complet
+
+## Questions pour l'Utilisateur
+
+1. **Validation :** Êtes-vous d'accord pour fusionner `xvba_modules` dans le dossier principal ?
+2. **Priorité :** Souhaitez-vous aussi intégrer les modules "Code Quality" (`modCQ...`) ou les garder séparés ? (Je propose de tout intégrer pour simplifier).

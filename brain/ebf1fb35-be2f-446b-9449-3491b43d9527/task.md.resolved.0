@@ -1,0 +1,9 @@
+# Task: Diagnose & Fix MCP and Compile Environment
+
+- [ ] Diagnose MCP Container Visibility failure in `verify-mcp-health.ps1`
+    - [ ] Read `verify-mcp-health.ps1` logic
+    - [ ] Run `docker ps` to verify actual container names/status
+- [ ] Diagnose VBA Compile Check
+    - [ ] Read `test-vbide-and-compile.ps1` logic
+- [ ] Fix identified issues
+- [ ] Verify environment

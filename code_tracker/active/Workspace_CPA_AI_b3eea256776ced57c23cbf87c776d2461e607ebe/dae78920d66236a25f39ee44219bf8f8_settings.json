@@ -1,0 +1,243 @@
+�J{
+    // =========================================================================
+    // General Editor Settings
+    // =========================================================================
+    "editor.formatOnSave": true,
+    "editor.formatOnSaveMode": "modificationsIfAvailable",
+    "editor.rulers": [
+        88,
+        120
+    ],
+    "editor.inlineSuggest.enabled": true,
+    // =========================================================================
+    // Files & Search Exclusions
+    // =========================================================================
+    "files.encoding": "utf8",
+    "files.autoGuessEncoding": false,
+    "files.eol": "\r\n",
+    "files.trimTrailingWhitespace": true,
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/Thumbs.db": true,
+        "**/__pycache__": true,
+        "**/.venv": true,
+        "**/.pytest_cache": true,
+        "_CONFIDENTIEL/**": true,
+        "logs/**": true,
+        "backups/**": true,
+        "**/*.sln": true,
+        "**/*.csproj": true,
+        "**/.vs": true
+    },
+    "search.exclude": {
+        "**/node_modules": true,
+        "**/bower_components": true,
+        "**/*.code-search": true,
+        "**/.venv": true,
+        "**/__pycache__": true,
+        "**/.pytest_cache": true,
+        "_CONFIDENTIEL/**": true,
+        "logs/**": true,
+        "backups/**": true
+    },
+    // =========================================================================
+    // Language Specific Settings
+    // =========================================================================
+    "[markdown]": {
+        "editor.wordWrap": "on"
+    },
+    "[powershell]": {
+        "editor.defaultFormatter": "ms-vscode.powershell",
+        "editor.formatOnSave": true,
+        "files.eol": "\r\n",
+        "files.encoding": "utf8"
+    },
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.black-formatter",
+        "editor.formatOnSave": true,
+        "files.encoding": "utf8",
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": "explicit"
+        }
+    },
+    "[vb]": {
+        "files.encoding": "windows1252",
+        "files.eol": "\r\n",
+        "files.autoGuessEncoding": false
+    },
+    // =========================================================================
+    // Python Specific Settings
+    // =========================================================================
+    "python.defaultInterpreterPath": "${workspaceFolder}/.venv/Scripts/python.exe",
+    "python.linting.enabled": true,
+    "python.linting.lintOnSave": true,
+    "python.linting.ruffEnabled": true,
+    "python.formatting.provider": "none",
+    // =========================================================================
+    // AI Assistant Settings - Copilot Skills (Jan 2026 Update)
+    // =========================================================================
+    "github.copilot.chat.modes": {
+        "cpa-master": {
+            "name": "@cpa-master",
+            "description": "Routeur vers les profils CPA (audit, fiscal, dev)",
+            "prompt": "Tu es le routeur principal. Identifie le profil requis (audit strict, fiscal prudent, rapport, formation, dev) et bascule vers le bon mode. Si contexte insuffisant, pose 2 questions ciblées."
+        },
+        "cpa-audit-strict": {
+            "name": "@cpa-audit-strict",
+            "description": "Normes NCECF/NCOSBL, prudence maximale",
+            "prompt": "Mode AUDIT STRICT. Terminologie NCECF/NCOSBL uniquement. Cite les références (ex: NCECF 1400.18). Si doute, réponds: 'Vérification manuelle requise'. Pas d'invention."
+        },
+        "cpa-fiscal-prudent": {
+            "name": "@cpa-fiscal-prudent",
+            "description": "Fiscalité T1/T2/TP-1, prudence",
+            "prompt": "Mode FISCAL PRUDENT. Compare fédéral vs Québec si pertinent. Mentionne les zones de risque/cotisation. Si incertain, proposer vérification manuelle."
+        },
+        "cpa-rapport": {
+            "name": "@cpa-rapport",
+            "description": "Mémos, lettres de mission, notes EF",
+            "prompt": "Rédige livrables CPA (mémo, lettre, note EF) structurés, défendables, prêts pour inspection."
+        },
+        "cpa-formation": {
+            "name": "@cpa-formation",
+            "description": "Vulgarisation/enseignement",
+            "prompt": "Explique comme à un CPA junior. Donne exemples pédagogiques. Reste exact normativement."
+        },
+        "cpa-dev": {
+            "name": "@cpa-dev",
+            "description": "Code VBA/Python/PowerShell, patterns SGQ",
+            "prompt": "Code propre, testable, respecte patterns SGQ. Préfère PS pour orchestration, Python pour traitement, VBA pour Excel."
+        }
+    },
+    // =========================================================================
+    // AI Toolkit for VS Code Settings (January 2026)
+    // =========================================================================
+    "aitoolkit.agent.framework": "foundry-v2",
+    "aitoolkit.models.byom.enabled": true,
+    "aitoolkit.models.byom.providers": [
+        "ollama",
+        "openai",
+        "anthropic",
+        "google"
+    ],
+    "aitoolkit.playground.chatHistoryLocal": true,
+    "aitoolkit.evaluation.enabled": true,
+    "aitoolkit.models.catalog.priority": "foundry",
+    // =========================================================================
+    // Gemini AI Assistant Settings
+    // =========================================================================
+    "google.gemini.codeAssistant.enabled": true,
+    "google.gemini.experimental.inlineSuggestions.enabled": true,
+    "google.gemini.askCode.enabled": true,
+    "google.gemini.explainCode.enabled": true,
+    "google.gemini.codeTransformation.enabled": true,
+    "google.gemini.exclude": {
+        "**/node_modules/**": true,
+        "**/bower_components/**": true,
+        "**/.venv/**": true,
+        "**/__pycache__/**": true,
+        "_CONFIDENTIEL/**": true,
+        "logs/**": true,
+        "backups/**": true
+    },
+    // =========================================================================
+    // Custom Project Tooling (DO NOT MODIFY MANUALLY)
+    // =========================================================================
+    "cpa.toolManagement.enabled": true,
+    "cpa.toolManagement.profiles": {
+        "ingestion": {
+            "name": "Ingestion Documents",
+            "description": "Outils pour l'ingestion et le staging de documents",
+            "tools": [
+                "ingestion-documents",
+                "audit-logger"
+            ],
+            "extensionsRequired": [
+                "ms-vscode.powershell"
+            ],
+            "extensionsDisable": [
+                "ms-toolsai.jupyter",
+                "ms-python.python"
+            ]
+        },
+        "ocr": {
+            "name": "OCR & Traitement",
+            "description": "Moteurs OCR et extraction texte",
+            "tools": [
+                "ocr-batch",
+                "extract_metadata"
+            ],
+            "extensionsRequired": [
+                "ms-vscode.powershell"
+            ],
+            "extensionsDisable": [
+                "ms-toolsai.jupyter"
+            ]
+        },
+        "classification": {
+            "name": "Classification IA",
+            "description": "Classification et extraction de keywords via Ollama",
+            "tools": [
+                "ollama_classifier"
+            ],
+            "extensionsRequired": [
+                "ms-python.python"
+            ],
+            "extensionsDisable": [
+                "ms-toolsai.jupyter"
+            ],
+            "ollama": true
+        },
+        "rag": {
+            "name": "Indexation RAG",
+            "description": "Génération d'index vectoriel et embeddings",
+            "tools": [
+                "generate_index"
+            ],
+            "extensionsRequired": [
+                "ms-python.python"
+            ],
+            "extensionsDisable": [
+                "ms-toolsai.jupyter"
+            ],
+            "ollama": true
+        },
+        "backup": {
+            "name": "Sauvegarde",
+            "description": "Sauvegarde avec timestamp",
+            "tools": [
+                "backup-timestamp",
+                "audit-logger"
+            ],
+            "extensionsRequired": [
+                "ms-vscode.powershell"
+            ],
+            "extensionsDisable": [
+                "ms-python.python",
+                "ms-toolsai.jupyter"
+            ]
+        },
+        "dev": {
+            "name": "Développement",
+            "description": "Développement code (Python + PowerShell)",
+            "tools": [
+                "test-workspace"
+            ],
+            "extensionsRequired": [
+                "ms-python.python",
+                "ms-vscode.powershell",
+                "ms-toolsai.jupyter"
+            ]
+        }
+    },
+    // =========================================================================
+    // Extension Management - Disable C#/.NET notifications
+    // =========================================================================
+    "omnisharp.autoStart": false,
+    "omnisharp.enableRoslynAnalyzers": false,
+    "dotnet.defaultSolutionOrFolder": "",
+    "extensions.ignoreRecommendations": false
+}�J"(b3eea256776ced57c23cbf87c776d2461e607ebe2Dfile:///c:/Users/AbelBoudreau/Workspace_CPA_AI/.vscode/settings.json:.file:///c:/Users/AbelBoudreau/Workspace_CPA_AI

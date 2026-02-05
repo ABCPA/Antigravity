@@ -1,0 +1,53 @@
+ú# Logs et sorties
+logs/
+backups/
+*.log
+*.tmp
+
+# Environnements et API keys
+.env
+.env.*
+!.env.template
+.venv/
+__pycache__/
+*.pyc
+
+# AI Toolkit cache and local data
+.aitoolkit/
+.vscode/.aitoolkit/
+
+# VS Code
+.vscode/.ropeproject
+.vscode/settings.local.json
+
+# ModÃ¨les et donnÃ©es volumineuses
+index/
+_INGESTION_TEMP/
+6_Index_Recherche/cache/
+6_Index_Recherche/embeddings/
+
+# Confidential
+_CONFIDENTIEL/
+*.xlsx
+*.csv
+
+# Solution files et projets
+*.sln
+*.csproj
+*.vbproj
+*.vcxproj
+*.vcxproj.filters
+bin/
+obj/
+
+# IDE
+.idea/
+*.swp
+*.swo
+*~
+
+# OS-specific
+.DS_Store
+Thumbs.db
+desktop.ini
+ú*cascade08"(ba8d05fd95b788ca853de0de023ef438aeee031d29file:///c:/Users/AbelBoudreau/Workspace_CPA_AI/.gitignore:.file:///c:/Users/AbelBoudreau/Workspace_CPA_AI

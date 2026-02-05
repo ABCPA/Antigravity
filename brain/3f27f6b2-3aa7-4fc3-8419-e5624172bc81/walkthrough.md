@@ -1,0 +1,37 @@
+# Walkthrough - Correction du Bug Revue Analytique
+
+J'ai corrigé les bugs identifiés dans le module de Revue Analytique qui causaient des erreurs "Subscript out of range" lors de l'importation de données vides ou de sélections d'une seule cellule.
+
+## Changements effectuése
+
+### 1. Robustesse de l'Importation ([modAnalyticETL.bas](file:///c:/VBA/SGQ%201.65/xvba_modules/modAnalyticETL.bas))
+- Ajout d'une gestion pour les plages d'une seule cellule (Excel retourne un scalaire au lieu d'un tableau dans ce cas).
+- Validation du nombre de colonnes avant d'accéder aux données (`AccountNumber`, `Description`, `BalanceCY`).
+- Gestion sécurisée du redimensionnement du tableau de comptes.
+- Message d'erreur explicite si aucun compte valide n'est trouvé.
+
+### 2. Sécurisation des Calculs ([modAnalyticCalc.bas](file:///c:/VBA/SGQ%201.65/xvba_modules/modAnalyticCalc.bas))
+- Vérification que `importData.Count > 0` avant d'initier les calculs.
+- Réinitialisation propre des résultats en cas de données vides pour éviter des erreurs en cascade.
+
+### 3. Protection du Reporting ([modAnalyticReporting.bas](file:///c:/VBA/SGQ%201.65/xvba_modules/modAnalyticReporting.bas))
+- Ajout d'une condition pour ne pas boucler sur les lignes si le résultat est vide.
+- Affichage d'un message "(Aucune donnée à afficher)" dans la feuille Excel au lieu de crasher.
+- Ajustement du formatage conditionnel pour éviter les erreurs sur des plages invalides.
+
+## Vérification
+
+### Compilation
+- Le projet a été compilé avec succès via `Start-VbaAction.ps1 -Action Compile`.
+
+### Tests Unitaires
+- J'ai ajouté le module `modTest_AnalyticalBug.bas` pour automatiser la détection de ces régressions à l'avenir.
+- J'ai intégré ces tests dans `modUnitTestEngine.bas`.
+
+> [!NOTE]
+> En raison des restrictions de sécurité Excel sur cet environnement, je n'ai pas pu exécuter les macros via PowerShell. Cependant, le code a été validé par compilation et revue statique.
+
+### Comment vérifier manuellement
+1. Ouvrez `index.xlsm`.
+2. Lancez les tests unitaires via le ruban ou en exécutant `modUnitTestEngine.RunAllTests`.
+3. Essayez de lancer une revue analytique sur une seule cellule vide; vous devriez maintenant recevoir un message d'erreur informatif au lieu d'un crash VBA.

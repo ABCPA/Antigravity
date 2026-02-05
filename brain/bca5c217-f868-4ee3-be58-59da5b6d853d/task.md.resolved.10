@@ -1,0 +1,11 @@
+# Task: Analyze and Optimize File Generation Structure
+
+## Objective
+Analyze the current dual-file generation architecture (0-SGQ vs 6-Suivi) and propose an optimal structure to eliminate synchronization bugs.
+
+## Checklist
+- [/] Sync repository with main
+- [ ] Analyze [modSGQCreation.bas](file:///c:/VBA/SGQ%201.65/vba-files/Module/modSGQCreation.bas) (Base file generation)
+- [ ] Analyze [modSGQTrackingBuilder.bas](file:///c:/VBA/SGQ%201.65/vba-files/Module/modSGQTrackingBuilder.bas) (Tracking file generation)
+- [ ] Identify dependencies and synchronization points
+- [ ] Draft optimization proposal in [implementation_plan.md](file:///C:/Users/AbelBoudreau/.gemini/antigravity/brain/bca5c217-f868-4ee3-be58-59da5b6d853d/implementation_plan.md)

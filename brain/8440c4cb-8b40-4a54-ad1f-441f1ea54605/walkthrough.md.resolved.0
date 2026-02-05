@@ -1,0 +1,35 @@
+# Walkthrough: Espace de Travail Unifié "CPA AI + VBA"
+
+## Changements Effectués
+
+J'ai créé une nouvelle configuration d'espace de travail pour vous permettre de travailler efficacement sur l'ensemble du projet (Python, VBA, et IA).
+
+### 1. Fichier Workspace Unifié
+**Emplacement :** [c:\Users\AbelBoudreau\Workspace_CPA_AI\CPA_Unified.code-workspace](file:///Users/AbelBoudreau/Workspace_CPA_AI/CPA_Unified.code-workspace)
+
+Ce fichier configure VS Code pour ouvrir trois racines simultanément :
+1.  **🤖 CPA AI** : Votre projet Python/PS actuel (Dossier racine).
+2.  **📋 VBA Projects** : Le lecteur `D:\VBA` pour un accès complet à vos sources VBA.
+3.  **🧠 Antigravity Brain** : Le dossier contenant mes artefacts (Plans, Walkthroughs) pour une lecture facile.
+
+### 2. Documentation des Prompts de Révision
+**Emplacement :** `.vscode/REVIEW_PROMPTS.md`
+
+Un fichier de référence rapide contenant les commandes de révision standardisées (`REVIEW SYNTAX`, etc.).
+
+### 3. Tâches VS Code
+J'ai intégré des tâches dans le fichier workspace pour copier rapidement les prompts de révision.
+
+## Comment l'utiliser ?
+
+1.  Dans VS Code, faites **Fichier > Ouvrir un espace de travail à partir d'un fichier...**
+2.  Sélectionnez `c:\Users\AbelBoudreau\Workspace_CPA_AI\CPA_Unified.code-workspace`.
+3.  VS Code va recharger la fenêtre. Vous verrez maintenant vos 3 dossiers dans l'explorateur (gauche).
+4.  Pour lancer une révision, ouvrez un fichier VBA, faites `Ctrl+Shift+P` > `Tasks: Run Task` > `📋 Copy Review Prompt (Syntax)`. (Ou copiez simplement depuis `REVIEW_PROMPTS.md`).
+
+## Vérification
+- [x] Le fichier `.code-workspace` est créé.
+- [x] Le fichier `REVIEW_PROMPTS.md` est créé.
+- [x] Les chemins vers `D:\VBA` sont valides.
+
+Vous êtes prêt à travailler en mode unifié !

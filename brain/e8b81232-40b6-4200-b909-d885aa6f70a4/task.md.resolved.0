@@ -1,0 +1,13 @@
+# Task: Git Agent Invocation - Commit Management
+
+## Analysis
+- [x] Analyze current repository state (git status)
+- [/] Group changes by type (feat, fix, refactor, etc.)
+- [ ] Prepare conventional commit message
+- [ ] Propose commit message to user
+- [ ] Handle commit execution if requested
+
+## Changes Identification
+- [ ] Document virtual agent infrastructure additions
+- [ ] Document VBA module updates
+- [ ] Document utility script additions

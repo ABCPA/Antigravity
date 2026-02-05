@@ -1,0 +1,35 @@
+# Implementation Plan - VBA QA Pipeline
+
+## Goal Description
+Implement a robust Quality Assurance (QA) pipeline for VBA code to detect duplicates, unused declarations, and errors before they become critical. The pipeline will be agent-driven and artifact-based.
+
+## User Review Required
+> [!NOTE]
+> This plan introduces a new workflow and a new agent (`qa-agent`).
+
+## Proposed Changes
+
+### Agents
+#### [NEW] [.agent/agents/qa-agent.md](file:///c:/VBA/SGQ%201.65/.agent/agents/qa-agent.md)
+- **Role**: Expert VBA Auditor & Quality Assurance Specialist.
+- **Responsibilities**:
+    - Run static analysis on `vba-files/Module/*.bas`.
+    - Generate timestamped reports (JSON/Markdown).
+    - Propose remediation plans.
+
+### Scripts
+#### [NEW] [scripts/vba-analyze.ps1](file:///c:/VBA/SGQ%201.65/scripts/vba-analyze.ps1)
+- **Purpose**: Perform static analysis on VBA files.
+- **Features**:
+    - Regex-based parsing for `Dim`, `Public Const`, `Sub`, `Function`.
+    - Detect duplicates and unused variables (basic heuristics).
+    - Output: `logs/qa/report-YYYYMMDD-HHmmss.json`.
+
+### Documentation
+#### [MODIFY] [AGENTS.md](file:///c:/VBA/SGQ%201.65/AGENTS.md) (if exists) or [README.md](file:///c:/VBA/SGQ%201.65/README.md)
+- Register the new agent and workflow.
+
+## Verification Plan
+### Automated Tests
+- Run `scripts/vba-analyze.ps1` on the current codebase.
+- Verify report generation in `logs/qa/`.

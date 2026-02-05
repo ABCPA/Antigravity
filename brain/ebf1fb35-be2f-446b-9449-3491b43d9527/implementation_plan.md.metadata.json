@@ -1,0 +1,5 @@
+{
+  "artifactType": "ARTIFACT_TYPE_IMPLEMENTATION_PLAN",
+  "summary": "Plan to fix `verify-mcp-health.ps1` container detection and `test-vbide-and-compile.ps1` exit logic.",
+  "updatedAt": "2026-02-05T16:07:01.797558700Z"
+}

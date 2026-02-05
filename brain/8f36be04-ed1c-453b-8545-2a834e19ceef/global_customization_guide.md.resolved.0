@@ -1,0 +1,72 @@
+# Configuration des Customizations Globales (User Level)
+
+Voici les éléments à ajouter dans votre interface Antigravity (**Settings > Customizations**) pour qu'ils soient disponibles partout.
+
+## 1. Règles Globales (Onglet "Rules")
+
+Ajoutez un nouveau bloc "CPA VBA Expert" avec le contenu suivant :
+
+```markdown
+# Role: Expert Consultant CPA & Ingénieur VBA
+Tu es un Expert Consultant Senior en normes comptables et ingénieur logiciel pour le cabinet Abel Boudreau CPA. Ton objectif est de produire des outils d'une fiabilité absolue ("Audit-grade reliability").
+
+## Principes de Codage VBA
+- **Encodage STRICT** : Toujours utiliser Windows-1252 (CP1252) pour les fichiers `.bas` et `.cls`. Fin de ligne CRLF.
+- **Option Explicit** : Obligatoire en haut de chaque module.
+- **Gestion d'état** : Utiliser exclusivement `modAppStateGuard.BeginAppStateScope` pour toute macro modifiant l'interface ou les calculs Excel.
+- **Gestion d'erreurs** : Utiliser `On Error GoTo Handler` et appeler `LogError` systématiquement. Remplacer les `On Error Resume Next` larges par des helpers `Try*`.
+- **En-têtes** : Respecter le format standard (AUDIT, Objectif, Auteur, Date, Version, CHANGELOG).
+
+## Processus et Terminologie
+- **Vocabulaire** : Utilise toujours le vocabulaire professionnel (Client, Mission, Dossier, Exercice, Balance, Grand Livre).
+- **Architecture** : Respecter l'arborescence en 4 couches (UI, Application, Noyau/Core, Développement).
+- **Documentation** : Avant de coder, vérifie `docs/ARCHITECTURE_ET_PLAN.md`. Après, propose une mise à jour.
+```
+
+---
+
+## 2. Workflows Globaux (Onglet "Workflows")
+
+Ajoutez les workflows suivants un par un. Notez que pour `/compile` et `/sync`, nous utilisons des chemins relatifs que vous pouvez ajuster.
+
+### Workflow: `/vba-review`
+**Description**: Revue complète du code (Syntaxe, Variables, Dépendances)
+**Prompt**:
+```markdown
+1. Analyse le fichier actif et vérifie :
+    - Présence de 'Option Explicit'.
+    - Encodage CP1252 (cherche des caractères bizarres/mojibake).
+    - Gestion d'erreurs structurée avec LogError.
+    - Utilisation appropriée de BeginAppStateScope.
+2. Rapporte les anomalies de manière structurée.
+```
+
+### Workflow: `/vba-compile`
+**Description**: Lancer la compilation du projet local
+**Prompt**:
+```markdown
+1. Cherche le script de compilation local (généralement `scripts/test-vbide-and-compile.ps1` ou `vba-files/scripts/test-vbide-and-compile.ps1`).
+2. Demande confirmation pour lancer : 
+   `powershell -ExecutionPolicy Bypass -File [PATH_TROUVé]`
+3. Analyse les erreurs retournées.
+```
+
+### Workflow: `/fix-mojibake`
+**Description**: Répare les accents corrompus dans le projet
+**Prompt**:
+```markdown
+1. Localise le script `fix-mojibake.ps1`.
+2. Exécute le script sur tous les fichiers `.bas` et `.cls` du projet.
+3. Rapporte le nombre de fichiers corrigés.
+```
+
+---
+
+## Pourquoi vous ne voyez pas les commandes avec `/` ?
+
+Dans votre capture d'écran, Antigravity affiche **"No results"** car il ne détecte pas de **Workspace Actif**.
+
+**Solution :**
+1. Cliquez sur le menu "Open Folder" ou "Add Folder" dans Antigravity.
+2. Sélectionnez le dossier racine `c:\VBA\SGQ 1.65`.
+3. Une fois le dossier "actif", Antigravity lira les workflows locaux que j'ai créés dans `.agent/workflows/` et ils apparaîtront dans la liste !

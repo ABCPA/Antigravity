@@ -1,0 +1,39 @@
+# System Recovery & Encoding Fix Walkthrough
+
+## 1. Challenge: Widespread Corruption
+During the investigation of encoding issues ("mojibake"), verify critical modules were found to be corrupted (mashed content, likely due to a previous batch operation or write failure). 
+Affected files included:
+- [modSGQInterface.bas](file:///c:/VBA/SGQ%201.65/vba-files/Module/modSGQInterface.bas)
+- [modGraphClient.bas](file:///c:/VBA/SGQ%201.65/vba-files/Module/modGraphClient.bas)
+- [modConstants.bas](file:///c:/VBA/SGQ%201.65/vba-files/Module/modConstants.bas)
+- [modExcelUtils.bas](file:///c:/VBA/SGQ%201.65/vba-files/Module/modExcelUtils.bas)
+- [modWorkbookHandlers.bas](file:///c:/VBA/SGQ%201.65/vba-files/Module/modWorkbookHandlers.bas)
+
+## 2. Recovery Actions
+We performed a deep recovery using a combination of backups, git history, and manual reconstruction.
+
+### Restored from Backups
+Identified and restored clean versions from verified backups (dates ranging from Oct 2025 to Feb 2026):
+- [modSGQInterface.bas](file:///c:/VBA/SGQ%201.65/vba-files/Module/modSGQInterface.bas) (Cleaned of mojibake)
+- [modConstants.bas](file:///c:/VBA/SGQ%201.65/vba-files/Module/modConstants.bas) (Restored from stable backup)
+- [modExcelUtils.bas](file:///c:/VBA/SGQ%201.65/vba-files/Module/modExcelUtils.bas) (Restored from import_backup_20251024 - clean, contains SetNamedValue)
+- [modWorkbookHandlers.bas](file:///c:/VBA/SGQ%201.65/vba-files/Module/modWorkbookHandlers.bas) (Reset to minimal state due to corruption in backups)
+- [modSGQAdministration.bas](file:///c:/VBA/SGQ%201.65/vba-files/Module/modSGQAdministration.bas) (Restored from stable backup and patched for compilation)
+
+### Manual Reconstruction
+- [modGraphClient.bas](file:///c:/VBA/SGQ%201.65/vba-files/Module/modGraphClient.bas): Reconstructed from available code snippets and logic.
+- [modSGQAdministration.bas](file:///c:/VBA/SGQ%201.65/vba-files/Module/modSGQAdministration.bas): Reconstructed from logical fragments and user screenshots due to universal corruption in available backups and Git history.
+- [modWorkbookHandlers.bas](file:///c:/VBA/SGQ%201.65/vba-files/Module/modWorkbookHandlers.bas): Reset to minimal state to guarantee compilation.
+
+## 3. Encoding Repair
+- Confirmed [modSGQInterface.bas](file:///c:/VBA/SGQ%201.65/vba-files/Module/modSGQInterface.bas) is now displaying "Système" correctly.
+- Created robust repair script [scripts/fix-mojibake.ps1](file:///c:/VBA/SGQ%201.65/scripts/fix-mojibake.ps1) for future targeted use.
+
+## 4. Verification
+- **Source Integrity**: All files on disk are clean and verify against "mashed" patterns.
+- **Compilation**: Automated compilation is currently hindered by Excel COM environment errors (80080005). **Manual verification in VBE is required.**
+
+## 5. Next Steps
+- **Manually Import** [modSGQAdministration.bas](file:///c:/VBA/SGQ%201.65/vba-files/Module/modSGQAdministration.bas) and [modWorkbookHandlers.bas](file:///c:/VBA/SGQ%201.65/vba-files/Module/modWorkbookHandlers.bas) into the VBE.
+- **Commit** the recovered state immediately.
+- Run full functional tests (UI tests).

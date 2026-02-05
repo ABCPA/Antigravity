@@ -1,0 +1,255 @@
+# Workspace Discovery Approaches - Detailed Analysis
+
+## Overview
+
+The orchestrator needs a reliable mechanism to discover and route to workspace-specific agents. This document analyzes three approaches with their trade-offs.
+
+---
+
+## Approach 1: Registry-Based (Explicit Configuration)
+
+### Description
+Maintain a `workspaces.json` file that explicitly declares all workspaces.
+
+### Example Configuration
+
+```json
+{
+  "version": "1.0.0",
+  "workspaces": [
+    {
+      "id": "sgq-1.65",
+      "name": "SGQ 1.65 - VBA Quality System",
+      "path": "C:\\VBA\\SGQ 1.65",
+      "type": "production",
+      "maturity": "high",
+      "agentConfig": ".github/copilot/agents.json",
+      "localWorkflows": ".agent/workflows",
+      "governance": {
+        "encoding": "CP1252",
+        "backupRequired": true,
+        "validationRequired": true
+      },
+      "agents": ["vba-expert", "copilot-coding-agent", "documentation-agent"]
+    },
+    {
+      "id": "system-root",
+      "name": "Antigravity System Root",
+      "path": "C:\\Users\\AbelBoudreau\\.gemini\\antigravity",
+      "type": "infrastructure",
+      "maturity": "low",
+      "agentConfig": ".agent/orchestrator.json",
+      "globalWorkflows": "global_workflows"
+    }
+  ]
+}
+```
+
+### Pros
+- **Explicit and predictable**: No ambiguity about which workspaces exist
+- **Rich metadata**: Can include governance rules, maturity levels, agent lists
+- **Fast**: No filesystem scanning required
+- **Portable**: Easy to version control and share
+- **Validation-friendly**: Can validate schema before use
+
+### Cons
+- **Manual maintenance**: Must update when adding/removing workspaces
+- **Sync risk**: Registry can become stale if workspace paths change
+- **Initial setup**: Requires creating and maintaining the registry file
+
+### Best For
+- Stable, well-defined workspace structure
+- Production environments with strict governance
+- When you want explicit control over workspace visibility
+
+---
+
+## Approach 2: Auto-Discovery (Dynamic Scanning)
+
+### Description
+Scan filesystem for markers like `.agent/`, `.github/copilot/`, or `AGENTS.md` to discover workspaces dynamically.
+
+### Implementation Logic
+
+```python
+# Pseudo-code for auto-discovery
+def discover_workspaces(search_roots):
+    workspaces = []
+    
+    for root in search_roots:
+        # Scan for workspace markers
+        for dir in walk_directories(root, max_depth=3):
+            if has_marker(dir, ['.agent/', '.github/copilot/', 'AGENTS.md']):
+                workspace = {
+                    'path': dir,
+                    'name': extract_name(dir),
+                    'agentConfig': find_agent_config(dir),
+                    'type': infer_type(dir)
+                }
+                workspaces.append(workspace)
+    
+    return workspaces
+```
+
+### Pros
+- **Zero maintenance**: Automatically finds new workspaces
+- **Always current**: No stale registry problem
+- **Flexible**: Works with any directory structure
+- **Discovery-friendly**: Encourages workspace creation
+
+### Cons
+- **Performance**: Filesystem scanning can be slow
+- **Ambiguity**: May discover unintended directories
+- **Limited metadata**: Can't store rich governance rules
+- **Unpredictable**: Behavior changes as filesystem changes
+- **Marker dependency**: Requires consistent marker files
+
+### Best For
+- Exploratory/development environments
+- Many workspaces with frequent changes
+- When you want automatic workspace detection
+
+---
+
+## Approach 3: Hybrid (Registry + Auto-Discovery)
+
+### Description
+Combine explicit registry for production workspaces with auto-discovery for experimental ones.
+
+### Example Configuration
+
+```json
+{
+  "version": "1.0.0",
+  "registeredWorkspaces": [
+    {
+      "id": "sgq-1.65",
+      "path": "C:\\VBA\\SGQ 1.65",
+      "type": "production",
+      "priority": 1
+    }
+  ],
+  "autoDiscovery": {
+    "enabled": true,
+    "searchRoots": [
+      "C:\\Users\\AbelBoudreau\\.gemini\\antigravity\\scratch",
+      "C:\\Users\\AbelBoudreau\\.gemini\\antigravity\\playground"
+    ],
+    "markers": [".agent/", ".github/copilot/", "AGENTS.md"],
+    "maxDepth": 2,
+    "excludePatterns": ["**/node_modules", "**/.git"]
+  }
+}
+```
+
+### Orchestrator Logic
+
+```
+1. Load registered workspaces (high priority, rich metadata)
+2. If auto-discovery enabled:
+   - Scan search roots for markers
+   - Merge discovered workspaces (lower priority)
+3. De-duplicate by path
+4. Return combined workspace list
+```
+
+### Pros
+- **Best of both worlds**: Explicit control + flexibility
+- **Tiered approach**: Production workspaces are guaranteed, experimental ones auto-detected
+- **Graceful degradation**: Works even if auto-discovery fails
+- **Scalable**: Can handle both stable and dynamic workspace sets
+
+### Cons
+- **Complexity**: More complex implementation
+- **Configuration overhead**: Requires configuring both registry and discovery rules
+- **Potential conflicts**: Need de-duplication logic
+
+### Best For
+- **Mixed environments** (production + experimentation)
+- **Your current setup**: SGQ is stable, but you may create scratch workspaces
+- **Long-term scalability**
+
+---
+
+## Recommendation: Hybrid Approach
+
+### Rationale
+
+Based on your current setup:
+
+1. **SGQ 1.65** is a mature, production workspace → Should be in registry
+2. **System Root** is infrastructure → Should be in registry
+3. **Scratch/Playground** directories exist → Could benefit from auto-discovery
+4. **Future growth**: You may create test workspaces for experimentation
+
+### Proposed Implementation
+
+#### Phase 1: Registry Only (Immediate)
+Start with explicit registry for known workspaces. This gives you:
+- Immediate functionality
+- Clear documentation
+- Stable foundation
+
+#### Phase 2: Add Auto-Discovery (Optional)
+Later, add auto-discovery for `scratch/` and `playground/` directories if needed.
+
+### Alternative: Start Simple
+
+If you prefer simplicity, start with **Registry-Based (Approach 1)** and add auto-discovery only if you find yourself frequently creating new workspaces.
+
+---
+
+## Implementation Considerations
+
+### Workspace Identification Priority
+
+When routing a request, the orchestrator should:
+
+1. **Check explicit context**: Did user mention workspace name/path?
+2. **Infer from content**: Does request mention SGQ-specific terms (VBA, CP1252, etc.)?
+3. **Check current directory**: Is user in a known workspace path?
+4. **Ask for clarification**: If ambiguous, refuse and request workspace specification
+
+### Caching Strategy
+
+For performance:
+- Cache workspace registry in memory during conversation
+- Refresh only when explicitly requested or on error
+- For auto-discovery: cache results for 5-10 minutes
+
+### Error Handling
+
+```json
+{
+  "error": "workspace_not_found",
+  "message": "No workspace found at path: C:\\Invalid\\Path",
+  "availableWorkspaces": ["sgq-1.65", "system-root"],
+  "suggestion": "Did you mean 'sgq-1.65'?"
+}
+```
+
+---
+
+## Decision Matrix
+
+| Criterion          | Registry  | Auto-Discovery | Hybrid    |
+| :----------------- | :-------- | :------------- | :-------- |
+| **Setup Effort**   | Medium    | Low            | High      |
+| **Maintenance**    | High      | Low            | Medium    |
+| **Performance**    | Excellent | Poor           | Good      |
+| **Predictability** | Excellent | Poor           | Good      |
+| **Flexibility**    | Poor      | Excellent      | Excellent |
+| **Governance**     | Excellent | Poor           | Good      |
+| **Best for You**   | ⭐⭐⭐       | ⭐              | ⭐⭐⭐⭐⭐     |
+
+---
+
+## Next Steps
+
+Please choose your preferred approach:
+
+1. **Registry-Based**: Simple, explicit, production-ready
+2. **Hybrid**: Flexible, scalable, recommended for your setup
+3. **Auto-Discovery**: Dynamic, experimental, less control
+
+I can proceed with implementation once you confirm your choice.

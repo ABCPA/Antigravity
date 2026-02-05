@@ -1,0 +1,36 @@
+# Plan d'Optimisation de l'Espace de Travail "Antigravity + CPA AI"
+
+## Objectif
+Créer un environnement de travail unifié dans VS Code qui permet de travailler simultanément sur le projet d'IA (Python/PowerShell), le projet VBA (Legacy), et les artefacts d'Antigravity (Plans, Mémoire).
+
+## 1. Création d'un Espace de Travail Multi-Racines (Multi-Root Workspace)
+
+Nous allons créer un fichier `CPA_Unified.code-workspace` à la racine de `Workspace_CPA_AI`.
+Il inclura :
+1.  **CPA AI (Principal)** : `.` (Le dossier actuel avec les scripts Python/PS)
+2.  **VBA SGQ 1.65** : `D:/VBA/SGQ 1.65` (Accès direct au code source VBA)
+3.  **Antigravity Brain** : `C:/Users/AbelBoudreau/.gemini/antigravity/brain/8440c4cb-8b40-4a54-ad1f-441f1ea54605` (Accès direct aux plans, tâches et artefacts générés par l'IA)
+
+### Avantages
+-   Recherche globale (Ctrl+Shift+F) à travers le code VBA et les scripts Python.
+-   Accès immédiat aux artefacts (Plans, Walkthroughs) générés par moi.
+-   Contexte partagé pour Copilot/Gemini.
+
+## 2. Intégration des Tâches (Tasks.json)
+
+Ajout de tâches spécifiques pour le flux de travail VBA <-> Git :
+-   **Export VBA** : Exécuter le script d'export (si disponible dans `scripts/`) pour sortir le code du fichier Excel vers le dossier git.
+-   **Import VBA** : Exécuter le script d'import pour reconstruire le fichier Excel.
+-   **Review Template** : Une tâche "echo" qui affiche le prompt de révision standardisé dans le terminal pour copier-coller rapide.
+
+## 3. Configuration des Extensions et Paramètres
+
+-   S'assurer que les fichiers `.bas`, `.cls`, `.frm` sont bien traités comme du VB/VBA (coloring syntaxique).
+-   Configurer `files.exclude` pour ne pas être pollué par les fichiers temporaires Excel (`~$*`).
+
+## 4. Documentation "Review Prompts"
+
+Création d'un fichier `.vscode/REVIEW_PROMPTS.md` contenant les templates de prompts demandés (`REVIEW SYNTAX`, `REVIEW ARCHITECTURE`, etc.) pour un accès rapide via la vue "Side Preview" ou Copilot.
+
+## Validation
+L'utilisateur devra ouvrir le fichier `CPA_Unified.code-workspace` pour activer la nouvelle configuration.

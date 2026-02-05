@@ -1,0 +1,6 @@
+# Task: Integrate Markitdown MCP
+
+- [ ] Find Markitdown MCP Docker image/configuration <!-- id: 0 -->
+- [ ] Add Markitdown to [mcp.json](file:///C:/Users/AbelBoudreau/Workspace_CPA_AI/mcp.json) <!-- id: 1 -->
+- [ ] Pull Docker image <!-- id: 2 -->
+- [ ] Verify conversion capability <!-- id: 3 -->

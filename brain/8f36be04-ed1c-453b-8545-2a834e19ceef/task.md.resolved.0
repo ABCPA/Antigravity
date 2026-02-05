@@ -1,0 +1,16 @@
+# Tâches : Implémentation des Rules et Workflows
+
+- [ ] Créer les fichiers de Rules (`.agent/rules/`)
+    - [ ] `vba-coding-standards.md`
+    - [ ] `process-rules.md`
+- [ ] Créer/Mettre à jour les Workflows (`.agent/workflows/`)
+    - [ ] Mettre à jour [review.md](file:///c:/VBA/SGQ%201.65/.agent/workflows/review.md)
+    - [ ] Créer `fix-mojibake.md`
+    - [ ] Créer `test-all.md`
+    - [ ] Créer `refactor-feature.md`
+    - [ ] Créer `audit-syntax.md`
+- [ ] Recommander les ajouts dans l'interface UI (Customizations)
+- [ ] Valider l'exécution des workflows
+    - [ ] `/compile`
+    - [ ] `/vba-sync`
+    - [ ] `/fix-mojibake`

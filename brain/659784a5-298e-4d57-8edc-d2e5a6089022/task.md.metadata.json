@@ -1,0 +1,6 @@
+{
+  "artifactType": "ARTIFACT_TYPE_TASK",
+  "summary": "Build and configure custom Markitdown MCP server Docker image.",
+  "updatedAt": "2026-02-04T23:05:59.214412600Z",
+  "version": "24"
+}

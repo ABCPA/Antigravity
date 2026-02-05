@@ -1,0 +1,29 @@
+# Duplicate Module Cleanup Plan
+
+The renaming process resulted in duplicate files (e.g., both `modExcelUtils.bas` and `modSGQExcelUtils.bas` exist), causing "Ambiguous name" errors during compilation. This plan will remove the obsolete files.
+
+## User Review Required
+
+> [!WARNING]
+> This action involves DELETING files. I have verified that their contents have been migrated to the new `modSGQ*` modules.
+> **Files to be DELETED:**
+> - `modDiagnostics.bas`
+> - `modConstants.bas`
+> - `modExcelUtils.bas`
+> - `modUnitTestEngine.bas`
+> - `modVBAInspector.bas`
+
+## Proposed Changes
+
+### [VBA Cleanup]
+#### [DELETE] [Obsolete Modules]
+- Remove the old versions of the renamed modules from `C:\VBA\SGQ 1.65\vba-files\Module\`.
+
+### [Manifest Repair]
+#### [MODIFY] [manifest.json]
+- Ensure the manifest ONLY references the new `modSGQ...` names.
+
+## Verification Plan
+
+### Automated Compilation Check
+- Rerun `scripts\test-vbide-and-compile.ps1` to confirm that "Ambiguous name" errors are resolved.

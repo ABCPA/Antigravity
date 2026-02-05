@@ -1,0 +1,34 @@
+# Microsoft 365 Tenant Administration - Walkthrough
+
+## Goal
+Configure the Microsoft 365 Tenant to support advanced VBA automation (interacting with SharePoint/Outlook via Graph API) and diagnose availability of "Python in Excel".
+
+## Key Accomplishments
+
+### 1. App Registration for VBA Automation
+We created a dedicated application to allow your scripts to securely access cloud resources without interactive login.
+
+*   **App Name**: `VBA_Automation_Tool`
+*   **Client ID**: `334b3889-cd27-40cf-b101-6b35d25f57cb`
+*   **Permissions**:
+    *   `Files.ReadWrite.All` (Access all SharePoint/OneDrive files)
+    *   `Mail.Send` (Send emails via Outlook)
+    *   `Sites.Read.All` (Discover SharePoint sites)
+    *   `User.Read` (Basic profile access)
+*   **Authentication**: Configured for **Application-level access** (Client Credentials Flow). You provided the Admin Consent successfully.
+
+### 2. Python in Excel Diagnosis
+We investigated why "Python in Excel" showed a license error.
+*   **Result**: No technical blocking policies found.
+*   **Cause**: The tenant license `Microsoft 365 Business Premium` (SPB) requires an additional **"Python in Excel" add-on** purchase to unlock this feature for commercial use.
+*   **Action**: Purchase the add-on via the M365 Admin Center > Billing.
+
+### 3. Test Script
+A standalone VBA module was created to verify the connection.
+*   **File**: [`TestGraph.bas`](file:///C:/Users/AbelBoudreau/.gemini/antigravity/scratch/TestGraph.bas)
+*   **Status**: Updated with robust endpoint (`/sites?search=*`) and fully configured credentials.
+
+## Next Steps
+1.  **Run the Test**: Import `TestGraph.bas` into your Personal Macro Workbook (PERSONAL.XLSB) or project and run `TestConnection`. It should now display "SUCCÈS TOTAL".
+2.  **Purchase License**: If you need Python features, acquire the add-on.
+3.  **Secure the Secret**: Ensure the Client Secret (generated earlier) is stored securely and not hardcoded in shared workbooks if possible.

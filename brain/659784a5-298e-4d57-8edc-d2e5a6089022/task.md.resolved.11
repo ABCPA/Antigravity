@@ -1,0 +1,6 @@
+# Task: Remove Ghost Worktree
+
+- [x] Locate 'copilot-worktree' in Workspace_CPA_AI <!-- id: 0 -->
+- [x] Verify content allows for safe deletion (Copilot temporary worktree) <!-- id: 1 -->
+- [x] Delete the stale directory <!-- id: 2 -->
+- [x] Confirm removal to user <!-- id: 3 -->

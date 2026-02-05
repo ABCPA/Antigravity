@@ -1,0 +1,102 @@
+# Implementation Plan: Orchestrator Architecture Enhancement
+
+## Goal
+
+Enhance the existing Antigravity Orchestrator (V2) to provide better workspace discovery, agent registry capabilities, and clearer integration documentation between global orchestrator and workspace-specific agents (particularly SGQ 1.65).
+
+## Background
+
+**Current State:**
+- Orchestrator V2 configuration exists in `.agent/orchestrator.json` and `.agent/orchestrator.md`
+- SGQ workspace has mature agent configuration in `.github/copilot/agents.json`
+- 9 global workflows exist in `global_workflows/`
+- No formal workspace registry or discovery mechanism
+- No documentation linking global orchestrator to workspace agents
+
+**Analysis Document:** [ANALYSIS_AND_ARCHITECTURE.md.resolved](file:///C:/Users/AbelBoudreau/.gemini/antigravity/brain/e97b35d5-e8d1-41aa-9047-c77eb3426476/ANALYSIS_AND_ARCHITECTURE.md.resolved)
+
+## User Review Required
+
+> [!IMPORTANT]
+> **Workspace Discovery Approach**
+> Three approaches have been analyzed in detail:
+> 
+> 1. **Registry-Based**: Explicit `workspaces.json` configuration (simple, predictable)
+> 2. **Auto-Discovery**: Scan filesystem for workspace markers (flexible, zero maintenance)
+> 3. **Hybrid**: Registry for production + auto-discovery for experimental (recommended)
+> 
+> See [workspace_discovery_analysis.md](file:///C:/Users/AbelBoudreau/.gemini/antigravity/brain/aa271dc3-4092-484a-ba77-7a022ffb1849/workspace_discovery_analysis.md) for detailed comparison.
+> 
+> **Recommendation**: Hybrid approach
+> - Phase 1: Registry for SGQ 1.65 and System Root
+> - Phase 2: Optional auto-discovery for scratch/playground directories
+> 
+> Please confirm your preferred approach before proceeding.
+
+## Proposed Changes
+
+### Global Configuration
+
+#### [NEW] [workspaces.json](file:///C:/Users/AbelBoudreau/.gemini/antigravity/workspaces.json)
+
+Create a workspace registry that maps workspace identifiers to their configurations:
+- Define workspace name, path, type (production/infrastructure/playground)
+- Reference to local agent configuration files
+- Maturity level and governance rules
+
+#### [MODIFY] [orchestrator.md](file:///C:/Users/AbelBoudreau/.gemini/antigravity/.agent/orchestrator.md)
+
+Enhance orchestrator prompt with:
+- Section 13: Workspace Discovery Protocol
+- Instructions to read `workspaces.json` before routing
+- Explicit examples of routing to SGQ agents vs. global workflows
+
+---
+
+### Documentation
+
+#### [NEW] [README.md](file:///C:/Users/AbelBoudreau/.gemini/antigravity/README.md)
+
+Create root-level README documenting:
+- Orchestrator purpose and architecture
+- How to register new workspaces
+- Relationship between global orchestrator and workspace agents
+- Quick start guide for users
+
+#### [NEW] [ARCHITECTURE.md](file:///C:/Users/AbelBoudreau/.gemini/antigravity/ARCHITECTURE.md)
+
+Formalize the architecture document (based on `ANALYSIS_AND_ARCHITECTURE.md.resolved`):
+- Layer diagram (Orchestration, Specialized Agents, Governance, Experimentation)
+- Agent responsibilities matrix
+- Decision authority levels
+- Integration patterns
+
+## Verification Plan
+
+### Automated Tests
+
+No existing automated tests found for orchestrator behavior. This is a configuration and documentation-focused change.
+
+### Manual Verification
+
+1. **Test Workspace Discovery**
+   - Start new conversation
+   - Ask: "What workspaces are available?"
+   - Expected: Orchestrator reads `workspaces.json` and lists SGQ 1.65 and System Root
+
+2. **Test Routing to SGQ Agents**
+   - Ask: "Fix encoding issues in SGQ project"
+   - Expected: Orchestrator identifies SGQ workspace, references `/fix-mojibake` workflow or suggests `vba-expert` agent
+
+3. **Test Context Ambiguity Handling**
+   - Ask: "Create a new module" (without specifying workspace)
+   - Expected: Orchestrator refuses and requests workspace clarification
+
+4. **Test Global Workflow Discovery**
+   - Ask: "What workflows are available?"
+   - Expected: Lists 9 global workflows from `global_workflows/`
+
+5. **Verify Documentation Completeness**
+   - Review `README.md` for clarity
+   - Confirm `ARCHITECTURE.md` matches implemented structure
+   - Check that orchestrator prompt references workspace registry

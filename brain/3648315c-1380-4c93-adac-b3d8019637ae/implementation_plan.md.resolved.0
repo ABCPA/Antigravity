@@ -1,0 +1,34 @@
+# Plan de Mise à Niveau : Expert CPA & Automatisation
+
+## Objectif
+Ajuster le comportement de l'IA pour refléter le statut de "Sommité" de l'utilisateur (Expert comptable, normes, certifications) et déployer une structure d'automatisation pour les dossiers clients.
+
+## 1. Mise à jour du Persona IA (Gouvernance)
+Transformer le rôle d'assistant codeur en "Architecte Technique pour Cabinet d'Expert".
+
+### Actions
+- [ ] **Modifier [docs/guides/GUIDE_COLLABORATION_IA.md](file:///c:/VBA/SGQ%201.65/docs/guides/GUIDE_COLLABORATION_IA.md)**
+    - Ajout de la section "Contexte Métier : Haute Expertise".
+    - Contrainte : Le code et les textes générés doivent respecter un ton professionnel, rigoureux et conforme aux normes (NIV, NCECF, etc.).
+    - Priorité à la sécurité des données et à l'auditabilité.
+- [ ] **Créer `.cursorrules` (ou équivalent)** à la racine
+    - Instructions système pour forcer le mode "Expert" dans l'IDE.
+
+## 2. Structure d'Automatisation (Stratégie)
+Créer un référentiel pour automatiser la gestion des dossiers.
+
+### Actions
+- [ ] **Créer `docs/STRATEGIE_AUTOMATISATION.md`**
+    - Définition de l'arborescence client standardisée (ex: `Clients/{ID_Client}/{Année}/{Tax|Audit|Consulting}`).
+    - Liste des gabarits à automatiser (Lettres de mission, Feuilles de travail, Checklists de conformité).
+- [ ] **Initialiser `docs/NORMES_ET_STANDARDS.md`**
+    - Squelette pour centraliser les références aux normes (que l'IA ne doit pas halluciner).
+
+## 3. Exemple de Workflow Automatisé (POC)
+Proposer un script ou une macro pour :
+- Créer un nouveau dossier client selon la structure.
+- Générer la checklist de démarrage basée sur le type de mission (Audit vs Examen).
+
+## Review Required
+- Validation de l'approche "Expert Consultant".
+- Confirmation des types de missions prioritaires (Audit, Examen, Compilation ?).

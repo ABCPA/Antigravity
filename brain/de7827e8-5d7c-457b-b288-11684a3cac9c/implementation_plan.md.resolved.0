@@ -1,0 +1,28 @@
+# Plan - Fix M365 MCP Toolkit Configuration
+
+The M365 MCP toolkit is failing because the configured command (`server start`) is not recognized by the current version of the `@microsoft/m365agentstoolkit-mcp` package, and the authentication flow is not being triggered correctly.
+
+## Proposed Changes
+
+### Configuration
+#### [MODIFY] [mcp.json](file:///c:/VBA/SGQ 1.65/mcp.json)
+- Update the `m365agentstoolkit` server command to remove the unsupported `server start` arguments.
+
+### Scripts
+#### [MODIFY] [auth-m365.ps1](file:///c:/VBA/SGQ 1.65/scripts/auth-m365.ps1)
+- Correct the `docker exec` command to correctly trigger the authentication flow or the server as intended.
+- Add diagnostic steps to confirm the toolkit version and help output.
+
+### Docker
+#### [MODIFY] [Dockerfile](file:///c:/VBA/SGQ 1.65/docker-mcp/m365/Dockerfile) (Optional)
+- Investigate if a different package (e.g., `@microsoft/m365-agents-toolkit`) is required for the CLI functionality.
+
+## Verification Plan
+
+### Automated Tests
+- Run `& $docker exec mcp-m365 m365agentstoolkit-mcp --help` and verify it either shows help or starts without error.
+- Verify [mcp.json](file:///c:/VBA/SGQ%201.65/mcp.json) syntax.
+
+### Manual Verification
+- Execute [scripts/auth-m365.ps1](file:///c:/VBA/SGQ%201.65/scripts/auth-m365.ps1) and verify if the "Device Login" code appears.
+- Attempt to connect an MCP client (e.g., Claude) to the container.

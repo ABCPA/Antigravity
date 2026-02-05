@@ -1,0 +1,8 @@
+# Task: Debug GitHub MCP Authentication
+
+- [ ] Investigate Configuration <!-- id: 0 -->
+    - [ ] Read `.env` file (verify variable names) <!-- id: 1 -->
+    - [ ] Read `docker-compose.yml` and `Dockerfile` <!-- id: 2 -->
+    - [ ] Analyze invalid Authorization header error <!-- id: 3 -->
+- [ ] Fix Authentication Issue <!-- id: 4 -->
+- [ ] Verify Connection <!-- id: 5 -->

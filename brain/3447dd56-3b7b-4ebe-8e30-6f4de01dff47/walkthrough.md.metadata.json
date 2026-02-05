@@ -1,0 +1,5 @@
+{
+  "artifactType": "ARTIFACT_TYPE_WALKTHROUGH",
+  "summary": "Walkthrough of the \"Vue Suivi\" implementation.\nDetails the changes made to the Ribbon XML and the VBA Interface module.\nProvides instructions for testing the new functionality.",
+  "updatedAt": "2026-01-28T03:38:06.188529600Z"
+}

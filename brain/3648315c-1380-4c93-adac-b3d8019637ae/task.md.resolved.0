@@ -1,0 +1,7 @@
+# Tâches - Session PROSE
+
+- [ ] Initialisation de la Session (PROSE) <!-- id: 0 -->
+    - [ ] Vérifier et charger le contexte (`.memory.md`, `instructions.md`) <!-- id: 1 -->
+    - [ ] Localiser et lire `ARCHITECTURE_ET_PLAN.md` <!-- id: 2 -->
+    - [ ] Mettre à jour `ARCHITECTURE_ET_PLAN.md` (nouvelle tâche) <!-- id: 3 -->
+    - [ ] Confirmer le rôle et attendre instruction <!-- id: 4 -->

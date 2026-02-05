@@ -1,0 +1,33 @@
+# Plan d'Ajustement de la Documentation (Agents Virtuels)
+
+Ce plan vise à intégrer l'infrastructure des 14 agents virtuels créés dans la documentation globale du projet SGQ 1.65 pour assurer une visibilité et une utilisation optimales.
+
+## Changements Proposés
+
+### Racine du Projet
+- **[README.md](file:///c:/VBA/SGQ%201.65/README.md)** : 
+    - Ajouter une section "Agents Virtuels Locaux" après la section "GitHub Copilot".
+    - Expliquer l'utilité des agents pour pallier les limitations du plan Google AI Pro.
+    - Pointer vers `.agent/agents/README.md` pour les détails.
+- **[gemini.md](file:///c:/VBA/SGQ%201.65/gemini.md)** :
+    - Ajouter une section sur l'infrastructure d'agents locaux dans la partie "High-level architecture".
+    - Mentionner que les agents locaux complètent la persona "VBA Compatibility Craftsman".
+- **[AGENTS.md](file:///c:/VBA/SGQ%201.65/AGENTS.md)** :
+    - Mettre à jour la section "Active agents" pour inclure la délégation aux 14 agents locaux via `/invoke-agent`.
+    - Harmoniser avec l'infrastructure Antigravity Orchestrator mentionnée.
+
+### Dossier `docs/`
+- **[docs/DEV_QUICK_START.md](file:///c:/VBA/SGQ%201.65/docs/DEV_QUICK_START.md)** :
+    - Ajouter une étape "5️⃣ Invoquer un Agent Virtuel" dans les actions essentielles.
+    - Ajouter une section dans le "Workflow Recommandé" sur l'utilisation de `/invoke-agent` pour le développement (ex: `/invoke-agent audit` avant un commit).
+- **[docs/guides/GUIDE_COLLABORATION_IA.md](file:///c:/VBA/SGQ%201.65/docs/guides/GUIDE_COLLABORATION_IA.md)** (si existant) :
+    - Intégrer les agents virtuels comme outils de collaboration de premier plan.
+
+---
+
+## Plan de Vérification
+
+### Validation Manuelle
+1. Parcourir chaque fichier modifié et vérifier la validité des liens Markdown.
+2. Vérifier que l'encodage est respecté (UTF-8 pour Markdown dans ce projet).
+3. S'assurer que les noms courts des agents correspondent exactement à ceux définis dans le workflow `/invoke-agent`.

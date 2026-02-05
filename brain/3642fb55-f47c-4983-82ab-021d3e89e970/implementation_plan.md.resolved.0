@@ -1,0 +1,40 @@
+# Implementation Plan - Integrate Microsoft Graph Client
+
+## Goal Description
+The goal is to implement a robust, production-ready VBA module (`modGraphClient`) to handle authentication and communication with Microsoft Graph. This enables the "Secure Update" feature by allowing the application to download modules and manifests directly from SharePoint/OneDrive.
+
+## User Review Required
+> [!IMPORTANT]
+> **Client Secret Storage**: The Client Secret will be stored in a constant/variable for now. In a strictly secure environment, this should be retrieved from an external config or encrypted source, but for this VBA Add-in context, we will use a dedicated Private Constant in `modGraphClient` or `modConstants`.
+
+## Proposed Changes
+
+### VBA Core
+#### [NEW] [modGraphClient.bas](file:///C:/VBA/SGQ%201.65/modules/modGraphClient.bas)
+- **Functions**:
+    - `GetGraphToken()`: Authenticates using Client Credentials flow (App ID + Secret).
+    - `CallGraphApi()`: Wrapper for HTTP requests (GET/POST) with proper error handling.
+    - `DownloadFileFromGraph()`: Downloads a file stream from a Graph URL to a local path (essential for updates).
+- **Dependencies**: 
+    - `JsonConverter` (to be verified/added).
+    - `MSXML2.XMLHTTP60`.
+
+#### [MODIFY] [modConstants.bas](file:///C:/VBA/SGQ%201.65/modules/modConstants.bas)
+- Add Tenant ID, Client ID, and Base URL constants.
+- (Optionally) Client Secret if centralizing secrets.
+
+### Dependencies
+#### [CHECK] [JsonConverter.bas](file:///C:/VBA/SGQ%201.65/modules/JsonConverter.bas)
+- Ensure a JSON parser is present. If not, add `JsonConverter` (VBA-JSON).
+
+## Verification Plan
+
+### Automated Tests
+- **VBA Unit Test**: Run `modGraphClient.TestConnection()` (to be created as a public test sub).
+    - Expectation: Success message box with valid Token snippet.
+- **Download Test**: Run `modGraphClient.TestDownload()` (to be created).
+    - Action: Download a small test file (e.g., manifest) from SharePoint.
+    - Expectation: File appears in `tmp` folder with non-zero size.
+
+### Manual Verification
+- **User Action**: The user acts as the runner for these VBA macros as they require the Excel Desktop environment.

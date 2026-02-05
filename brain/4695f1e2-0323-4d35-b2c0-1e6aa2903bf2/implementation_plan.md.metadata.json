@@ -1,0 +1,5 @@
+{
+  "artifactType": "ARTIFACT_TYPE_IMPLEMENTATION_PLAN",
+  "summary": "Implementation plan to resolve M365 toolkit compatibility issues by switching to a Debian-based Docker image and re-attempting authentication.",
+  "updatedAt": "2026-02-05T15:55:42.176492900Z"
+}

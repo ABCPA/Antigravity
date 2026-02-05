@@ -1,0 +1,25 @@
+# Spécification : Assistant Inspection Professionnelle
+
+**Module** : CPA-Inspection-Simulator v1.0
+
+## 1. Vision Métier
+Agit comme un auditeur externe impitoyable vérifiant la cohérence globale.
+
+## 2. Fonctionnalités
+
+### 2.1 Audit Chronologique
+- Fin Travaux <= Rapport
+- Lettre Mission <= Début Travaux
+- Lettre Affirmation = Rapport
+
+### 2.2 Détecteur de Biais
+- **Copier-Coller N-1** : Détecte si la stratégie est identique.
+- **Traçabilité** : Vérifie lien Planification -> Exécution.
+
+## 3. Architecture Technique
+- `modInspectionAudit.bas` : Comparaison.
+- `modInspectionReport.bas` : Rapport.
+
+## 4. Plan
+1.  Moteur chronologique.
+2.  Analyseur de répétition.

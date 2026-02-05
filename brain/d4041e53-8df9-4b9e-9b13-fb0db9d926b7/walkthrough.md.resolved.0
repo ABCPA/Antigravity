@@ -1,0 +1,32 @@
+# Walkthrough - Circular Dependency Scanning
+
+I have implemented the `ScanCircularDependencies` feature in `modDiagnostics.bas`. This tool allows you to detect recursion cycles between modules, which is critical for maintaining a clean architecture.
+
+## Changes
+
+### [modDiagnostics.bas](file:///c:/VBA/SGQ%201.65/vba-files/Module/modDiagnostics.bas)
+
+- **New Feature**: `ScanCircularDependencies`
+    - Lists all `.bas` and `.cls` files in `vba-files/`.
+    - Parses "Public Sub/Function" definitions to map procedures to modules.
+    - Parses calls within each file to build a dependency graph.
+    - Uses Depth-First Search (DFS) to detect and report cycles.
+- **Reference**: Uses late binding for `Scripting.FileSystemObject` and `VBScript.RegExp` to avoid reference issues.
+
+## Verification
+
+### Automated Scan
+You can run the scan from the VBA Immediate Window:
+```vba
+modDiagnostics.ScanCircularDependencies
+```
+**Output Example:**
+```text
+--- Debut du scan des dependances circulaires ---
+Fichiers analyses : 50
+Aucune dependance circulaire detectee.
+--- Fin du scan ---
+```
+
+### Compilation
+The code has been inserted and a compilation check was triggered ([scripts/capture-vba-compile-error.ps1](file:///c:/VBA/SGQ%201.65/scripts/capture-vba-compile-error.ps1)).

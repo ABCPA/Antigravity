@@ -1,0 +1,27 @@
+# Task: Creating Virtual Agent System
+
+## Objectif
+Créer une infrastructure d'agents virtuels basée sur des fichiers Markdown pour pallier l'absence de fonctionnalités Agent Builder dans le plan Google AI Pro.
+
+## Checklist
+
+### Infrastructure
+- [/] Créer la structure de répertoires `.agent/agents/`
+- [ ] Créer un template générique pour nouveaux agents
+- [ ] Documenter l'utilisation des agents virtuels
+
+### Agents Spécialisés
+- [ ] Agent de Diagnostic Antigravity (`diagnostic-agent.md`)
+- [ ] Agent d'Audit VBA (`vba-audit-agent.md`)
+- [ ] Agent de Documentation (`documentation-agent.md`)
+- [ ] Agent de Conformité CPA (`compliance-agent.md`)
+
+### Intégration
+- [ ] Créer un workflow `/invoke-agent` pour faciliter l'utilisation
+- [ ] Mettre à jour `ARCHITECTURE_ET_PLAN.md` avec la nouvelle infrastructure
+- [ ] Tester chaque agent avec un cas d'usage réel
+
+## Notes
+- Encodage UTF-8 pour tous les fichiers Markdown
+- Respecter les standards de documentation du projet
+- Chaque agent doit être autonome et réutilisable
