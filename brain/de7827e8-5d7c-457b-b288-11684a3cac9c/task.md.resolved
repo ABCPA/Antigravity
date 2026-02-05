@@ -1,9 +1,9 @@
 # Task: Debug M365 MCP Container
 
 - [/] Investigate Container File System <!-- id: 0 -->
-    - [ ] Check existence of `dist/index.js`
-    - [ ] List contents of `/usr/local/lib/node_modules/@microsoft/m365agentstoolkit-mcp`
-- [ ] Debug Launch Command <!-- id: 1 -->
+    - [x] Check existence of `dist/index.js`
+    - [/] List contents of `/usr/local/lib/node_modules/@microsoft/m365agentstoolkit-mcp`
+- [/] Debug Launch Command <!-- id: 1 -->
     - [ ] Attempt to run `node dist/index.js` directly
     - [ ] Check for missing dependencies
 - [ ] Fix Dockerfile or Entrypoint <!-- id: 2 -->
