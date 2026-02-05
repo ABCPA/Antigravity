@@ -1,25 +1,29 @@
-# Documentation Update - MCP Infrastructure & Verification
+# Smart Import via MCP MarkItDown
 
-Reflect the recent setup of the Docker-based MCP environment and the new verification scripts in the project documentation.
+Implement an automated document import feature using the Dockerized `mcp-markitdown` server. This tool will allow users to select a document (PDF, Docx, etc.), convert it to Markdown, and have it parsed into the SGQ project.
 
 ## Proposed Changes
 
 ### [SGQ 1.65]
 
-#### [MODIFY] [CHANGELOG.md](file:///c:/VBA/SGQ 1.65/CHANGELOG.md)
-- Add version `v1.65.2 - 2026-02-05`.
-- Document Phases 40-43: Docker MCP Orchestration, extension with new services, and health check scripts.
+#### [NEW] [modSGQSmartImport.bas](file:///c:/VBA/SGQ 1.65/vba-files/Module/modSGQSmartImport.bas)
+- Procedure `SmartImportDocument`: Handles file selection, calls the conversion bridge, and initiates parsing.
+- Procedure `ParseMarkdownToSheet`: Intelligent parsing of Markdown content into a designated worksheet.
 
-#### [MODIFY] [README.md](file:///c:/VBA/SGQ 1.65/README.md)
-- Add a section "Infrastructure Docker MCP" explaining `launch_env.ps1` and `scripts/verify-mcp-health.ps1`.
+#### [MODIFY] [modRibbonSGQ.bas](file:///c:/VBA/SGQ 1.65/vba-files/Module/modRibbonSGQ.bas)
+- Update `ExecuteQmgRibbonAction` to handle `btnSmartImport`.
+- Implement `btnSmartImport_wrapper`.
 
-### [Antigravity]
+#### [MODIFY] [customUI14.xml](file:///c:/VBA/SGQ 1.65/ribbons/customUI14.xml)
+- Add a new button `btnSmartImport` in the "Import/Export" or "Outils" group.
 
-#### [MODIFY] [README.md](file:///c:/Users/AbelBoudreau/.gemini/antigravity/README.md)
-- Ensure the merged content is clean and accurately reflects the registered workspaces.
+#### [NEW] [scripts/convert-to-markdown.ps1](file:///c:/VBA/SGQ 1.65/scripts/convert-to-markdown.ps1)
+- Bridge script to execute MarkItDown conversion inside the Docker container.
 
 ## Verification Plan
 
 ### Manual Verification
-- Verify that links in [README.md](file:///c:/VBA/SGQ%201.65/README.md) are correct.
-- Ensure the [CHANGELOG.md](file:///c:/VBA/SGQ%201.65/CHANGELOG.md) formatting remains consistent.
+1. Click the "Smart Import" button in the Ribbon.
+2. Select a sample PDF balance.
+3. Verify that the file is converted and the data is correctly mapped to the Excel sheet.
+

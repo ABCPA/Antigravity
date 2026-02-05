@@ -1,0 +1,17 @@
+# Implementing Smart Import via MCP MarkItDown
+
+- [/] Research & Design <!-- id: 19 -->
+    - [x] List available MCP tools for `mcp-markitdown` <!-- id: 20 -->
+    - [ ] Research target VBA integration (Ribbon button + Module) <!-- id: 21 -->
+    - [ ] Define the data flow (File -> Markdown -> Parsing -> VBA) <!-- id: 22 -->
+- [ ] Implementation - Backend/PowerShell <!-- id: 23 -->
+    - [ ] Create a bridge script for AI-assisted parsing if necessary <!-- id: 24 -->
+- [ ] Implementation - VBA <!-- id: 25 -->
+    - [ ] Create `modSGQSmartImport.bas` <!-- id: 26 -->
+    - [ ] Implement `ImportDocumentViaMCP` procedure <!-- id: 27 -->
+    - [ ] Add Ribbon button to `customUI14.xml` and handle callback <!-- id: 28 -->
+- [ ] Verification <!-- id: 29 -->
+    - [ ] Test with a sample PDF/Docx <!-- id: 30 -->
+    - [ ] Validate Data Sanitization (CPA standards) <!-- id: 31 -->
+- [ ] Documentation <!-- id: 32 -->
+    - [ ] Update [CHANGELOG.md](file:///c:/VBA/SGQ%201.65/CHANGELOG.md) and [walkthrough.md](file:///C:/Users/AbelBoudreau/.gemini/antigravity/brain/18568d04-1ac4-4587-8aa2-da4135f3ae56/walkthrough.md) <!-- id: 33 -->
