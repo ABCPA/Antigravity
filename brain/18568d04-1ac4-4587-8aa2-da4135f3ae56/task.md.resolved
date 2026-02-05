@@ -2,5 +2,6 @@
 
 - [ ] Sync Antigravity Changes <!-- id: 13 -->
     - [x] Check `git status` <!-- id: 14 -->
-    - [x] Stage and Commit changes <!-- id: 15 -->
+    - [x] Stage and Commit changes (dynamic session state) <!-- id: 15 -->
+    - [ ] Merge or Rebase from remote <!-- id: 16 -->
     - [ ] Push to remote <!-- id: 16 -->
