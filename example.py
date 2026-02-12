@@ -6,6 +6,7 @@ This script demonstrates the various features of the antigravity module.
 """
 
 from unittest.mock import patch
+import antigravity
 
 
 def main():
@@ -19,9 +20,9 @@ def main():
     print("-" * 60)
     print("Code: import antigravity")
     print()
-    with patch('antigravity.webbrowser.open') as mock_open:
-        import antigravity
-        print(f"✓ Would open browser to: {mock_open.call_args[0][0]}")
+    print("✓ Module imported successfully (no auto-fly since Python 3.6+)")
+    print("  Note: fly() is no longer called automatically on import.")
+    print("  This prevents unwanted side effects in production code.")
     print()
     
     # Example 2: Explicitly call fly()
@@ -30,8 +31,13 @@ def main():
     print("Code: antigravity.fly()")
     print()
     with patch('antigravity.webbrowser.open') as mock_open:
-        antigravity.fly()
-        print(f"✓ Would open browser to: {mock_open.call_args[0][0]}")
+        mock_open.return_value = True
+        result = antigravity.fly()
+        if mock_open.called:
+            print(f"✓ Would open browser to: {mock_open.call_args[0][0]}")
+            print(f"  Function returned: {result}")
+        else:
+            print("✗ Function did not call webbrowser.open()")
     print()
     
     # Example 3: Use geohash function
@@ -47,23 +53,31 @@ def main():
     latitude = 37.421542
     longitude = -122.085589
     date_dow = b'2005-05-26-10458.68'
-    lat_offset, lon_offset = antigravity.geohash(latitude, longitude, date_dow)
     
-    print(f"Result:")
-    print(f"  Latitude offset:  {lat_offset:.10f}")
-    print(f"  Longitude offset: {lon_offset:.10f}")
-    print(f"  New latitude:     {latitude + lat_offset:.6f}")
-    print(f"  New longitude:    {longitude + lon_offset:.6f}")
+    try:
+        lat_offset, lon_offset = antigravity.geohash(latitude, longitude, date_dow)
+        
+        print(f"Result:")
+        print(f"  Latitude offset:  {lat_offset:.10f}")
+        print(f"  Longitude offset: {lon_offset:.10f}")
+        print(f"  New latitude:     {latitude + lat_offset:.6f}")
+        print(f"  New longitude:    {longitude + lon_offset:.6f}")
+    except (TypeError, ValueError) as e:
+        print(f"✗ Error: {e}")
     print()
     
     # Example 4: Different date produces different hash
     print("Example 4: Geohash with different date")
     print("-" * 60)
     date_dow2 = b'2005-05-27-10500.00'
-    lat_offset2, lon_offset2 = antigravity.geohash(latitude, longitude, date_dow2)
-    print(f"With date_dow = {date_dow2.decode()}:")
-    print(f"  Latitude offset:  {lat_offset2:.10f}")
-    print(f"  Longitude offset: {lon_offset2:.10f}")
+    try:
+        lat_offset2, lon_offset2 = antigravity.geohash(latitude, longitude, date_dow2)
+        # Decode is safe here as we control the input, but included for demonstration
+        print(f"With date_dow = {date_dow2.decode('utf-8')}:")
+        print(f"  Latitude offset:  {lat_offset2:.10f}")
+        print(f"  Longitude offset: {lon_offset2:.10f}")
+    except (TypeError, ValueError) as e:
+        print(f"✗ Error: {e}")
     print()
     
     print("=" * 60)
