@@ -72,10 +72,11 @@ def main():
     date_dow2 = b'2005-05-27-10500.00'
     try:
         lat_offset2, lon_offset2 = antigravity.geohash(latitude, longitude, date_dow2)
+        # Decode is safe here as we control the input, but included for demonstration
         print(f"With date_dow = {date_dow2.decode('utf-8')}:")
         print(f"  Latitude offset:  {lat_offset2:.10f}")
         print(f"  Longitude offset: {lon_offset2:.10f}")
-    except (TypeError, ValueError, UnicodeDecodeError) as e:
+    except (TypeError, ValueError) as e:
         print(f"✗ Error: {e}")
     print()
     

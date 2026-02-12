@@ -16,7 +16,7 @@ setup(
     name="antigravity",
     version="1.0.0",
     author="ABCPA",
-    author_email="contact@example.com",
+    author_email="noreply@github.com",
     description="A Python Easter egg inspired by XKCD comic #353",
     long_description=long_description,
     long_description_content_type="text/markdown",
