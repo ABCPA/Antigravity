@@ -7,9 +7,10 @@ When imported, it opens the XKCD Python comic in your default web browser.
 
 import webbrowser
 import hashlib
+from typing import Tuple
 
 
-def fly():
+def fly() -> bool:
     """
     Open the XKCD Python comic (https://xkcd.com/353/) in the default web browser.
     
@@ -27,7 +28,7 @@ def fly():
         return False
 
 
-def geohash(latitude, longitude, datedow):
+def geohash(latitude: float, longitude: float, datedow: bytes) -> Tuple[float, float]:
     """
     Compute geohash using the XKCD algorithm.
     
