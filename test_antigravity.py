@@ -13,8 +13,10 @@ class TestAntigravity(unittest.TestCase):
     @patch('antigravity.webbrowser.open')
     def test_fly_opens_xkcd_comic(self, mock_open):
         """Test that fly() opens the correct XKCD comic URL."""
-        antigravity.fly()
+        mock_open.return_value = True
+        result = antigravity.fly()
         mock_open.assert_called_once_with("https://xkcd.com/353/")
+        self.assertTrue(result)
     
     def test_geohash_returns_tuple(self):
         """Test that geohash returns a tuple of two floats."""
@@ -55,6 +57,25 @@ class TestAntigravity(unittest.TestCase):
         # Verify the values are reasonable (between 0 and 1)
         self.assertTrue(0 <= lat <= 1)
         self.assertTrue(0 <= lon <= 1)
+    
+    def test_geohash_invalid_type(self):
+        """Test that geohash raises TypeError for invalid datedow type."""
+        with self.assertRaises(TypeError) as context:
+            antigravity.geohash(37.421542, -122.085589, '2005-05-26-10458.68')
+        self.assertIn("datedow must be bytes", str(context.exception))
+    
+    def test_geohash_empty_datedow(self):
+        """Test that geohash raises ValueError for empty datedow."""
+        with self.assertRaises(ValueError) as context:
+            antigravity.geohash(37.421542, -122.085589, b'')
+        self.assertIn("datedow cannot be empty", str(context.exception))
+    
+    @patch('antigravity.webbrowser.open')
+    def test_fly_handles_exceptions(self, mock_open):
+        """Test that fly() handles exceptions gracefully."""
+        mock_open.side_effect = Exception("Browser error")
+        result = antigravity.fly()
+        self.assertFalse(result)
 
 
 if __name__ == '__main__':
